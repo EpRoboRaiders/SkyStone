@@ -80,8 +80,8 @@ public class MecanumTest extends OpMode {
     public void start() {}
 
     public void loop() {
-        topLeft.setPower(gamepad1.right_stick_x)
-        topRight.setPower(gamepad1.left_stick_x)
+        topLeft.setPower(gamepad1.right_stick_x);
+        topRight.setPower(gamepad1.left_stick_x);
         bottomLeft.setPower(-gamepad2.left_stick_x);
         bottomRight.setPower(-gamepad2.right_stick_x);
     }
