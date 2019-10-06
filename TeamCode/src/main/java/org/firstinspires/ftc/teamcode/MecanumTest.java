@@ -39,7 +39,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  * An OpMode is a 'program' that runs in either the autonomous or the teleop period of an FTC match.
  * The names of OpModes appear on the menu of the FTC Driver Station.
  * When an selection is made from the menu, the corresponding OpMode
- * class is instantiated on the Robot Controller and executed.
+ * class is instantiated on the Robot Controller and eKecuted.
  *
  * This particular OpMode just executes a basic Tank Drive Teleop for a two wheeled robot
  * It includes all the skeletal structure that all iterative OpModes contain.
@@ -56,7 +56,7 @@ public class MecanumTest extends OpMode {
     private DcMotor topRight    = null;
     private DcMotor bottomLeft  = null;
     private DcMotor bottomRight = null;
-// ggggggggggggggggggggggggggggggggggggggggggggggggggg
+
     @Override
     public void init() {
         telemetry.addData("Status", "Initialized");
