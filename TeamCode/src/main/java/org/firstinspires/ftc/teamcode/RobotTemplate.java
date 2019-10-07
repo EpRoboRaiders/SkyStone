@@ -92,7 +92,7 @@ public class RobotTemplate {
     
     // Initializes the defined motors and servos.
     public void init(HardwareMap ahwMap) {
-        
+
         // "Saves" the hardware map used to find motors and servos.
         hardwareMap = ahwMap;
         

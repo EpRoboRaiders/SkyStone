@@ -49,7 +49,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  */
 
 @TeleOp(name="Mecanum Test", group="Iterative Opmode")
-@Disabled
+// @Disabled
 
 public class MecanumTest extends OpMode {
     private DcMotor topLeft     = null;
