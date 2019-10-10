@@ -80,7 +80,7 @@ public class RobotTemplate {
      */
 
     // External constructors used inside of this constructor. Meta!
-    HardwareMap hardwareMap          =  null;
+    HardwareMap hwMap          =  null;
     
     /* Commented out because the initialization of a timer has little use, in that the timer is 
     never referred to in this class. It is kept for reference, or if it ends up being necessary
@@ -94,12 +94,12 @@ public class RobotTemplate {
     public void init(HardwareMap ahwMap) {
 
         // "Saves" the hardware map used to find motors and servos.
-        hardwareMap = ahwMap;
+        hwMap = ahwMap;
         
-        leftFront  = hardwareMap.get(DcMotor.class, "left_front");
-        rightFront = hardwareMap.get(DcMotor.class, "right_front");
-        leftBack = hardwareMap.get(DcMotor.class, "left_back");
-        rightBack = hardwareMap.get(DcMotor.class, "right_back");
+        leftFront  = hwMap.get(DcMotor.class, "left_front");
+        rightFront = hwMap.get(DcMotor.class, "right_front");
+        leftBack = hwMap.get(DcMotor.class, "left_back");
+        rightBack = hwMap.get(DcMotor.class, "right_back");
 
         // Unused motor mappings. Left for reference.
 

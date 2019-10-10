@@ -48,28 +48,20 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Mecanum Test", group="Iterative Opmode")
+@TeleOp(name="Mecanum Wheel Test", group="Iterative Opmode")
 // @Disabled
 
 public class MecanumTest extends OpMode {
-    private DcMotor topLeft     = null;
-    private DcMotor topRight    = null;
-    private DcMotor bottomLeft  = null;
-    private DcMotor bottomRight = null;
+
+    RobotTemplate robot = new RobotTemplate();
 
     @Override
     public void init() {
-        telemetry.addData("Status", "Initialized");
 
-        // Initialize the hardware variables. Note that the strings used here as parameters
-        // to 'get' must correspond to the names assigned during the robot configuration
-        // step (using the FTC Robot Controller app on the phone).
-        topLeft  = hardwareMap.get(DcMotor.class, "top_left");
-        topRight = hardwareMap.get(DcMotor.class, "top_right");
-        bottomLeft = hardwareMap.get(DcMotor.class, "bottom_left");
-        bottomRight = hardwareMap.get(DcMotor.class, "bottom_right");
+        robot.init(hardwareMap);
 
         // Tell the driver that initialization is complete.
+
         telemetry.addData("Status", "Initialized");
     }
 
@@ -80,10 +72,10 @@ public class MecanumTest extends OpMode {
     public void start() {}
 
     public void loop() {
-        topLeft.setPower(gamepad1.right_stick_x);
-        topRight.setPower(gamepad1.left_stick_x);
-        bottomLeft.setPower(-gamepad2.left_stick_x);
-        bottomRight.setPower(-gamepad2.right_stick_x);
+        robot.leftFront.setPower(gamepad1.right_stick_x);
+        robot.rightFront.setPower(gamepad2.left_stick_x);
+        robot.leftBack.setPower(gamepad1.left_stick_x);
+        robot.rightBack.setPower(gamepad2.right_stick_x);
     }
 
     @Override
