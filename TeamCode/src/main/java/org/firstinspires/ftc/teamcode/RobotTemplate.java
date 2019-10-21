@@ -29,6 +29,7 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -45,6 +46,16 @@ public class RobotTemplate {
     public DcMotor  rightFront  = null;
     public DcMotor  leftBack   = null;
     public DcMotor  rightBack  = null;
+
+    // Define motor for stoneLift
+    public DcMotor  stoneLift  = null;
+
+    public DcMotor  liftRotator = null;
+
+
+
+    public CRServo leftClamp = null;
+    public CRServo rightClamp = null;
 
     /*
     These motors have names that are "unhelpful" to describing
@@ -101,6 +112,16 @@ public class RobotTemplate {
         leftBack = hwMap.get(DcMotor.class, "left_back");
         rightBack = hwMap.get(DcMotor.class, "right_back");
 
+        stoneLift = hwMap.get(DcMotor.class, "stone_lift");
+        liftRotator = hwMap.get(DcMotor.class, "lift_rotator");
+
+        // TODO: Program
+
+        leftClamp = hwMap.get(CRServo.class, "left_clamp");
+        rightClamp = hwMap.get(CRServo.class, "right_clamp");
+
+
+
         // Unused motor mappings. Left for reference.
 
         /*
@@ -121,6 +142,9 @@ public class RobotTemplate {
         rightFront.setPower(0);
         leftBack.setPower(0);
         rightBack.setPower(0);
+
+        stoneLift.setPower(0);
+        liftRotator.setPower(0);
 
         // Unused motor configuration. Left for reference.
 

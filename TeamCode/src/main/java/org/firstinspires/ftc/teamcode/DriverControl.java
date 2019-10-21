@@ -41,14 +41,24 @@ public class DriverControl extends OpMode {
 
     RobotTemplate robot = new RobotTemplate();
 
-    String[] driveMode = {"tank", "pov", "debug"};
+    // Variables used for the chassisDrive function.
+
+    final String[] driveMode = {"tank", "pov", "debug"};
 
     int currentMode = 0;
 
     boolean bPressed = false;
+    
+    // Variables used for the liftMovement function.
 
-    float drive;
-    float turn;
+    static boolean leftPressed = false;
+    static boolean rightPressed = false;
+
+    final double LOW = .33;
+    final double MEDIUM = .67;
+    final double HIGH = 1;
+
+    double liftSpeed = MEDIUM;
 
     @Override
     public void init() {
@@ -73,6 +83,23 @@ public class DriverControl extends OpMode {
 
         // Cycle through the robot drive modes when the B button is released and subsequently
         // pressed.
+
+        chassisDrive();
+
+        liftMovement();
+
+        // Display the current mode of the robot in Telemetry for reasons deemed obvious.
+
+        telemetry.update();
+        telemetry.addData("Robot Mode:", driveMode[currentMode]);
+
+    }
+
+
+    @Override
+    public void stop() {}
+
+    private void chassisDrive() {
 
         if (gamepad1.b != bPressed) {
 
@@ -113,15 +140,49 @@ public class DriverControl extends OpMode {
             robot.leftBack.setPower(gamepad1.left_stick_x);
             robot.rightBack.setPower(gamepad2.right_stick_x);
         }
-
-        // Display the current mode of the robot in Telemetry for reasons deemed obvious.
-
-        telemetry.update();
-        telemetry.addData("Robot Mode:", driveMode[currentMode]);
-
     }
 
-    @Override
-    public void stop() {}
+    private void liftMovement(){
+        
+        if (gamepad2.dpad_left != leftPressed) {
+
+            if(!leftPressed) {
+                if (liftSpeed == MEDIUM) {
+                    liftSpeed = LOW;
+                }
+                else if (liftSpeed == HIGH) {
+                    liftSpeed = MEDIUM;
+                }
+            }
+
+            leftPressed = !leftPressed;
+        }
+
+        if (gamepad2.dpad_right != rightPressed) {
+
+            if(!rightPressed) {
+                if (liftSpeed == LOW) {
+                    liftSpeed = MEDIUM;
+                }
+                else if (liftSpeed == MEDIUM) {
+                    liftSpeed = HIGH;
+                }
+            }
+
+            rightPressed = !rightPressed;
+        }
+
+        if(gamepad2.dpad_up){
+            robot.stoneLift.setPower(liftSpeed);
+        }
+        else if(gamepad1.dpad_down){
+            robot.stoneLift.setPower(-liftSpeed);
+        }
+        else{
+            robot.stoneLift.setPower(0);
+        }
+
+        robot.liftRotator.setPower(gamepad2.right_stick_y);
+    }
 
 }
