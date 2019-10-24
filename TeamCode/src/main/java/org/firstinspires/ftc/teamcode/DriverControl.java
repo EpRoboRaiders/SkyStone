@@ -35,24 +35,30 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 @TeleOp(name="Robot Driving Controls", group="Iterative Opmode")
-// @Disabled
 
 public class DriverControl extends OpMode {
 
+    // Creates a motor based on the RobotTemplate class.
+
     RobotTemplate robot = new RobotTemplate();
 
-    // Variables used for the chassisDrive function.
+    // The array driveMode stores all of the possible modes for driving our robot. At the start of
+    // the program, the mode is set to 0, or "tank."
 
     final String[] driveMode = {"tank", "pov", "debug"};
 
     int currentMode = 0;
 
-    boolean bPressed = false;
-    
-    // Variables used for the liftMovement function.
+    // "[button]Pressed" booleans store the "current" state of a controller's button to compare it
+    // to the actual current value as stated by gamepad[controller number].[button].
 
-    static boolean leftPressed = false;
-    static boolean rightPressed = false;
+    boolean bPressed = false;
+    boolean leftPressed = false;
+    boolean rightPressed = false;
+
+    // These constants ("final" variables) act to pin the terms "LOW," "MEDIUM," and "HIGH" speed
+    // to concrete numbers for extending and retracting the stone lift. The speed is set to
+    // "MEDIUM" at the beginning of the program.
 
     final double LOW = .33;
     final double MEDIUM = .67;
@@ -73,11 +79,18 @@ public class DriverControl extends OpMode {
         telemetry.update();
     }
 
+    // Runs repeatedly after the "init" button is pressed on the phone. Currently, it serves no
+    // function.
+
     @Override
     public void init_loop() {}
 
+    // Runs once after the "start" is pressed on the phone. Currently, it serves no function.
+
     @Override
     public void start() {}
+
+    // Runs repeatedly after the "start" button is pressed on the phone.
 
     public void loop() {
 
@@ -88,6 +101,8 @@ public class DriverControl extends OpMode {
 
         liftMovement();
 
+        foundationClamp();
+
         // Display the current mode of the robot in Telemetry for reasons deemed obvious.
 
         telemetry.update();
@@ -95,6 +110,7 @@ public class DriverControl extends OpMode {
 
     }
 
+    // Runs once after the "stop" button is pressed on the phone. Currently, it serves no function.
 
     @Override
     public void stop() {}
@@ -112,8 +128,8 @@ public class DriverControl extends OpMode {
 
         if(driveMode[currentMode] == "tank") {
 
-            // The left joystick controls the speed of the left set of motors; the right joystick
-            // controls the right set.
+            // In "tank" drive mode, the left joystick controls the speed of the left set of motors,
+            // and the right joystick controls the right set.
 
             robot.leftFront.setPower(-gamepad1.left_stick_y);
             robot.leftBack.setPower(-gamepad1.left_stick_y);
@@ -122,8 +138,9 @@ public class DriverControl extends OpMode {
         }
         else if(driveMode[currentMode] == "pov") {
 
-            // The left joystick controls the speed of the robot; the right joystick controls
-            // the heading. Refer to PushbotTeleopPOV_Linear for specifics on how it functions.
+            // In "pov' drive mode, the left joystick controls the speed of the robot, and the
+            // right joystick controls the heading. Refer to PushbotTeleopPOV_Linear for specifics
+            // on how it functions.
 
             robot.leftFront.setPower(-gamepad1.left_stick_y + gamepad1.right_stick_x);
             robot.leftBack.setPower(-gamepad1.left_stick_y + gamepad1.right_stick_x);
@@ -132,8 +149,8 @@ public class DriverControl extends OpMode {
         }
         else if(driveMode[currentMode] == "debug") {
 
-            // Controls each motor using the "x" value of its own joystick. Highly recommended
-            // to remove before actual use.
+            // In the "debug" drive mode, each stick on each controller controls its own motor with
+            // its "x" value. It is HIGHLY recommended to remove this before competition use.
 
             robot.leftFront.setPower(gamepad1.right_stick_x);
             robot.rightFront.setPower(gamepad2.left_stick_x);
@@ -175,14 +192,20 @@ public class DriverControl extends OpMode {
         if(gamepad2.dpad_up){
             robot.stoneLift.setPower(liftSpeed);
         }
-        else if(gamepad1.dpad_down){
+        else if(gamepad2.dpad_down){
             robot.stoneLift.setPower(-liftSpeed);
         }
         else{
             robot.stoneLift.setPower(0);
         }
 
-        robot.liftRotator.setPower(gamepad2.right_stick_y);
+        robot.liftRotator.setPower(-gamepad2.right_stick_y);
+    }
+
+    private void foundationClamp() {
+
+        robot.leftClamp.setPower(gamepad2.left_stick_y);
+        robot.rightClamp.setPower(gamepad2.left_stick_y);
     }
 
 }

@@ -42,20 +42,20 @@ on the robot. This is a direct copy of HardwarePushbot, and should be treated as
 public class RobotTemplate {
     
     // Defines the motors, servos, and speeds used in the robot.
-    public DcMotor  leftFront   = null;
-    public DcMotor  rightFront  = null;
-    public DcMotor  leftBack   = null;
-    public DcMotor  rightBack  = null;
+    public DcMotor  leftFront      = null;
+    public DcMotor  rightFront     = null;
+    public DcMotor  leftBack       = null;
+    public DcMotor  rightBack      = null;
 
     // Define motor for stoneLift
-    public DcMotor  stoneLift  = null;
+    public DcMotor  stoneLift      = null;
+    public DcMotor  liftRotator    = null;
 
-    public DcMotor  liftRotator = null;
+    public CRServo  leftClamp      = null;
+    public CRServo  rightClamp     = null;
 
-
-
-    public CRServo leftClamp = null;
-    public CRServo rightClamp = null;
+    public Servo    chassisGrabber = null;
+    public Servo    mountedGrabber = null;
 
     /*
     These motors have names that are "unhelpful" to describing
@@ -107,20 +107,21 @@ public class RobotTemplate {
         // "Saves" the hardware map used to find motors and servos.
         hwMap = ahwMap;
         
-        leftFront  = hwMap.get(DcMotor.class, "left_front");
-        rightFront = hwMap.get(DcMotor.class, "right_front");
-        leftBack = hwMap.get(DcMotor.class, "left_back");
-        rightBack = hwMap.get(DcMotor.class, "right_back");
+        leftFront   = hwMap.get(DcMotor.class, "left_front");
+        rightFront  = hwMap.get(DcMotor.class, "right_front");
+        leftBack    = hwMap.get(DcMotor.class, "left_back");
+        rightBack   = hwMap.get(DcMotor.class, "right_back");
 
-        stoneLift = hwMap.get(DcMotor.class, "stone_lift");
+        stoneLift   = hwMap.get(DcMotor.class, "stone_lift");
         liftRotator = hwMap.get(DcMotor.class, "lift_rotator");
 
         // TODO: Program
 
-        leftClamp = hwMap.get(CRServo.class, "left_clamp");
-        rightClamp = hwMap.get(CRServo.class, "right_clamp");
+        leftClamp   = hwMap.get(CRServo.class, "left_clamp");
+        rightClamp  = hwMap.get(CRServo.class, "right_clamp");
 
-
+        chassisGrabber = hwMap.get(Servo.class, "chassis_grabber");
+        mountedGrabber = hwMap.get(Servo.class, "mounted_grabber");
 
         // Unused motor mappings. Left for reference.
 

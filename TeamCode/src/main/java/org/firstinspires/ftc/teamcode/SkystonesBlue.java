@@ -29,6 +29,7 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -36,8 +37,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
-@TeleOp(name="Blue Team- Start By Skystones", group="Linear Opmode")
-// @Disabled
+@Autonomous(name="Blue Team- Start By Skystones", group="Linear Opmode")
 
 public class SkystonesBlue extends AutonomousBase {
 
