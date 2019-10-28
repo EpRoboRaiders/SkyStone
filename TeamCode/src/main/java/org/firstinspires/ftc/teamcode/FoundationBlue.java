@@ -42,6 +42,20 @@ import com.qualcomm.robotcore.util.Range;
 public class FoundationBlue extends AutonomousBase {
 
     @Override
-    public void runOpMode() {}
+    public void runOpMode() {
+
+        encoderDrive(1, 5, 5, 5)
+
+        clampSet("down");
+
+        encoderDrive(1, -5, -5, 5)
+
+        clampSet("up");
+
+        preciseDrive(1, 10, -10,
+                -10, 10, 5);
+
+        //encoderDrive(1, 5, 5, 5);
+    }
 
 }

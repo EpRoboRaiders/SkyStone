@@ -60,9 +60,9 @@ public class DriverControl extends OpMode {
     // to concrete numbers for extending and retracting the stone lift. The speed is set to
     // "MEDIUM" at the beginning of the program.
 
-    final double LOW = .33;
-    final double MEDIUM = .67;
-    final double HIGH = 1;
+    static final double LOW = .33;
+    static final double MEDIUM = .67;
+    static final double HIGH = 1;
 
     double liftSpeed = MEDIUM;
 
