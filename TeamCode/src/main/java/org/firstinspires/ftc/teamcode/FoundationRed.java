@@ -48,7 +48,7 @@ public class FoundationRed extends AutonomousBase {
 
         clampSet("down");
 
-        encoderDrive(1, -5, -5, 5)
+        encoderDrive(1, -5, -5, 5);
 
         clampSet("up");
 

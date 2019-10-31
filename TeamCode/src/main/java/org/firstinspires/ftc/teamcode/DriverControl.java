@@ -101,7 +101,7 @@ public class DriverControl extends OpMode {
 
         liftMovement();
 
-        foundationClamp();
+        clampControl();
 
         // Display the current mode of the robot in Telemetry for reasons deemed obvious.
 
@@ -199,13 +199,36 @@ public class DriverControl extends OpMode {
             robot.stoneLift.setPower(0);
         }
 
-        robot.liftRotator.setPower(-gamepad2.right_stick_y);
+        // robot.liftRotator.setPower(-gamepad2.right_stick_y);
     }
 
-    private void foundationClamp() {
+    private void clampControl() {
+
+        /*
 
         robot.leftClamp.setPower(gamepad2.left_stick_y);
         robot.rightClamp.setPower(gamepad2.left_stick_y);
-    }
 
+
+
+        if(gamepad2.left_bumper && robot.chassisGrabber.getPosition() == .5) {
+
+            robot.chassisGrabber.setPosition(0);
+            robot.mountedGrabber.setPosition(0);
+        }
+        else if (gamepad2.right_bumper && robot.chassisGrabber.getPosition() == 0) {
+
+            robot.chassisGrabber.setPosition(.5);
+            robot.mountedGrabber.setPosition(.5);
+        }
+        */
+
+        robot.chassisGrabber.setPosition((gamepad2.right_stick_y / 2) + .5);
+
+        robot.mountedGrabber.setPosition((gamepad2.left_stick_y / 2) + .5);
+
+
+
+
+    }
 }
