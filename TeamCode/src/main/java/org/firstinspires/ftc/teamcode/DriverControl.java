@@ -55,6 +55,8 @@ public class DriverControl extends OpMode {
     boolean bPressed = false;
     boolean leftPressed = false;
     boolean rightPressed = false;
+    boolean leftBumperPressed = false;
+    boolean rightBumperPressed = true;
 
     // These constants ("final" variables) act to pin the terms "LOW," "MEDIUM," and "HIGH" speed
     // to concrete numbers for extending and retracting the stone lift. The speed is set to
@@ -65,6 +67,10 @@ public class DriverControl extends OpMode {
     static final double HIGH = 1;
 
     double liftSpeed = MEDIUM;
+
+
+    double chassisPosition = 1;
+    double mountedPosition = 0;
 
     @Override
     public void init() {
@@ -199,36 +205,46 @@ public class DriverControl extends OpMode {
             robot.stoneLift.setPower(0);
         }
 
-        // robot.liftRotator.setPower(-gamepad2.right_stick_y);
+        robot.liftRotator.setPower(-gamepad2.right_stick_y);
     }
 
     private void clampControl() {
 
-        /*
+        if (gamepad2.left_bumper != leftBumperPressed) {
+
+            if(!leftBumperPressed) {
+
+                if(chassisPosition == 1) {
+                    chassisPosition = .5;
+                }
+                else if(chassisPosition == .5) {
+                    chassisPosition = 1;
+                }
+            }
+
+            leftBumperPressed = !leftBumperPressed;
+        }
+
+        if (gamepad2.right_bumper != rightBumperPressed) {
+
+            if(!rightBumperPressed) {
+
+                if(mountedPosition == 0) {
+                    mountedPosition = 1;
+                }
+                else if(mountedPosition == 1) {
+                    mountedPosition = 0;
+                }
+            }
+
+            rightBumperPressed = !rightBumperPressed;
+        }
 
         robot.leftClamp.setPower(gamepad2.left_stick_y);
         robot.rightClamp.setPower(gamepad2.left_stick_y);
 
-
-
-        if(gamepad2.left_bumper && robot.chassisGrabber.getPosition() == .5) {
-
-            robot.chassisGrabber.setPosition(0);
-            robot.mountedGrabber.setPosition(0);
-        }
-        else if (gamepad2.right_bumper && robot.chassisGrabber.getPosition() == 0) {
-
-            robot.chassisGrabber.setPosition(.5);
-            robot.mountedGrabber.setPosition(.5);
-        }
-        */
-
-        robot.chassisGrabber.setPosition((gamepad2.right_stick_y / 2) + .5);
-
-        robot.mountedGrabber.setPosition((gamepad2.left_stick_y / 2) + .5);
-
-
-
+        robot.chassisGrabber.setPosition(chassisPosition);
+        robot.mountedGrabber.setPosition(mountedPosition);
 
     }
 }
