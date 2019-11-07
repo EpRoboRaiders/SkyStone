@@ -147,6 +147,11 @@ public class RobotTemplate {
         stoneLift.setPower(0);
         liftRotator.setPower(0);
 
+        leftFront.setDirection(DcMotor.Direction.FORWARD);
+        rightFront.setDirection(DcMotor.Direction.REVERSE);
+        leftBack.setDirection(DcMotor.Direction.FORWARD);
+        rightBack.setDirection(DcMotor.Direction.REVERSE);
+
         // Unused motor configuration. Left for reference.
 
         /*

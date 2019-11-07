@@ -44,18 +44,34 @@ public class FoundationBlue extends AutonomousBase {
     @Override
     public void runOpMode() {
 
-        encoderDrive(1, 5, 5, 5);
+        robot.init(hardwareMap);
+
+        telemetry.addData("Status", "Initialized");
+        telemetry.update();
+
+        waitForStart();
+
+        encoderDrive(1, 5, 5, 1);
+
+        preciseDrive(1, -10, 10,
+                10, -10,.5);
+
+        encoderDrive(1, .5, .5, .5);
 
         clampSet("down");
 
-        encoderDrive(1, -5, -5, 5);
+        encoderDrive(1, -5, -5, 2.5);
+
+        preciseDrive(1, -10, 10,
+                10, -10,1.5);
+
+        encoderDrive(1, -5, -5, 1);
 
         clampSet("up");
 
         preciseDrive(1, 10, -10,
-                -10, 10, 5);
+                -10, 10, 3);
 
-        //encoderDrive(1, 5, 5, 5);
     }
 
 }

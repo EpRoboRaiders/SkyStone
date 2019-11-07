@@ -139,8 +139,8 @@ public class DriverControl extends OpMode {
 
             robot.leftFront.setPower(-gamepad1.left_stick_y);
             robot.leftBack.setPower(-gamepad1.left_stick_y);
-            robot.rightFront.setPower(gamepad1.right_stick_y);
-            robot.rightBack.setPower(gamepad1.right_stick_y);
+            robot.rightFront.setPower(-gamepad1.right_stick_y);
+            robot.rightBack.setPower(-gamepad1.right_stick_y);
         }
         else if(driveMode[currentMode] == "pov") {
 
@@ -150,8 +150,8 @@ public class DriverControl extends OpMode {
 
             robot.leftFront.setPower(-gamepad1.left_stick_y + gamepad1.right_stick_x);
             robot.leftBack.setPower(-gamepad1.left_stick_y + gamepad1.right_stick_x);
-            robot.rightFront.setPower(gamepad1.left_stick_y + gamepad1.right_stick_x);
-            robot.rightBack.setPower(gamepad1.left_stick_y + gamepad1.right_stick_x);
+            robot.rightFront.setPower(-gamepad1.left_stick_y + gamepad1.right_stick_x);
+            robot.rightBack.setPower(-gamepad1.left_stick_y + gamepad1.right_stick_x);
         }
         else if(driveMode[currentMode] == "debug") {
 

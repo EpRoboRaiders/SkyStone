@@ -89,7 +89,7 @@ public class AutonomousBase extends LinearOpMode {
             // However, if you require that BOTH motors have finished their moves before the robot continues
             // onto the next step, use (isBusy() || isBusy()) in the loop test.
             while (opModeIsActive() &&
-                    (runtime.seconds() < timeoutS
+                    ((runtime.seconds() < timeoutS)
                             && robot.leftFront.isBusy() && robot.rightFront.isBusy()
                             && robot.leftBack.isBusy() && robot.rightBack.isBusy())) {
                 /*
@@ -114,6 +114,8 @@ public class AutonomousBase extends LinearOpMode {
             robot.rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+            sleep(500);
         }
     }
 
@@ -165,7 +167,7 @@ public class AutonomousBase extends LinearOpMode {
             // However, if you require that BOTH motors have finished their moves before the robot continues
             // onto the next step, use (isBusy() || isBusy()) in the loop test.
             while (opModeIsActive() &&
-                    (runtime.seconds() < timeoutS
+                    ((runtime.seconds() < timeoutS)
                             && robot.leftFront.isBusy() && robot.rightFront.isBusy()
                             && robot.leftBack.isBusy() && robot.rightBack.isBusy())) {
                 /*
@@ -190,6 +192,8 @@ public class AutonomousBase extends LinearOpMode {
             robot.rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+            sleep(500);
         }
         
         
@@ -202,13 +206,13 @@ public class AutonomousBase extends LinearOpMode {
 
         if(clampPosition == "up") {
 
-            robot.leftClamp.setPower(1);
-            robot.rightClamp.setPower(1);
+            robot.leftClamp.setPower(-1);
+            robot.rightClamp.setPower(-1);
         }
         else if (clampPosition == "down") {
 
-            robot.leftClamp.setPower(-1);
-            robot.rightClamp.setPower(-1);
+            robot.leftClamp.setPower(1);
+            robot.rightClamp.setPower(1);
         }
 
         pause(5);
