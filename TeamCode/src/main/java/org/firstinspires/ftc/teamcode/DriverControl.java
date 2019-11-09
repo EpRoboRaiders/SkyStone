@@ -56,7 +56,7 @@ public class DriverControl extends OpMode {
     boolean leftPressed = false;
     boolean rightPressed = false;
     boolean leftBumperPressed = false;
-    boolean rightBumperPressed = true;
+    boolean rightBumperPressed = false;
 
     // These constants ("final" variables) act to pin the terms "LOW," "MEDIUM," and "HIGH" speed
     // to concrete numbers for extending and retracting the stone lift. The speed is set to
@@ -68,10 +68,11 @@ public class DriverControl extends OpMode {
 
     double liftSpeed = MEDIUM;
 
+    boolean clampPressed = false;
 
-    double chassisPosition = 1;
+
+    double chassisPosition = .5;
     double mountedPosition = 0;
-
     @Override
     public void init() {
 
@@ -205,46 +206,66 @@ public class DriverControl extends OpMode {
             robot.stoneLift.setPower(0);
         }
 
-        robot.liftRotator.setPower(-gamepad2.right_stick_y);
+        robot.liftRotator.setPower((-gamepad2.right_stick_y)/1.25);
     }
 
     private void clampControl() {
 
         if (gamepad2.left_bumper != leftBumperPressed) {
 
-            if(!leftBumperPressed) {
+            if (!leftBumperPressed) {
 
-                if(chassisPosition == 1) {
+                if (chassisPosition == .5) {
+                    chassisPosition = .25;
+                } else if (chassisPosition == .25) {
                     chassisPosition = .5;
-                }
-                else if(chassisPosition == .5) {
-                    chassisPosition = 1;
                 }
             }
 
             leftBumperPressed = !leftBumperPressed;
+
         }
+
+            /*
+
 
         if (gamepad2.right_bumper != rightBumperPressed) {
 
             if(!rightBumperPressed) {
 
-                if(mountedPosition == 0) {
-                    mountedPosition = 1;
-                }
-                else if(mountedPosition == 1) {
+                if(mountedPosition == 1) {
                     mountedPosition = 0;
+                }
+                else if(mountedPosition == 0) {
+                    mountedPosition = 1;
                 }
             }
 
             rightBumperPressed = !rightBumperPressed;
         }
 
-        robot.leftClamp.setPower(gamepad2.left_stick_y);
-        robot.rightClamp.setPower(gamepad2.left_stick_y);
 
-        robot.chassisGrabber.setPosition(chassisPosition);
-        robot.mountedGrabber.setPosition(mountedPosition);
+             */
+
+        // robot.leftClamp.setPower(gamepad2.left_stick_y);
+        // robot.rightClamp.setPower(gamepad2.left_stick_y);
+
+        if (gamepad2.left_stick_y != 0) {
+            clampPressed = true;
+        }
+
+
+        mountedPosition = ((gamepad2.left_stick_y) / 2) + .5;
+        if (mountedPosition == .5) {
+            mountedPosition = .6;
+        }
+
+
+        robot.chassisGrabber.setPosition(chassisPosition); // THIS WORKS FINE DO NOT CHANGE!
+        if(clampPressed) {
+            robot.mountedGrabber.setPosition(mountedPosition);
+        }
+
 
     }
 }

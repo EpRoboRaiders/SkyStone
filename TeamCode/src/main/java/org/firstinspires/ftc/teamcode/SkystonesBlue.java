@@ -42,6 +42,22 @@ import com.qualcomm.robotcore.util.Range;
 public class SkystonesBlue extends AutonomousBase {
 
     @Override
-    public void runOpMode() {}
+    public void runOpMode() {
+
+        robot.init(hardwareMap);
+
+        telemetry.addData("Status", "Initialized");
+        telemetry.update();
+
+        waitForStart();
+
+        preciseDrive(1, -10, 10, 10, -10,1);
+
+        encoderDrive(1, 5, 5, 1.5);
+
+
+
+
+    }
 
 }
