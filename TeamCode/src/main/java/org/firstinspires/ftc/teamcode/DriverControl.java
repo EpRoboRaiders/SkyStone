@@ -33,6 +33,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.util.Range;
+import java.lang.Math;
 
 @TeleOp(name="Robot Driving Controls", group="Iterative Opmode")
 
@@ -45,7 +47,7 @@ public class DriverControl extends OpMode {
     // The array driveMode stores all of the possible modes for driving our robot. At the start of
     // the program, the mode is set to 0, or "tank."
 
-    final String[] driveMode = {"tank", "pov", "debug"};
+    final String[] driveMode = {"tank", "pov", "debug", "omni", "mecanum"};
 
     int currentMode = 0;
 
@@ -163,6 +165,35 @@ public class DriverControl extends OpMode {
             robot.rightFront.setPower(gamepad2.left_stick_x);
             robot.leftBack.setPower(gamepad1.left_stick_x);
             robot.rightBack.setPower(gamepad2.right_stick_x);
+        }
+        else if(driveMode[currentMode] == "omni") {
+
+            if (Math.abs(gamepad1.left_stick_x) > Math.abs(gamepad1.left_stick_y)) {
+                robot.leftFront.setPower(gamepad1.left_stick_x);
+                robot.rightFront.setPower(-gamepad1.left_stick_x);
+                robot.leftBack.setPower(-gamepad1.left_stick_x);
+                robot.rightBack.setPower(gamepad1.left_stick_x);
+            }
+            else {
+                robot.leftFront.setPower(-gamepad1.left_stick_y);
+                robot.leftBack.setPower(-gamepad1.left_stick_y);
+                robot.rightFront.setPower(-gamepad1.right_stick_y);
+                robot.rightBack.setPower(-gamepad1.right_stick_y);
+            }
+
+        }
+        else if(driveMode[currentMode] == "mecanum") {
+
+
+            // Code taken from http://ftckey.com/programming/advanced-programming/
+            robot.leftFront.setPower(Range.clip((-gamepad1.left_stick_y + gamepad1.left_stick_x
+                    + gamepad1.right_stick_x), -1., 1));
+            robot.leftBack.setPower(Range.clip((-gamepad1.left_stick_y - gamepad1.left_stick_x
+                    - gamepad1.right_stick_x), -1., 1));
+            robot.rightFront.setPower(Range.clip((-gamepad1.left_stick_y - gamepad1.left_stick_x
+                    + gamepad1.right_stick_x), -1., 1));
+            robot.rightBack.setPower(Range.clip((-gamepad1.left_stick_y + gamepad1.left_stick_x
+                    - gamepad1.right_stick_x), -1., 1));
         }
     }
 
