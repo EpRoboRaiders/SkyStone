@@ -47,7 +47,38 @@ public class DriverControl extends OpMode {
     // The array driveMode stores all of the possible modes for driving our robot. At the start of
     // the program, the mode is set to 0, or "tank."
 
-    final String[] driveMode = {"tank", "pov", "debug", "omni", "mecanum"};
+    enum Mode {
+        TANK("Pure Tank Drive"),
+        OMNI("Hybrid Tank/Mecanum Drive"),
+        MECANUM("Pure Mecanum Drive");
+
+        private String description;
+
+        // getNext taken from (with modifications)
+        // https://digitaljoel.nerd-herders.com/2011/04/05/get-the-next-value-in-a-java-enum/.
+
+        public Mode getNext() {
+            return this.ordinal() < Mode.values().length - 1
+                    ? Mode.values()[this.ordinal() + 1]
+                    : Mode.values()[0];
+
+        }
+
+        // Code taken from (with modifications)
+        // https://stackoverflow.com/questions/15989316/how-to-add-a-description-for-each-entry-of-enum/15989359#15989359
+
+        private Mode(String description) {
+            this.description = description;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+    }
+
+    Mode mode = Mode.TANK;
+
+    // final String[] driveMode = {"tank", "pov", "debug", "omni", "mecanum"};
 
     int currentMode = 0;
 
@@ -58,7 +89,6 @@ public class DriverControl extends OpMode {
     boolean leftPressed = false;
     boolean rightPressed = false;
     boolean leftBumperPressed = false;
-    boolean rightBumperPressed = false;
 
     // These constants ("final" variables) act to pin the terms "LOW," "MEDIUM," and "HIGH" speed
     // to concrete numbers for extending and retracting the stone lift. The speed is set to
@@ -70,11 +100,18 @@ public class DriverControl extends OpMode {
 
     double liftSpeed = MEDIUM;
 
+    // clampPressed simply exists to make sure the robot does not forcibly move into a position
+    // in which the Capstone would be dropped onto the playing field as soon as the Driver
+    // Controlled period begins. It locks the clamp into its initial position once the code starts,
+    // and does not move until instructed, at which point it begins to behave according to the code.
+
     boolean clampPressed = false;
 
 
+    // These doubles store the position of the "clamp" servos on the robot to do calculations on.
     double chassisPosition = .5;
     double mountedPosition = 0;
+
     @Override
     public void init() {
 
@@ -103,19 +140,21 @@ public class DriverControl extends OpMode {
 
     public void loop() {
 
-        // Cycle through the robot drive modes when the B button is released and subsequently
-        // pressed.
+        // As seen below, run the code controlling the robot (separated into three distinct parts
+        // for the sake of modularity).
+
+        // chassisDrive: Contains the code used for running the "drive" motors on the robot.
 
         chassisDrive();
 
+        // liftMovement: Contains the code used for controlling our stone lift's angle and
+        // "position," whether in or out.
+
         liftMovement();
 
+        //
+
         clampControl();
-
-        // Display the current mode of the robot in Telemetry for reasons deemed obvious.
-
-        telemetry.update();
-        telemetry.addData("Robot Mode:", driveMode[currentMode]);
 
     }
 
@@ -124,27 +163,89 @@ public class DriverControl extends OpMode {
     @Override
     public void stop() {}
 
+
+
     private void chassisDrive() {
 
         if (gamepad1.b != bPressed) {
 
             if(!bPressed) {
-                currentMode = (currentMode + 1) % driveMode.length;
+                mode.getNext();
+
             }
 
             bPressed = !bPressed;
         }
 
-        if(driveMode[currentMode] == "tank") {
+        switch(mode) {
+            case TANK: {
 
-            // In "tank" drive mode, the left joystick controls the speed of the left set of motors,
-            // and the right joystick controls the right set.
+                // In "tank" drive mode,
+                // the left joystick controls the speed of the left set of motors,
+                // and the right joystick controls the right set.
 
-            robot.leftFront.setPower(-gamepad1.left_stick_y);
-            robot.leftBack.setPower(-gamepad1.left_stick_y);
-            robot.rightFront.setPower(-gamepad1.right_stick_y);
-            robot.rightBack.setPower(-gamepad1.right_stick_y);
+                robot.leftFront.setPower(-gamepad1.left_stick_y);
+                robot.leftBack.setPower(-gamepad1.left_stick_y);
+                robot.rightFront.setPower(-gamepad1.right_stick_y);
+                robot.rightBack.setPower(-gamepad1.right_stick_y);
+                break;
+
+            }
+            case OMNI: {
+
+                // Really funky. Strafes left or right using the left joystick
+                // if the left joystick's "x" value is greater than "y;" runs like tank drive
+                // otherwise.
+
+                // This code was developed as a simple test by request of a coach, but the driver
+                // responsible for moving the chassis actually liked the way that it worked!
+
+                if (Math.abs(gamepad1.left_stick_x) > Math.abs(gamepad1.left_stick_y)) {
+                    robot.leftFront.setPower(gamepad1.left_stick_x);
+                    robot.rightFront.setPower(-gamepad1.left_stick_x);
+                    robot.leftBack.setPower(-gamepad1.left_stick_x);
+                    robot.rightBack.setPower(gamepad1.left_stick_x);
+                }
+                else {
+                    robot.leftFront.setPower(-gamepad1.left_stick_y);
+                    robot.leftBack.setPower(-gamepad1.left_stick_y);
+                    robot.rightFront.setPower(-gamepad1.right_stick_y);
+                    robot.rightBack.setPower(-gamepad1.right_stick_y);
+                }
+                break;
+
+            }
+            case MECANUM: {
+
+                // Code taken from http://ftckey.com/programming/advanced-programming/. Also
+                // funky; turns with the right joystick and moves/strafes with the left one.
+
+                robot.leftFront.setPower(Range.clip((-gamepad1.left_stick_y + gamepad1.left_stick_x
+                        + gamepad1.right_stick_x), -1., 1));
+                robot.leftBack.setPower(Range.clip((-gamepad1.left_stick_y - gamepad1.left_stick_x
+                        - gamepad1.right_stick_x), -1., 1));
+                robot.rightFront.setPower(Range.clip((-gamepad1.left_stick_y - gamepad1.left_stick_x
+                        + gamepad1.right_stick_x), -1., 1));
+                robot.rightBack.setPower(Range.clip((-gamepad1.left_stick_y + gamepad1.left_stick_x
+                        - gamepad1.right_stick_x), -1., 1));
+                break;
+
+            }
+            default: {
+
+                mode = Mode.TANK;
+
+                robot.leftFront.setPower(-gamepad1.left_stick_y);
+                robot.leftBack.setPower(-gamepad1.left_stick_y);
+                robot.rightFront.setPower(-gamepad1.right_stick_y);
+                robot.rightBack.setPower(-gamepad1.right_stick_y);
+            }
         }
+
+
+        // Defunct drive modes that no member of the team preferred driving in. Descriptions of
+        // them can be found inside of their respective code.
+        /*
         else if(driveMode[currentMode] == "pov") {
 
             // In "pov' drive mode, the left joystick controls the speed of the robot, and the
@@ -165,36 +266,14 @@ public class DriverControl extends OpMode {
             robot.rightFront.setPower(gamepad2.left_stick_x);
             robot.leftBack.setPower(gamepad1.left_stick_x);
             robot.rightBack.setPower(gamepad2.right_stick_x);
-        }
-        else if(driveMode[currentMode] == "omni") {
-
-            if (Math.abs(gamepad1.left_stick_x) > Math.abs(gamepad1.left_stick_y)) {
-                robot.leftFront.setPower(gamepad1.left_stick_x);
-                robot.rightFront.setPower(-gamepad1.left_stick_x);
-                robot.leftBack.setPower(-gamepad1.left_stick_x);
-                robot.rightBack.setPower(gamepad1.left_stick_x);
-            }
-            else {
-                robot.leftFront.setPower(-gamepad1.left_stick_y);
-                robot.leftBack.setPower(-gamepad1.left_stick_y);
-                robot.rightFront.setPower(-gamepad1.right_stick_y);
-                robot.rightBack.setPower(-gamepad1.right_stick_y);
-            }
 
         }
-        else if(driveMode[currentMode] == "mecanum") {
+         */
+        // Display the current mode of the robot in Telemetry for reasons deemed obvious.
 
+        telemetry.update();
+        telemetry.addData("Robot Mode:", mode.getDescription());
 
-            // Code taken from http://ftckey.com/programming/advanced-programming/
-            robot.leftFront.setPower(Range.clip((-gamepad1.left_stick_y + gamepad1.left_stick_x
-                    + gamepad1.right_stick_x), -1., 1));
-            robot.leftBack.setPower(Range.clip((-gamepad1.left_stick_y - gamepad1.left_stick_x
-                    - gamepad1.right_stick_x), -1., 1));
-            robot.rightFront.setPower(Range.clip((-gamepad1.left_stick_y - gamepad1.left_stick_x
-                    + gamepad1.right_stick_x), -1., 1));
-            robot.rightBack.setPower(Range.clip((-gamepad1.left_stick_y + gamepad1.left_stick_x
-                    - gamepad1.right_stick_x), -1., 1));
-        }
     }
 
     private void liftMovement(){
@@ -241,6 +320,8 @@ public class DriverControl extends OpMode {
     }
 
     private void clampControl() {
+        // Changes the position of the "chassis" servo from .5 to .25, the range that it would
+        // realistically need to be for competition.
 
         if (gamepad2.left_bumper != leftBumperPressed) {
 
@@ -254,12 +335,14 @@ public class DriverControl extends OpMode {
             }
 
             leftBumperPressed = !leftBumperPressed;
-
         }
 
-            /*
 
 
+        // *Used* to set the position of the "mounted" servo 0 or 1. Defunct in that more precision
+        // is needed to control the robot properly.
+
+        /*
         if (gamepad2.right_bumper != rightBumperPressed) {
 
             if(!rightBumperPressed) {
@@ -285,12 +368,16 @@ public class DriverControl extends OpMode {
             clampPressed = true;
         }
 
+        // "Default" the position of the mounted servo to .6, as opposed to .5, for the clamp to
+        // rest correctly when placed on top of a stone.
+
 
         mountedPosition = ((gamepad2.left_stick_y) / 2) + .5;
         if (mountedPosition == .5) {
             mountedPosition = .6;
         }
 
+        // Extension of the clampPressed code above.
 
         robot.chassisGrabber.setPosition(chassisPosition); // THIS WORKS FINE DO NOT CHANGE!
         if(clampPressed) {
