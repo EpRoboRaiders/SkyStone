@@ -51,9 +51,11 @@ public class SkystonesRed extends AutonomousBase {
 
         waitForStart();
 
-        preciseDrive(1, 10, -10, -10, 10,1);
+        //preciseDrive(1, 10, -10, -10, 10,1);
 
-        encoderDrive(1, 5, 5, 1.5);
+        //encoderDrive(1, 5, 5, 1.5);
+
+        preciseDrive(1, 10, 10, 10, 10,3);
 
 
 

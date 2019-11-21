@@ -61,7 +61,6 @@ public class DriverControl extends OpMode {
             return this.ordinal() < Mode.values().length - 1
                     ? Mode.values()[this.ordinal() + 1]
                     : Mode.values()[0];
-
         }
 
         // Code taken from (with modifications)
@@ -109,7 +108,7 @@ public class DriverControl extends OpMode {
 
 
     // These doubles store the position of the "clamp" servos on the robot to do calculations on.
-    double chassisPosition = .5;
+    double chassisPosition = 0;
     double mountedPosition = 0;
 
     @Override
@@ -170,10 +169,8 @@ public class DriverControl extends OpMode {
         if (gamepad1.b != bPressed) {
 
             if(!bPressed) {
-                mode.getNext();
-
+                mode = mode.getNext();
             }
-
             bPressed = !bPressed;
         }
 
@@ -271,8 +268,15 @@ public class DriverControl extends OpMode {
          */
         // Display the current mode of the robot in Telemetry for reasons deemed obvious.
 
-        telemetry.update();
+
         telemetry.addData("Robot Mode:", mode.getDescription());
+        telemetry.addData("Motor Position:", robot.leftFront.getCurrentPosition());
+
+        for (int i=0; i<(Mode.values().length); i++){
+            telemetry.addData("Mode ", Mode.values()[i].ordinal());
+            telemetry.addData("Name", Mode.values()[i]);
+        }
+        telemetry.update();
 
     }
 
@@ -327,10 +331,10 @@ public class DriverControl extends OpMode {
 
             if (!leftBumperPressed) {
 
-                if (chassisPosition == .5) {
+                if (chassisPosition == 0) {
                     chassisPosition = .25;
                 } else if (chassisPosition == .25) {
-                    chassisPosition = .5;
+                    chassisPosition = 0;
                 }
             }
 

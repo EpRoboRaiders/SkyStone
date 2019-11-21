@@ -62,8 +62,8 @@ public class AutonomousBase extends LinearOpMode {
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            leftTarget = robot.leftFront.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
-            rightTarget = robot.rightFront.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
+            leftTarget = robot.leftFront.getCurrentPosition() + (int)(leftInches * 1);
+            rightTarget = robot.rightFront.getCurrentPosition() + (int)(rightInches * 1);
             robot.leftFront.setTargetPosition(leftTarget);
             robot.rightFront.setTargetPosition(rightTarget);
             robot.leftBack.setTargetPosition(leftTarget);
@@ -125,6 +125,8 @@ public class AutonomousBase extends LinearOpMode {
                              double leftBackInches, double rightBackInches,
                              double timeoutS) {
 
+
+
         int leftFrontTarget;
         int rightFrontTarget;
         int leftBackTarget;
@@ -135,18 +137,23 @@ public class AutonomousBase extends LinearOpMode {
 
             // Determine new target position, and pass to motor controller
             leftFrontTarget = robot.leftFront.getCurrentPosition()
-                    + (int)(leftFrontInches * COUNTS_PER_INCH);
+                    + (int)(leftFrontInches * 1);
             rightFrontTarget = robot.rightFront.getCurrentPosition()
-                    + (int)(rightFrontInches * COUNTS_PER_INCH);
-            leftBackTarget = robot.leftFront.getCurrentPosition()
-                    + (int)(leftBackInches * COUNTS_PER_INCH);
-            rightBackTarget = robot.rightFront.getCurrentPosition()
-                    + (int)(rightBackInches * COUNTS_PER_INCH);
+                    + (int)(rightFrontInches * 1);
+            leftBackTarget = robot.leftBack.getCurrentPosition()
+                    + (int)(leftBackInches * 1);
+            rightBackTarget = robot.rightBack.getCurrentPosition()
+                    + (int)(rightBackInches * 1);
             robot.leftFront.setTargetPosition(leftFrontTarget);
             robot.rightFront.setTargetPosition(rightFrontTarget);
             robot.leftBack.setTargetPosition(leftBackTarget);
             robot.rightBack.setTargetPosition(rightBackTarget);
-
+            
+            robot.leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            robot.rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            robot.leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            robot.rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            
             // Turn On RUN_TO_POSITION
             robot.leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -166,10 +173,10 @@ public class AutonomousBase extends LinearOpMode {
             // always end the motion as soon as possible.
             // However, if you require that BOTH motors have finished their moves before the robot continues
             // onto the next step, use (isBusy() || isBusy()) in the loop test.
-            while (opModeIsActive() &&
-                    ((runtime.seconds() < timeoutS)
+            while (opModeIsActive() /*&&
+                    ((runtime.seconds() < timeoutS)*/
                             && robot.leftFront.isBusy() && robot.rightFront.isBusy()
-                            && robot.leftBack.isBusy() && robot.rightBack.isBusy())) {
+                            && robot.leftBack.isBusy() && robot.rightBack.isBusy()) {
                 /*
                 // Display it for the driver.
                 telemetry.addData("Path1",  "Running to %7d :%7d", newLeftTarget,  newRightTarget);
