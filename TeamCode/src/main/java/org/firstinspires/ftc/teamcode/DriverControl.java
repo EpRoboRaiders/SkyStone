@@ -335,7 +335,7 @@ public class DriverControl extends OpMode {
                     chassisPosition = .25;
                 } else if (chassisPosition == .25) {
                     chassisPosition = 0;
-                }
+                } 
             }
 
             leftBumperPressed = !leftBumperPressed;
