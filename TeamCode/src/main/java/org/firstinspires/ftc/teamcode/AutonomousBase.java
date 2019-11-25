@@ -233,6 +233,26 @@ public class AutonomousBase extends LinearOpMode {
         while (runtime.seconds() < seconds) {}
     }
 
+    public void timeDrive(double speed, double leftFrontDirection, double rightFrontDirection,
+                          double leftBackDirection, double rightBackDirection, double time) {
+
+        robot.leftFront.setPower(leftFrontDirection);
+        robot.rightFront.setPower(rightFrontDirection);
+        robot.leftBack.setPower(leftBackDirection);
+        robot.rightBack.setPower(rightBackDirection);
+
+        runtime.reset();
+        while(runtime.seconds() < time) {}
+
+        robot.leftFront.setPower(0);
+        robot.rightFront.setPower(0);
+        robot.leftBack.setPower(0);
+        robot.rightBack.setPower(0);
+
+        pause(.5);
+    }
+
+
 
 
 

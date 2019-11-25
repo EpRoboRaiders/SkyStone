@@ -109,7 +109,7 @@ public class DriverControl extends OpMode {
 
     // These doubles store the position of the "clamp" servos on the robot to do calculations on.
     double chassisPosition = 0;
-    double mountedPosition = 0;
+    double mountedPosition = .3;
 
     @Override
     public void init() {
@@ -281,7 +281,9 @@ public class DriverControl extends OpMode {
     }
 
     private void liftMovement(){
-        
+
+        /*
+
         if (gamepad2.dpad_left != leftPressed) {
 
             if(!leftPressed) {
@@ -296,6 +298,7 @@ public class DriverControl extends OpMode {
             leftPressed = !leftPressed;
         }
 
+
         if (gamepad2.dpad_right != rightPressed) {
 
             if(!rightPressed) {
@@ -309,18 +312,21 @@ public class DriverControl extends OpMode {
 
             rightPressed = !rightPressed;
         }
-
-        if(gamepad2.dpad_up){
-            robot.stoneLift.setPower(liftSpeed);
+        */
+        if (gamepad2.dpad_up && gamepad2.dpad_down) {
+            robot.stoneLift.setPower(0);
+        }
+        else if(gamepad2.dpad_up){
+            robot.stoneLift.setPower(1);
         }
         else if(gamepad2.dpad_down){
-            robot.stoneLift.setPower(-liftSpeed);
+            robot.stoneLift.setPower(-1);
         }
         else{
             robot.stoneLift.setPower(0);
         }
 
-        robot.liftRotator.setPower((-gamepad2.right_stick_y)/1.25);
+        robot.liftRotator.setPower(gamepad2.right_stick_y);
     }
 
     private void clampControl() {
@@ -335,7 +341,7 @@ public class DriverControl extends OpMode {
                     chassisPosition = .25;
                 } else if (chassisPosition == .25) {
                     chassisPosition = 0;
-                } 
+                }
             }
 
             leftBumperPressed = !leftBumperPressed;
@@ -361,29 +367,40 @@ public class DriverControl extends OpMode {
 
             rightBumperPressed = !rightBumperPressed;
         }
-
-
-             */
+         */
 
         // robot.leftClamp.setPower(gamepad2.left_stick_y);
         // robot.rightClamp.setPower(gamepad2.left_stick_y);
 
-        if (gamepad2.left_stick_y != 0) {
+        if (!gamepad2.dpad_left || !gamepad2.dpad_right){
             clampPressed = true;
         }
 
         // "Default" the position of the mounted servo to .6, as opposed to .5, for the clamp to
         // rest correctly when placed on top of a stone.
+        if(gamepad2.dpad_right){
+            mountedPosition += .005;
+        }
+        else if(gamepad2.dpad_left) {
+            mountedPosition += -.005;
+        }
 
+        if (gamepad2.right_bumper) {
+            mountedPosition = .3;
+        }
+
+        /*
 
         mountedPosition = ((gamepad2.left_stick_y) / 2) + .5;
         if (mountedPosition == .5) {
-            mountedPosition = .6;
+            mountedPosition = .35;
         }
+         */
 
         // Extension of the clampPressed code above.
 
         robot.chassisGrabber.setPosition(chassisPosition); // THIS WORKS FINE DO NOT CHANGE!
+
         if(clampPressed) {
             robot.mountedGrabber.setPosition(mountedPosition);
         }

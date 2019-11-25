@@ -51,26 +51,30 @@ public class FoundationBlue extends AutonomousBase {
 
         waitForStart();
 
-        encoderDrive(1, 5, 5, 1);
+        timeDrive(1, 1, 1,
+                1, 1, 1);
 
-        preciseDrive(1, -10, 10,
-                10, -10,.5);
+        timeDrive(1, -1, 1,
+                1, -1,.5);
 
-        encoderDrive(1, .5, .5, .5);
+        timeDrive(1, 1, 1,
+                1, 1, .5);
 
         clampSet("down");
 
-        encoderDrive(1, -5, -5, 2.5);
+        timeDrive(1, -1, -1,
+                -1, -1, 2.5);
 
-        preciseDrive(1, -10, 10,
-                10, -10,1.5);
+        timeDrive(1, -1, 1,
+                1, -1,1.5);
 
-        encoderDrive(1, -5, -5, 1);
+        timeDrive(1, -1, -1,
+                -1, -1, 1);
 
         clampSet("up");
 
-        preciseDrive(1, 10, -10,
-                -10, 10, 3);
+        timeDrive(1, 1, -1,
+                -1, 1, 3);
 
     }
 
