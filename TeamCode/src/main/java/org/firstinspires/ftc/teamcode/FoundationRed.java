@@ -51,27 +51,47 @@ public class FoundationRed extends AutonomousBase {
 
         waitForStart();
 
+        // Drive forward to get closer to the foundation.
+
         timeDrive(1, 1, 1,
-                1, 1, 1);
+                1, 1, .25);
+
+        // Strafe right to become "centered" on the platform, and so both clamps can attach.
 
         timeDrive(1, 1, -1,
                 -1, 1,.5);
 
+        // Drive forward to "push" the robot up against the foundation. Pushing the foundation
+        // slightly is acceptable.
+
         timeDrive(1, 1, 1,
-                1, 1, .5);
+                1, 1, .8);
+
+        // Lower the clamps to latch onto the foundation.
 
         clampSet("down");
 
+        // Drive backwards to move the foundation back into the base.
+
         timeDrive(1, -1, -1,
-                -1, -1, 2.5);
+                -1, -1, 2);
+
+        // Strafe right to "force" the foundation against the wall.
 
         timeDrive(1, 1, -1,
-                -1, 1,1.5);
+                -1, 1,.75);
+
+        // Drive backwards to make sure at least part of the foundation is in the base, and that
+        // the robot is touching the corner of the field.
 
         timeDrive(1, -1, -1,
-                -1, -1, 1);
+                -1, -1, .25);
+
+        // Raise the clamps to let go from the foundation.
 
         clampSet("up");
+
+        // Strafe left to move under the bridge.
 
         timeDrive(1, -1, 1,
                 1, -1, 3);

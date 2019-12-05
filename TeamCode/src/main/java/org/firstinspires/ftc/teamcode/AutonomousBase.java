@@ -249,7 +249,7 @@ public class AutonomousBase extends LinearOpMode {
         robot.leftBack.setPower(0);
         robot.rightBack.setPower(0);
 
-        pause(.5);
+        pause(.25);
     }
 
 

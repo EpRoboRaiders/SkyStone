@@ -51,9 +51,13 @@ public class SkystonesBlue extends AutonomousBase {
 
         waitForStart();
 
-        preciseDrive(1, -10, 10, 10, -10,1);
+        // Strafe left to move under the bridge.
 
-        encoderDrive(1, 5, 5, 1.5);
+        timeDrive(1, -1, 1, 1, -1,1.75);
+
+        // Move forward to avoid the other team's robot.
+
+        timeDrive(1, 1, 1, 1, 1, 1);
 
 
 

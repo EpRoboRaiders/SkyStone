@@ -75,7 +75,7 @@ public class DriverControl extends OpMode {
         }
     }
 
-    Mode mode = Mode.TANK;
+    Mode mode = Mode.OMNI;
 
     // final String[] driveMode = {"tank", "pov", "debug", "omni", "mecanum"};
 
@@ -317,16 +317,30 @@ public class DriverControl extends OpMode {
             robot.stoneLift.setPower(0);
         }
         else if(gamepad2.dpad_up){
-            robot.stoneLift.setPower(1);
+            robot.stoneLift.setPower(-1);
         }
         else if(gamepad2.dpad_down){
-            robot.stoneLift.setPower(-1);
+            robot.stoneLift.setPower(1);
         }
         else{
             robot.stoneLift.setPower(0);
         }
 
         robot.liftRotator.setPower(gamepad2.right_stick_y);
+
+        if(gamepad2.x) {
+            robot.leftClamp.setPower(1);
+            robot.rightClamp.setPower(1);
+        }
+        else if (gamepad2.b) {
+            robot.leftClamp.setPower(-1);
+            robot.rightClamp.setPower(-1);
+        }
+        else {
+            robot.leftClamp.setPower(0);
+            robot.rightClamp.setPower(0);
+        }
+
     }
 
     private void clampControl() {
