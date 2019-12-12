@@ -29,12 +29,9 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
 public class AutonomousBase extends LinearOpMode {
 
@@ -251,6 +248,17 @@ public class AutonomousBase extends LinearOpMode {
 
         pause(.25);
     }
+
+    public void reachStone() {
+        // Will probably incorporate a distance sensor trained on the stone. Pending
+    }
+    public void grabStone() {
+        // Will probably involve doing a 180 turn at some point. Pending
+    }
+    public void scanStones() {
+        // Will probably involve using a color sensor to find skystones. Pending; MAKE BOOLEAN
+    }
+
 
 
 
