@@ -29,7 +29,9 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
 import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -56,6 +58,9 @@ public class RobotTemplate {
 
     public Servo    chassisGrabber = null;
     public Servo    mountedGrabber = null;
+
+    public ColorSensor colorSensor = null;
+    public ModernRoboticsI2cRangeSensor rangeSensor = null;
 
     /*
     These motors have names that are "unhelpful" to describing
@@ -122,6 +127,9 @@ public class RobotTemplate {
 
         chassisGrabber = hwMap.get(Servo.class, "chassis_grabber");
         mountedGrabber = hwMap.get(Servo.class, "mounted_grabber");
+
+        colorSensor = hwMap.get(ColorSensor.class, "color_sensor");
+        rangeSensor = hwMap.get(ModernRoboticsI2cRangeSensor.class, "range_sensor");
 
         // Unused motor mappings. Left for reference.
 

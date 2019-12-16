@@ -317,10 +317,10 @@ public class DriverControl extends OpMode {
             robot.stoneLift.setPower(0);
         }
         else if(gamepad2.dpad_up){
-            robot.stoneLift.setPower(-1);
+            robot.stoneLift.setPower(1);
         }
         else if(gamepad2.dpad_down){
-            robot.stoneLift.setPower(1);
+            robot.stoneLift.setPower(-1);
         }
         else{
             robot.stoneLift.setPower(0);

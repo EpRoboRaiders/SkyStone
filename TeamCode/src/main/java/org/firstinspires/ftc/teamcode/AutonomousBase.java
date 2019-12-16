@@ -29,6 +29,8 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import android.graphics.Color;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -44,6 +46,8 @@ public class AutonomousBase extends LinearOpMode {
     private ElapsedTime     runtime = new ElapsedTime();
 
     RobotTemplate robot = new RobotTemplate();
+
+
 
     @Override
     public void runOpMode() {
@@ -255,8 +259,21 @@ public class AutonomousBase extends LinearOpMode {
     public void grabStone() {
         // Will probably involve doing a 180 turn at some point. Pending
     }
-    public void scanStones() {
-        // Will probably involve using a color sensor to find skystones. Pending; MAKE BOOLEAN
+    public boolean isSkystone() {
+
+
+        robot.colorSensor.enableLed(true);
+
+        int Red = robot.colorSensor.red();
+
+        robot.colorSensor.enableLed(false);
+
+        telemetry.addData("Red", robot.colorSensor.red());
+        telemetry.update();
+
+        pause(5);
+
+        return !(Red >= 10);
     }
 
 
