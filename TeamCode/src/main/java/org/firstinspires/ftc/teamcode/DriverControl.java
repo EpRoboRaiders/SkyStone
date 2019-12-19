@@ -36,6 +36,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.Range;
 import java.lang.Math;
 
+import static com.qualcomm.robotcore.util.Range.clip;
+
 @TeleOp(name="Robot Driving Controls", group="Iterative Opmode")
 
 public class DriverControl extends OpMode {
@@ -109,7 +111,7 @@ public class DriverControl extends OpMode {
 
     // These doubles store the position of the "clamp" servos on the robot to do calculations on.
     double chassisPosition = 0;
-    double mountedPosition = .3;
+    double mountedPosition = 1;
 
     @Override
     public void init() {
@@ -217,13 +219,13 @@ public class DriverControl extends OpMode {
                 // Code taken from http://ftckey.com/programming/advanced-programming/. Also
                 // funky; turns with the right joystick and moves/strafes with the left one.
 
-                robot.leftFront.setPower(Range.clip((-gamepad1.left_stick_y + gamepad1.left_stick_x
+                robot.leftFront.setPower(clip((-gamepad1.left_stick_y + gamepad1.left_stick_x
                         + gamepad1.right_stick_x), -1., 1));
-                robot.leftBack.setPower(Range.clip((-gamepad1.left_stick_y - gamepad1.left_stick_x
+                robot.leftBack.setPower(clip((-gamepad1.left_stick_y - gamepad1.left_stick_x
                         - gamepad1.right_stick_x), -1., 1));
-                robot.rightFront.setPower(Range.clip((-gamepad1.left_stick_y - gamepad1.left_stick_x
+                robot.rightFront.setPower(clip((-gamepad1.left_stick_y - gamepad1.left_stick_x
                         + gamepad1.right_stick_x), -1., 1));
-                robot.rightBack.setPower(Range.clip((-gamepad1.left_stick_y + gamepad1.left_stick_x
+                robot.rightBack.setPower(clip((-gamepad1.left_stick_y + gamepad1.left_stick_x
                         - gamepad1.right_stick_x), -1., 1));
                 break;
 
@@ -347,14 +349,52 @@ public class DriverControl extends OpMode {
         // Changes the position of the "chassis" servo from .5 to .25, the range that it would
         // realistically need to be for competition.
 
+        /*
+
         if (gamepad2.left_bumper != leftBumperPressed) {
 
             if (!leftBumperPressed) {
 
-                if (chassisPosition == 0) {
-                    chassisPosition = .25;
-                } else if (chassisPosition == .25) {
-                    chassisPosition = 0;
+                if (mountedPosition == 0) {
+                    mountedPosition = 1;
+                } else if (mountedPosition == 1) {
+                    mountedPosition = 0;
+                }
+            }
+
+            leftBumperPressed = !leftBumperPressed;
+        }
+
+         */
+
+
+
+
+
+        // robot.leftClamp.setPower(gamepad2.left_stick_y);
+        // robot.rightClamp.setPower(gamepad2.left_stick_y);
+
+        // "Default" the position of the mounted servo to .6, as opposed to .5, for the clamp to
+        // rest correctly when placed on top of a stone.
+
+        if(gamepad2.dpad_right){
+            chassisPosition += -.005;
+        }
+        else if(gamepad2.dpad_left) {
+            chassisPosition += .005;
+        }
+
+        clip(chassisPosition, 0, 1);
+
+        if (gamepad2.left_bumper != leftBumperPressed) {
+
+            if (!leftBumperPressed) {
+
+                if (mountedPosition == 1) {
+                    mountedPosition = .5;
+                }
+                else if (mountedPosition == .5) {
+                    mountedPosition = 1;
                 }
             }
 
@@ -363,61 +403,13 @@ public class DriverControl extends OpMode {
 
 
 
-        // *Used* to set the position of the "mounted" servo 0 or 1. Defunct in that more precision
-        // is needed to control the robot properly.
-
-        /*
-        if (gamepad2.right_bumper != rightBumperPressed) {
-
-            if(!rightBumperPressed) {
-
-                if(mountedPosition == 1) {
-                    mountedPosition = 0;
-                }
-                else if(mountedPosition == 0) {
-                    mountedPosition = 1;
-                }
-            }
-
-            rightBumperPressed = !rightBumperPressed;
-        }
-         */
-
-        // robot.leftClamp.setPower(gamepad2.left_stick_y);
-        // robot.rightClamp.setPower(gamepad2.left_stick_y);
-
-        if (!gamepad2.dpad_left || !gamepad2.dpad_right){
-            clampPressed = true;
-        }
-
-        // "Default" the position of the mounted servo to .6, as opposed to .5, for the clamp to
-        // rest correctly when placed on top of a stone.
-        if(gamepad2.dpad_right){
-            mountedPosition += .005;
-        }
-        else if(gamepad2.dpad_left) {
-            mountedPosition += -.005;
-        }
-
-        if (gamepad2.right_bumper) {
-            mountedPosition = .3;
-        }
-
-        /*
-
-        mountedPosition = ((gamepad2.left_stick_y) / 2) + .5;
-        if (mountedPosition == .5) {
-            mountedPosition = .35;
-        }
-         */
 
         // Extension of the clampPressed code above.
 
         robot.chassisGrabber.setPosition(chassisPosition); // THIS WORKS FINE DO NOT CHANGE!
 
-        if(clampPressed) {
-            robot.mountedGrabber.setPosition(mountedPosition);
-        }
+        robot.mountedGrabber.setPosition(mountedPosition);
+
 
 
     }
