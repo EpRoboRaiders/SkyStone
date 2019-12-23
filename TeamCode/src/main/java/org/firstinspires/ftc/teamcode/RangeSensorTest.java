@@ -52,6 +52,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 public class RangeSensorTest extends LinearOpMode {
     ModernRoboticsI2cRangeSensor rangeSensor;
     RobotTemplate robot = new RobotTemplate();
+    private final double MINIMUM_STONE_DISTANCE_CM = 2;
 
     @Override public void runOpMode() {
 
@@ -64,21 +65,42 @@ public class RangeSensorTest extends LinearOpMode {
 
  //       while (opModeIsActive()) {
             // Start Motors running
-            robot.motorsSpeed(-0.5);
 
-            while (( rangeSensor.getDistance(DistanceUnit.CM)> 30) && opModeIsActive() ){
-                telemetry.addData("raw ultrasonic", rangeSensor.rawUltrasonic());
-                telemetry.addData("raw optical", rangeSensor.rawOptical());
-                telemetry.addData("cm", "%.2f cm", rangeSensor.getDistance(DistanceUnit.CM));
-                telemetry.addData("cm optical", "%.2f cm", rangeSensor.cmOptical());
+          MoveToDistanceFromObject(-0.3, MINIMUM_STONE_DISTANCE_CM);
 
-                telemetry.update();
+            while (opModeIsActive()){}
+//        }
+
+    }
+    // MoveToDistanceFromObject
+    // This function moves the robot the desired direction and speed until it reaches the distance
+    // specified.
+    // parameters:
+    //      speed - Number between -1 and 1 indicating how fast the robot should go
+    //      distance - How close the robot should be to the object before stopping
+    public void MoveToDistanceFromObject(double speed, double distance){
+        robot.motorsSpeed(speed);
+        int debounceCounter = 0; //Initializing debounceCounter
+
+        // Move forward until distance has been < desired 3 times to debounce reading
+        while (( debounceCounter < 3) && opModeIsActive() ){
+
+            // If sensor reading is less than minimum distance increment debounce
+            if ( rangeSensor.getDistance(DistanceUnit.CM) <distance){
+                debounceCounter++;
+            }
+            else{ // otherwise reset debouncing
+                debounceCounter = 0;
             }
 
-            robot.motorsSpeed(0);
-            while (opModeIsActive()){}
+            telemetry.addData("raw ultrasonic", rangeSensor.rawUltrasonic());
+            telemetry.addData("raw optical", rangeSensor.rawOptical());
+            telemetry.addData("cm", "%.2f cm", rangeSensor.getDistance(DistanceUnit.CM));
+            telemetry.addData("cm optical", "%.2f cm", rangeSensor.cmOptical());
 
+            telemetry.update();
+        }
 
-//        }
+        robot.motorsSpeed(0);
     }
 }
