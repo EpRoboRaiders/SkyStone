@@ -182,5 +182,12 @@ public class RobotTemplate {
         rightClaw.setPosition(MID_SERVO);
          */
     }
+    //  Function for moving all motors the same speed
+    public void motorsSpeed(double speed) {
+        leftFront.setPower(speed);
+        rightFront.setPower(speed);
+        leftBack.setPower(speed);
+        rightBack.setPower(speed);
+    }
  }
 
