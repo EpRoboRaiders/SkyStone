@@ -44,6 +44,7 @@ public class SkystonesRed extends AutonomousBase {
     @Override
     public void runOpMode() {
 
+       /*
         robot.init(hardwareMap);
 
         telemetry.addData("Status", "Initialized");
@@ -55,11 +56,64 @@ public class SkystonesRed extends AutonomousBase {
 
         timeDrive(1, 1, -1, -1, 1,1.75);
 
-        // Move forward to avoid the other team's robot.
-
+        // Move forward to avoid the other team's robot
         timeDrive(1, 1, 1, 1, 1, 1);
 
+        */
 
+        // Get to a stone by using the distance sensor to approach it. Because of the sensitive
+        // nature of the colour sensor, the robot will have to almost be "touching" the stone.
+
+        // Scan the stone using the color sensor. If the "redness" of the Stone scanned is
+        // sufficiently low, then the stone can safely be labeled as a "Skystone" and the code
+        // can continue; otherwise, repeat the first step.
+
+        // "Pick up" the stone by a method currently unknown, given the odd angle the stones would
+        // need to be approached from in order to use the "Stone Lift."
+
+        // Move to the Building Zone by backing up and entering it.
+
+        // Release the stone from the robot; this can be done trivially given a "method" by which
+        // the stone is grabbed.
+
+        // Park under the bridge, or go for another Skystone if time allows (which it most likely
+        // will not)
+
+
+
+        // Code to approach the first stone for scanning.
+
+        // Code to scan the first stone to check if it is a Skystone.
+
+        if(isSkystone()) {
+
+            // Code to pick up and deliver the first stone if it can be reasonably identified as
+            // a Skystone.
+
+        }
+        else {
+
+            // Code to approach the second stone for scanning if if it is of the "Sky" variety and
+            // as such earns the robot picking it up bonus points.
+
+            if(isSkystone()){
+
+                // Code to pick up and deliver the second stone if it is of a nature which allows it
+                // to be identified by the prefix "Sky," referring to the black "Star Wars" related
+                // image located on its side.
+
+            }
+            else{
+
+                // Code to approach the third and final stone and pick it up if it, according to
+                // the FTC 2019-2020 Season rules, unlike the other two stones scanned before it,
+                // falls under the classification of being a "Skystone" (which, notably, is the
+                // title of the current FTC Game), and as such earns a robot that delivers it across
+                // its alliances Skybridge 10 bonus points. Note that if the Skystone is not one of
+                // the first two stones delivered across the previously mentioned bridge, it earns
+                // the deliverer only 2 points, the same as a regular Stone.
+            }
+        }
 
 
     }
