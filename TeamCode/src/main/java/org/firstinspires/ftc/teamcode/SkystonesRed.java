@@ -44,13 +44,15 @@ public class SkystonesRed extends AutonomousBase {
     @Override
     public void runOpMode() {
 
-       /*
+
         robot.init(hardwareMap);
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
         waitForStart();
+
+        robot.leftClamp.setPower(-.375);
 
         // Strafe right to move under the bridge.
 
@@ -59,7 +61,7 @@ public class SkystonesRed extends AutonomousBase {
         // Move forward to avoid the other team's robot
         timeDrive(1, 1, 1, 1, 1, 1);
 
-        */
+
 
         // Get to a stone by using the distance sensor to approach it. Because of the sensitive
         // nature of the colour sensor, the robot will have to almost be "touching" the stone.
@@ -77,13 +79,15 @@ public class SkystonesRed extends AutonomousBase {
         // the stone is grabbed.
 
         // Park under the bridge, or go for another Skystone if time allows (which it most likely
-        // will not)
+        // will not).
 
 
 
         // Code to approach the first stone for scanning.
 
-        // Code to scan the first stone to check if it is a Skystone.
+        // Code to scan the first stone to check if it is a Skystone.\
+
+        /*
 
         if(isSkystone()) {
 
@@ -114,6 +118,8 @@ public class SkystonesRed extends AutonomousBase {
                 // the deliverer only 2 points, the same as a regular Stone.
             }
         }
+
+         */
 
 
     }

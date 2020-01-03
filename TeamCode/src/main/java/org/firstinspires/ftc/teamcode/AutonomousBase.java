@@ -223,9 +223,9 @@ public class AutonomousBase extends LinearOpMode {
             robot.rightClamp.setPower(1);
         }
 
-        pause(5);
+        pause(8);
 
-        robot.leftClamp.setPower(0);
+        robot.leftClamp.setPower(-.375);
         robot.rightClamp.setPower(0);
     }
 
