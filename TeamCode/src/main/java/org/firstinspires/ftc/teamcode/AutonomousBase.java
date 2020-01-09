@@ -53,6 +53,8 @@ public class AutonomousBase extends LinearOpMode {
     public void runOpMode() {
     }
 
+    /*
+
     public void encoderDrive(double speed,
                              double leftInches, double rightInches,
                              double timeoutS) {
@@ -100,7 +102,8 @@ public class AutonomousBase extends LinearOpMode {
                         robot.leftFront.getCurrentPosition(),
                         robot.rightFront.getCurrentPosition());
                 telemetry.update();
-                 */
+
+
             }
 
             // Stop all of the motors after all of the moves have completed.
@@ -119,6 +122,7 @@ public class AutonomousBase extends LinearOpMode {
             sleep(500);
         }
     }
+    */
 
     // The exact same as the previous function, except with arguments for all four motors.
     public void preciseDrive(double speed, 
@@ -138,13 +142,13 @@ public class AutonomousBase extends LinearOpMode {
 
             // Determine new target position, and pass to motor controller
             leftFrontTarget = robot.leftFront.getCurrentPosition()
-                    + (int)(leftFrontInches * 1);
+                    + (int)(leftFrontInches * COUNTS_PER_INCH);
             rightFrontTarget = robot.rightFront.getCurrentPosition()
-                    + (int)(rightFrontInches * 1);
+                    + (int)(rightFrontInches * COUNTS_PER_INCH);
             leftBackTarget = robot.leftBack.getCurrentPosition()
-                    + (int)(leftBackInches * 1);
+                    + (int)(leftBackInches * COUNTS_PER_INCH);
             rightBackTarget = robot.rightBack.getCurrentPosition()
-                    + (int)(rightBackInches * 1);
+                    + (int)(rightBackInches * COUNTS_PER_INCH);
             robot.leftFront.setTargetPosition(leftFrontTarget);
             robot.rightFront.setTargetPosition(rightFrontTarget);
             robot.leftBack.setTargetPosition(leftBackTarget);
@@ -174,8 +178,8 @@ public class AutonomousBase extends LinearOpMode {
             // always end the motion as soon as possible.
             // However, if you require that BOTH motors have finished their moves before the robot continues
             // onto the next step, use (isBusy() || isBusy()) in the loop test.
-            while (opModeIsActive() /*&&
-                    ((runtime.seconds() < timeoutS)*/
+            while (opModeIsActive() &&
+                    (runtime.seconds() < timeoutS)
                             && robot.leftFront.isBusy() && robot.rightFront.isBusy()
                             && robot.leftBack.isBusy() && robot.rightBack.isBusy()) {
                 /*
@@ -201,7 +205,7 @@ public class AutonomousBase extends LinearOpMode {
             robot.leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-            sleep(500);
+            pause(.25);
         }
         
         
