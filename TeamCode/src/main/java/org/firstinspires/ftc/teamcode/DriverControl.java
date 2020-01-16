@@ -410,7 +410,7 @@ public class DriverControl extends OpMode {
 
         robot.mountedGrabber.setPosition(mountedPosition);
 
-
+        robot.stoneGrabber.setPosition(.5);
 
     }
 }

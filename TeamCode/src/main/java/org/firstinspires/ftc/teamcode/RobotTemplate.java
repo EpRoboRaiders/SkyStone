@@ -62,6 +62,8 @@ public class RobotTemplate {
     public ColorSensor colorSensor = null;
     public ModernRoboticsI2cRangeSensor rangeSensor = null;
 
+    public Servo       stoneGrabber = null;
+
     /*
     These motors have names that are "unhelpful" to describing
     the functions of the motors on our personal robot. As a result, we use our own custom motor
@@ -130,6 +132,11 @@ public class RobotTemplate {
 
         colorSensor = hwMap.get(ColorSensor.class, "color_sensor");
         rangeSensor = hwMap.get(ModernRoboticsI2cRangeSensor.class, "range_sensor");
+
+        chassisGrabber = hwMap.get(Servo.class, "chassis_grabber");
+
+        stoneGrabber = hwMap.get(Servo.class, "stone_grabber");
+
 
         // Unused motor mappings. Left for reference.
 

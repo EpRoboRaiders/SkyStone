@@ -41,9 +41,7 @@ public class RangeSensorConcept extends OpMode {
 
     public void loop() {
 
-        while(!gamepad1.a) {
-
-        }
+        robot.stoneGrabber.setPosition(.5);
 
     }
 
