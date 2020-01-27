@@ -60,7 +60,6 @@ public class RobotTemplate {
     public Servo    mountedGrabber = null;
 
     public ColorSensor colorSensor = null;
-    public ModernRoboticsI2cRangeSensor rangeSensor = null;
 
     public Servo       stoneGrabber = null;
 
@@ -131,7 +130,6 @@ public class RobotTemplate {
         mountedGrabber = hwMap.get(Servo.class, "mounted_grabber");
 
         colorSensor = hwMap.get(ColorSensor.class, "color_sensor");
-        rangeSensor = hwMap.get(ModernRoboticsI2cRangeSensor.class, "range_sensor");
 
         chassisGrabber = hwMap.get(Servo.class, "chassis_grabber");
 

@@ -273,11 +273,17 @@ public class DriverControl extends OpMode {
 
         telemetry.addData("Robot Mode:", mode.getDescription());
         telemetry.addData("Motor Position:", robot.leftFront.getCurrentPosition());
-
+/*
         for (int i=0; i<(Mode.values().length); i++){
             telemetry.addData("Mode ", Mode.values()[i].ordinal());
             telemetry.addData("Name", Mode.values()[i]);
         }
+
+ */
+        telemetry.addData("left front motor: ", robot.leftFront.getPower());
+        telemetry.addData("right front motor: ", robot.rightFront.getPower());
+        telemetry.addData("left back motor: ", robot.leftBack.getPower());
+        telemetry.addData("right back motor: ", robot.rightBack.getPower());
         telemetry.update();
 
     }
@@ -339,7 +345,7 @@ public class DriverControl extends OpMode {
             robot.rightClamp.setPower(-1);
         }
         else {
-            robot.leftClamp.setPower(-.375);
+            robot.leftClamp.setPower(-.3970);
             robot.rightClamp.setPower(0);
         }
 
@@ -409,8 +415,6 @@ public class DriverControl extends OpMode {
         robot.chassisGrabber.setPosition(chassisPosition); // THIS WORKS FINE DO NOT CHANGE!
 
         robot.mountedGrabber.setPosition(mountedPosition);
-
-        robot.stoneGrabber.setPosition(.5);
 
     }
 }

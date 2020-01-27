@@ -30,10 +30,13 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous(name="Color Test", group="Linear Opmode")
 
 public class ColorTest extends AutonomousBase {
+
+    private ElapsedTime timer = new ElapsedTime();
 
     @Override
     public void runOpMode() {
@@ -45,15 +48,26 @@ public class ColorTest extends AutonomousBase {
 
         waitForStart();
 
+        timer.reset();
+
+        robot.stoneGrabber.setPosition(.5);
+
         if (isSkystone()) {
             telemetry.addData("Type", "Skystone");
+            telemetry.update();
+            robot.stoneGrabber.setPosition(1);
+
+            sleep(1000);
+
+
         }
         else {
             telemetry.addData("Type", "Stone");
+            telemetry.update();
         }
-        telemetry.update();
 
-        pause(5);
+        sleep(1000);
+
     }
 
 }

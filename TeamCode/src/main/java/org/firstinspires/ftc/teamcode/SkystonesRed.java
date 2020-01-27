@@ -45,21 +45,55 @@ public class SkystonesRed extends AutonomousBase {
     public void runOpMode() {
 
 
-        robot.init(hardwareMap);
+        initRobot();
 
-        telemetry.addData("Status", "Initialized");
-        telemetry.update();
+        robot.chassisGrabber.setPosition(1);
 
-        waitForStart();
+        robot.stoneGrabber.setPosition(.5);
 
-        robot.leftClamp.setPower(-.375);
+        preciseDrive(.5, 25, 25,
+                25, 25, 3);
 
+        preciseDrive(.5, -8, 8,
+                8, -8, 3);
+
+        preciseDrive(.5, 5, 5,
+                5, 5, 3
+        );
+
+        robot.stoneGrabber.setPosition(1);
+
+        sleep(2000);
+
+        preciseDrive(.05, .5, .5,
+                .5, .5, 3);
+
+        preciseDrive(.05, -15, -15,
+                -15, -15, 15);
+
+        preciseDrive(.1, 6, -6,
+                6, -6, 5);
+
+        preciseDrive(1, 80, -80,
+                -80, 80, 10);
+
+        robot.stoneGrabber.setPosition(.5);
+
+        preciseDrive(1, -24, 24,
+                24, -24, 10);
+
+        preciseDrive(1, 18, 18,
+                18, 18, 3);
+
+        /*
         // Strafe right to move under the bridge.
 
         timeDrive(1, 1, -1, -1, 1,1.75);
 
         // Move forward to avoid the other team's robot
         timeDrive(1, 1, 1, 1, 1, 1);
+
+         */
 
 
 

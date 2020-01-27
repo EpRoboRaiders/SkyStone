@@ -51,7 +51,7 @@ public class SkystonesBlue extends AutonomousBase {
 
         waitForStart();
 
-        robot.leftClamp.setPower(-.375);
+        robot.leftClamp.setPower(-.3970);
 
         // Strafe left to move under the bridge.
 

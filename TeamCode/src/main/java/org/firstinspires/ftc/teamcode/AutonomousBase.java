@@ -39,7 +39,7 @@ public class AutonomousBase extends LinearOpMode {
 
     static final double     COUNTS_PER_INCH         = 120;
 
-    private ElapsedTime     runtime = new ElapsedTime();
+    ElapsedTime     runtime = new ElapsedTime();
 
     RobotTemplate robot = new RobotTemplate();
 
@@ -138,23 +138,18 @@ public class AutonomousBase extends LinearOpMode {
 
             // Determine new target position, and pass to motor controller
             leftFrontTarget = robot.leftFront.getCurrentPosition()
-                    + (int)(leftFrontInches * COUNTS_PER_INCH);
+                    + (int)(leftFrontInches * 120);
             rightFrontTarget = robot.rightFront.getCurrentPosition()
-                    + (int)(rightFrontInches * COUNTS_PER_INCH);
+                    + (int)(rightFrontInches * 120);
             leftBackTarget = robot.leftBack.getCurrentPosition()
-                    + (int)(leftBackInches * COUNTS_PER_INCH);
+                    + (int)(leftBackInches * 120);
             rightBackTarget = robot.rightBack.getCurrentPosition()
-                    + (int)(rightBackInches * COUNTS_PER_INCH);
+                    + (int)(rightBackInches * 120);
             robot.leftFront.setTargetPosition(leftFrontTarget);
             robot.rightFront.setTargetPosition(rightFrontTarget);
             robot.leftBack.setTargetPosition(leftBackTarget);
             robot.rightBack.setTargetPosition(rightBackTarget);
-            
-            robot.leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            robot.rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            robot.leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            robot.rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            
+
             // Turn On RUN_TO_POSITION
             robot.leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -225,7 +220,7 @@ public class AutonomousBase extends LinearOpMode {
 
         pause(8);
 
-        robot.leftClamp.setPower(-.375);
+        robot.leftClamp.setPower(-.3970);
         robot.rightClamp.setPower(0);
     }
 
@@ -261,19 +256,24 @@ public class AutonomousBase extends LinearOpMode {
     }
     public boolean isSkystone() {
 
-
-        robot.colorSensor.enableLed(true);
+        pause(1);
 
         int Red = robot.colorSensor.red();
 
-        robot.colorSensor.enableLed(false);
+        return !(Red >= 300);
+    }
 
-        telemetry.addData("Red", robot.colorSensor.red());
+    public void initRobot() {
+
+        robot.init(hardwareMap);
+
+        telemetry.addData("Status", "Initialized");
         telemetry.update();
 
-        pause(5);
+        waitForStart();
 
-        return !(Red >= 10);
+        robot.leftClamp.setPower(-.3970);
+
     }
 
 
