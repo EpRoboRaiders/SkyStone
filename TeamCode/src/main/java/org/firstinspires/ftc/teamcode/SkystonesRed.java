@@ -44,49 +44,123 @@ public class SkystonesRed extends AutonomousBase {
     @Override
     public void runOpMode() {
 
-
         initRobot();
 
         robot.chassisGrabber.setPosition(1);
 
         robot.stoneGrabber.setPosition(.5);
 
-        preciseDrive(.5, 25, 25,
+        preciseDrive(SLOW_DRIVE_SPEED, 25, 25,
                 25, 25, 3);
 
-        preciseDrive(.5, -8, 8,
+        preciseDrive(SLOW_DRIVE_SPEED, -8, 8,
                 8, -8, 3);
 
-        preciseDrive(.5, 5, 5,
-                5, 5, 3
-        );
+        preciseDrive(SLOW_DRIVE_SPEED, 5, 5,
+                5, 5, 5);
+        if(isSkystone()) {
 
-        robot.stoneGrabber.setPosition(1);
+            robot.chassisGrabber.setPosition(1);
 
-        sleep(2000);
+            robot.stoneGrabber.setPosition(1);
 
-        preciseDrive(.05, .5, .5,
-                .5, .5, 3);
+            sleep(1000);
 
-        preciseDrive(.05, -15, -15,
-                -15, -15, 15);
+            preciseDrive(STONE_BACKUP_SPEED, -7, -7,
+                    -7, -7, 15);
 
-        preciseDrive(.1, 6, -6,
-                6, -6, 5);
+            preciseDrive(.2, 6, -6,
+                    6, -6, 5);
 
-        preciseDrive(1, 80, -80,
-                -80, 80, 10);
+            preciseDrive(1, 80, -80,
+                    -80, 80, 10);
 
-        robot.stoneGrabber.setPosition(.5);
+            robot.stoneGrabber.setPosition(.5);
 
-        preciseDrive(1, -24, 24,
-                24, -24, 10);
+            preciseDrive(1, -24, 24,
+                    24, -24, 10);
 
-        preciseDrive(1, 18, 18,
-                18, 18, 3);
+            preciseDrive(1, 10, 10,
+                    10, 10, 3);
+        }
+        else {
+
+            preciseDrive(SLOW_DRIVE_SPEED, -3, -3,
+                    -3, -3, 3);
+
+            preciseDrive(SLOW_DRIVE_SPEED, 8, -8,
+                    -8, 8, 3);
+
+            preciseDrive(SLOW_DRIVE_SPEED, 3, 3,
+                    3, 3, 3);
+
+            if(isSkystone()){
+
+                robot.chassisGrabber.setPosition(1);
+
+                robot.stoneGrabber.setPosition(1);
+
+                sleep(1000);
+
+                preciseDrive(STONE_BACKUP_SPEED, -7, -7,
+                        -7, -7, 15);
+
+                preciseDrive(.2, 6, -6,
+                        6, -6, 5);
+
+                preciseDrive(1, 72, -72,
+                        -72, 72, 10);
+
+                robot.stoneGrabber.setPosition(.5);
+
+                preciseDrive(1, -24, 24,
+                        24, -24, 10);
+
+                preciseDrive(1, 10, 10,
+                        10, 10, 3);
+
+            }
+            else {
+
+                preciseDrive(SLOW_DRIVE_SPEED, -3, -3,
+                        -3, -3, 3);
+
+                preciseDrive(SLOW_DRIVE_SPEED, 10, -10,
+                        -10, 10, 3);
+
+                preciseDrive(SLOW_DRIVE_SPEED, 3, 3,
+                        3, 3, 3);
+
+                robot.chassisGrabber.setPosition(1);
+
+                robot.stoneGrabber.setPosition(1);
+
+                sleep(2000);
+
+                preciseDrive(STONE_BACKUP_SPEED, -7, -7,
+                        -7, -7, 15);
+
+                preciseDrive(.2, 6, -6,
+                        6, -6, 5);
+
+                preciseDrive(1, 64, -64,
+                        -64, 64, 10);
+
+                robot.stoneGrabber.setPosition(.5);
+
+                preciseDrive(1, -24, 24,
+                        24, -24, 10);
+
+                preciseDrive(1, 10, 10,
+                        10, 10, 3);
+
+            }
+        }
+
+
+        // Strafe right to move under the bridge.
 
         /*
-        // Strafe right to move under the bridge.
 
         timeDrive(1, 1, -1, -1, 1,1.75);
 

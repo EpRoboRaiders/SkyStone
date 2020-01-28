@@ -39,6 +39,10 @@ public class AutonomousBase extends LinearOpMode {
 
     static final double     COUNTS_PER_INCH         = 120;
 
+    static final double  SLOW_DRIVE_SPEED = .5;
+
+    static final double  STONE_BACKUP_SPEED = .075;
+
     ElapsedTime     runtime = new ElapsedTime();
 
     RobotTemplate robot = new RobotTemplate();
@@ -196,7 +200,7 @@ public class AutonomousBase extends LinearOpMode {
             robot.leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-            pause(.25);
+            pause(.15);
         }
         
         
@@ -260,7 +264,12 @@ public class AutonomousBase extends LinearOpMode {
 
         int Red = robot.colorSensor.red();
 
-        return !(Red >= 300);
+        telemetry.addData("Red  ", robot.colorSensor.red());
+        telemetry.addData("Green", robot.colorSensor.green());
+        telemetry.addData("Blue ", robot.colorSensor.blue());
+        telemetry.update();
+
+        return Red < 120;
     }
 
     public void initRobot() {

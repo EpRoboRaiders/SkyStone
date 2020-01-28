@@ -51,7 +51,7 @@ public class FoundationBlue extends AutonomousBase {
 
         waitForStart();
 
-        robot.leftClamp.setPower(-.3970);
+        robot.leftClamp.setPower(-.39700);
 
         // Drive forward to get closer to the foundation.
 
