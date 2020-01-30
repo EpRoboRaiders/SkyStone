@@ -53,8 +53,8 @@ public class SkystonesRed extends AutonomousBase {
         preciseDrive(SLOW_DRIVE_SPEED, 25, 25,
                 25, 25, 3);
 
-        preciseDrive(SLOW_DRIVE_SPEED, -8, 8,
-                8, -8, 3);
+        preciseDrive(SLOW_DRIVE_SPEED, -8.5, 8.5,
+                8.5, -8.5, 3);
 
         preciseDrive(SLOW_DRIVE_SPEED, 5, 5,
                 5, 5, 5);

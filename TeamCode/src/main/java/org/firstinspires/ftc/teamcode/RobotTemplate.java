@@ -29,82 +29,50 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
-/* This is not an OpMode, and simply acts as an external "constructor" for the motors and servos
-on the robot. This is a direct copy of HardwarePushbot, and should be treated as such.
- */
+// This is not an OpMode, and simply acts as an external "constructor" for the motors and servos
+// on the robot. This is a direct copy of HardwarePushbot, and should be treated as such.
 
 public class RobotTemplate {
     
-    // Defines the motors, servos, and speeds used in the robot.
-    public DcMotor  leftFront      = null;
-    public DcMotor  rightFront     = null;
-    public DcMotor  leftBack       = null;
-    public DcMotor  rightBack      = null;
+    // Motors that "drive" the robot; that is, directly control the motion of the chassis and its
+    // attachments. The concepts of direction are relative to the "front" of the robot being the
+    // side at which the "claw" portion of our Stone lift (as explained below) lays when at rest.
+    public DcMotor      leftFront      = null;
+    public DcMotor      rightFront     = null;
+    public DcMotor      leftBack       = null;
+    public DcMotor      rightBack      = null;
 
-    // Define motor for stoneLift
-    public DcMotor  stoneLift      = null;
-    public DcMotor  liftRotator    = null;
+    // Motor that raises and lowers the "lift" responsible for grabbing and delivering Stones
+    // during play.
+    public DcMotor      stoneLift      = null;
 
-    public CRServo  leftClamp      = null;
-    public CRServo  rightClamp     = null;
+    // Motor that changes the angle of said lift from the ground. Used to "lift" Stones when the
+    // robot is latched onto them.
+    public DcMotor      liftRotator   = null;
 
-    public Servo    chassisGrabber = null;
-    public Servo    mountedGrabber = null;
+    // Servos located on the front of the robot that "latch onto" the Foundation when we are trying
+    // to move it, whether in Autonomous or Endgame.
 
-    public ColorSensor colorSensor = null;
+    public CRServo      leftClamp      = null;
+    public CRServo      rightClamp     = null;
 
-    public Servo       stoneGrabber = null;
+    public Servo        chassisGrabber = null;
+    public Servo        mountedGrabber = null;
 
-    /*
-    These motors have names that are "unhelpful" to describing
-    the functions of the motors on our personal robot. As a result, we use our own custom motor
-    names; these are left for future reference.
-     */
-    
-    /*
-    public DcMotor  leftDrive   = null;
-    public DcMotor  rightDrive  = null;
-    public DcMotor  leftArm     = null;
-     */
-    
-    /*
-    Because our robot currently does not use servos, there is no need to define ones that do
-    not exist. These initializations are left for future reference.
-     */
+    public ColorSensor  colorSensor = null;
 
-    /*
-    public Servo    leftClaw    = null;
-    public Servo    rightClaw   = null;
-     */
-    
-    /*
-    These variables store values related to the servos that, again, do not exist. Also again,
-    they are left for reference.
-     */
-    
-    /*
-    public static final double MID_SERVO       =  0.5 ;
-    public static final double ARM_UP_POWER    =  0.45 ;
-    public static final double ARM_DOWN_POWER  = -0.45 ;
-     */
+    public Servo        stoneGrabber = null;
 
-    // External constructors used inside of this constructor. Meta!
+    // External constructor used inside of this constructor. Meta!
     HardwareMap hwMap          =  null;
-    
-    /* Commented out because the initialization of a timer has little use, in that the timer is 
-    never referred to in this class. It is kept for reference, or if it ends up being necessary
-    for other timers (or code) to function. */
-    // private ElapsedTime period = new ElapsedTime();
-    
-    // Called to constsruct the robot template in another OpMode.
+
+    // Called to construct the robot template in another OpMode.
     public RobotTemplate(){}
     
     // Initializes the defined motors and servos.
@@ -112,46 +80,33 @@ public class RobotTemplate {
 
         // "Saves" the hardware map used to find motors and servos.
         hwMap = ahwMap;
-        
-        leftFront   = hwMap.get(DcMotor.class, "left_front");
-        rightFront  = hwMap.get(DcMotor.class, "right_front");
-        leftBack    = hwMap.get(DcMotor.class, "left_back");
-        rightBack   = hwMap.get(DcMotor.class, "right_back");
 
-        stoneLift   = hwMap.get(DcMotor.class, "stone_lift");
-        liftRotator = hwMap.get(DcMotor.class, "lift_rotator");
+        // Maps the motors found at certain ports on the robot "hub" on our robot to names used
+        // to define them in the code. Going through their purposes is redundant, as said
+        // explanation is done above; however, they are still separated by "type" for the sake
+        // of cleanliness.
 
-        // TODO: Program
+        leftFront       = hwMap.get(DcMotor.class, "left_front");
+        rightFront      = hwMap.get(DcMotor.class, "right_front");
+        leftBack        = hwMap.get(DcMotor.class, "left_back");
+        rightBack       = hwMap.get(DcMotor.class, "right_back");
 
-        leftClamp   = hwMap.get(CRServo.class, "left_clamp");
-        rightClamp  = hwMap.get(CRServo.class, "right_clamp");
+        stoneLift       = hwMap.get(DcMotor.class, "stone_lift");
+        liftRotator     = hwMap.get(DcMotor.class, "lift_rotator");
 
-        chassisGrabber = hwMap.get(Servo.class, "chassis_grabber");
-        mountedGrabber = hwMap.get(Servo.class, "mounted_grabber");
+        leftClamp       = hwMap.get(CRServo.class, "left_clamp");
+        rightClamp      = hwMap.get(CRServo.class, "right_clamp");
 
-        colorSensor = hwMap.get(ColorSensor.class, "color_sensor");
+        chassisGrabber  = hwMap.get(Servo.class, "chassis_grabber");
+        mountedGrabber  = hwMap.get(Servo.class, "mounted_grabber");
 
-        chassisGrabber = hwMap.get(Servo.class, "chassis_grabber");
+        chassisGrabber  = hwMap.get(Servo.class, "chassis_grabber");
+        stoneGrabber    = hwMap.get(Servo.class, "stone_grabber");
 
-        stoneGrabber = hwMap.get(Servo.class, "stone_grabber");
+        colorSensor     = hwMap.get(ColorSensor.class, "color_sensor");
 
 
-        // Unused motor mappings. Left for reference.
-
-        /*
-        leftDrive  = hwMap.get(DcMotor.class, "left_drive");
-        rightDrive = hwMap.get(DcMotor.class, "right_drive");
-        leftArm    = hwMap.get(DcMotor.class, "left_arm");
-         */
-
-        // Unused motor configuration. Left for reference.
-
-        /*
-        leftDrive.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
-        rightDrive.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
-         */
-
-        // Set all motors to zero power
+        // Set all motors to zero power so they don't run by mistake when initialized.
         leftFront.setPower(0);
         rightFront.setPower(0);
         leftBack.setPower(0);
@@ -160,32 +115,16 @@ public class RobotTemplate {
         stoneLift.setPower(0);
         liftRotator.setPower(0);
 
+        // Because of the orientation of the motors on our robot, the ones on the right side
+        // have to be "flipped" in terms of direction. Sure, every instruction written with
+        // these motors in mind could be multiplied by negative one, but that would be tedious
+        // and annoying, wouldn't it?
         leftFront.setDirection(DcMotor.Direction.FORWARD);
         rightFront.setDirection(DcMotor.Direction.REVERSE);
         leftBack.setDirection(DcMotor.Direction.FORWARD);
         rightBack.setDirection(DcMotor.Direction.REVERSE);
 
-        // Unused motor configuration. Left for reference.
 
-        /*
-        leftDrive.setPower(0);
-        rightDrive.setPower(0);
-        leftArm.setPower(0);
-         */
-
-        // Unused servo mappings. Left for reference.
-
-        /*
-        leftClaw  = hwMap.get(Servo.class, "left_hand");
-        rightClaw = hwMap.get(Servo.class, "right_hand");
-         */
-
-        // Unused servo initialization. Left for reference.
-
-        /*
-        leftClaw.setPosition(MID_SERVO);
-        rightClaw.setPosition(MID_SERVO);
-         */
     }
     //  Function for moving all motors the same speed
     public void motorsSpeed(double speed) {

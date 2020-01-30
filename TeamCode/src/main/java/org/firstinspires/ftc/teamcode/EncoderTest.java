@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 @Autonomous(name="Encoder Test", group="Linear Opmode")
-
+@Disabled
 
 public class EncoderTest extends AutonomousBase {
 

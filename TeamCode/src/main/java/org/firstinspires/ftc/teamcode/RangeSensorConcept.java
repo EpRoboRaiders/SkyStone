@@ -29,11 +29,12 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 @TeleOp(name="Range Sensor Concept", group="Iterative Opmode")
-
+@Disabled
 public class RangeSensorConcept extends OpMode {
 
     // Creates a motor based on the RobotTemplate class.

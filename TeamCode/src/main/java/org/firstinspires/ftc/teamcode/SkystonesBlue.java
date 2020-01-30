@@ -37,6 +37,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
+
 @Autonomous(name="Blue Team- Start By Skystones", group="Linear Opmode")
 
 public class SkystonesBlue extends AutonomousBase {
@@ -53,11 +54,11 @@ public class SkystonesBlue extends AutonomousBase {
         preciseDrive(SLOW_DRIVE_SPEED, 25, 25,
                 25, 25, 3);
 
-        preciseDrive(SLOW_DRIVE_SPEED, -8, 8,
-                8, -8, 3);
+        preciseDrive(SLOW_DRIVE_SPEED, 2, -2,
+                -2, 2, 3);
 
-        preciseDrive(SLOW_DRIVE_SPEED, 5, 5,
-                5, 5, 5);
+        preciseDrive(SLOW_DRIVE_SPEED, 5.5, 5.5,
+                5.5, 5.5, 5);
         if(isSkystone()) {
 
             robot.chassisGrabber.setPosition(1);
@@ -69,27 +70,27 @@ public class SkystonesBlue extends AutonomousBase {
             preciseDrive(STONE_BACKUP_SPEED, -7, -7,
                     -7, -7, 15);
 
-            preciseDrive(.2, 6, -6,
-                    6, -6, 5);
+            preciseDrive(.2, -6, 6,
+                    -6, 6, 5);
 
-            preciseDrive(1, 80, -80,
-                    -80, 80, 10);
+            preciseDrive(1, -80, 80,
+                    80, -80, 10);
 
             robot.stoneGrabber.setPosition(.5);
 
-            preciseDrive(1, -24, 24,
-                    24, -24, 10);
+            preciseDrive(1, 30, -30,
+                    -30, 30, 10);
 
-            preciseDrive(1, 10, 10,
-                    10, 10, 3);
+            preciseDrive(1, 15, 15,
+                    15, 15, 3);
         }
         else {
 
             preciseDrive(SLOW_DRIVE_SPEED, -3, -3,
                     -3, -3, 3);
 
-            preciseDrive(SLOW_DRIVE_SPEED, 8, -8,
-                    -8, 8, 3);
+            preciseDrive(SLOW_DRIVE_SPEED, -8, 8,
+                    8, -8, 3);
 
             preciseDrive(SLOW_DRIVE_SPEED, 3, 3,
                     3, 3, 3);
@@ -105,19 +106,19 @@ public class SkystonesBlue extends AutonomousBase {
                 preciseDrive(STONE_BACKUP_SPEED, -7, -7,
                         -7, -7, 15);
 
-                preciseDrive(.2, 6, -6,
-                        6, -6, 5);
+                preciseDrive(.2, -6, 6,
+                        -6, 6, 5);
 
-                preciseDrive(1, 72, -72,
-                        -72, 72, 10);
+                preciseDrive(1, -72, 72,
+                        72, -72, 10);
 
                 robot.stoneGrabber.setPosition(.5);
 
-                preciseDrive(1, -24, 24,
-                        24, -24, 10);
+                preciseDrive(1, 30, -30,
+                        -30, 30, 10);
 
-                preciseDrive(1, 10, 10,
-                        10, 10, 3);
+                preciseDrive(1, 15, 15,
+                        15, 15, 3);
 
             }
             else {
@@ -125,11 +126,11 @@ public class SkystonesBlue extends AutonomousBase {
                 preciseDrive(SLOW_DRIVE_SPEED, -3, -3,
                         -3, -3, 3);
 
-                preciseDrive(SLOW_DRIVE_SPEED, 10, -10,
-                        -10, 10, 3);
+                preciseDrive(SLOW_DRIVE_SPEED, -10, 10,
+                        10, -10, 3);
 
-                preciseDrive(SLOW_DRIVE_SPEED, 3, 3,
-                        3, 3, 3);
+                preciseDrive(SLOW_DRIVE_SPEED, 3.5, 3.5,
+                        3.5, 3.5, 3);
 
                 robot.chassisGrabber.setPosition(1);
 
@@ -137,26 +138,25 @@ public class SkystonesBlue extends AutonomousBase {
 
                 sleep(2000);
 
-                preciseDrive(STONE_BACKUP_SPEED, -7, -7,
-                        -7, -7, 15);
+                preciseDrive(STONE_BACKUP_SPEED, -7.5, -7.5,
+                        -7.5, -7.5, 15);
 
-                preciseDrive(.2, 6, -6,
-                        6, -6, 5);
+                preciseDrive(.2, -6, 6,
+                        -6, 6, 5);
 
-                preciseDrive(1, 64, -64,
-                        -64, 64, 10);
+                preciseDrive(1, -64, 64,
+                        64, -64, 10);
 
                 robot.stoneGrabber.setPosition(.5);
 
-                preciseDrive(1, -24, 24,
-                        24, -24, 10);
+                preciseDrive(1, 30, -30,
+                        -30, 30, 10);
 
-                preciseDrive(1, 10, 10,
-                        10, 10, 3);
+                preciseDrive(1, 15, 15,
+                        15, 15, 3);
 
             }
         }
-
 
         /*
 
