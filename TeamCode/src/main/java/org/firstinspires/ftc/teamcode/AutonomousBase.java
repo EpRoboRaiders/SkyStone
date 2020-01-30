@@ -27,102 +27,38 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+
+
 package org.firstinspires.ftc.teamcode;
 
-import android.graphics.Color;
+
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+
+
 public class AutonomousBase extends LinearOpMode {
 
-    static final double     COUNTS_PER_INCH         = 120;
-
-    static final double  SLOW_DRIVE_SPEED = .5;
-
+    static final int     COUNTS_PER_INCH    = 120;
+    static final double  SLOW_DRIVE_SPEED   = .5;
     static final double  STONE_BACKUP_SPEED = .075;
 
+
+
     ElapsedTime     runtime = new ElapsedTime();
+
+
 
     RobotTemplate robot = new RobotTemplate();
 
 
 
     @Override
-    public void runOpMode() {
-    }
-
-    /*
-
-    public void encoderDrive(double speed,
-                             double leftInches, double rightInches,
-                             double timeoutS) {
-        int leftTarget;
-        int rightTarget;
-
-        // Ensure that the opmode is still active
-        if (opModeIsActive()) {
-
-            // Determine new target position, and pass to motor controller
-            leftTarget = robot.leftFront.getCurrentPosition() + (int)(leftInches * 1);
-            rightTarget = robot.rightFront.getCurrentPosition() + (int)(rightInches * 1);
-            robot.leftFront.setTargetPosition(leftTarget);
-            robot.rightFront.setTargetPosition(rightTarget);
-            robot.leftBack.setTargetPosition(leftTarget);
-            robot.rightBack.setTargetPosition(rightTarget);
-
-            // Turn On RUN_TO_POSITION
-            robot.leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.leftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.rightBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-            // reset the timeout time and start motion.
-            runtime.reset();
-            robot.leftFront.setPower(Math.abs(speed));
-            robot.rightFront.setPower(Math.abs(speed));
-            robot.leftBack.setPower(Math.abs(speed));
-            robot.rightBack.setPower(Math.abs(speed));
-
-            // keep looping while we are still active, and there is time left, and both motors are running.
-            // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
-            // its target position, the motion will stop.  This is "safer" in the event that the robot will
-            // always end the motion as soon as possible.
-            // However, if you require that BOTH motors have finished their moves before the robot continues
-            // onto the next step, use (isBusy() || isBusy()) in the loop test.
-            while (opModeIsActive() &&
-                    ((runtime.seconds() < timeoutS)
-                            && robot.leftFront.isBusy() && robot.rightFront.isBusy()
-                            && robot.leftBack.isBusy() && robot.rightBack.isBusy())) {
-                /*
-                // Display it for the driver.
-                telemetry.addData("Path1",  "Running to %7d :%7d", newLeftTarget,  newRightTarget);
-                telemetry.addData("Path2",  "Running at %7d :%7d",
-                        robot.leftFront.getCurrentPosition(),
-                        robot.rightFront.getCurrentPosition());
-                telemetry.update();
+    public void runOpMode() {}
 
 
-            }
-
-            // Stop all of the motors after all of the moves have completed.
-            robot.leftFront.setPower(0);
-            robot.rightFront.setPower(0);
-            robot.leftBack.setPower(0);
-            robot.rightBack.setPower(0);
-            
-
-            // Turn off RUN_TO_POSITION
-            robot.leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-            sleep(500);
-        }
-    }
-    */
 
     // The exact same as the previous function, except with arguments for all four motors.
     public void preciseDrive(double speed, 
@@ -130,29 +66,33 @@ public class AutonomousBase extends LinearOpMode {
                              double leftBackInches, double rightBackInches,
                              double timeoutS) {
 
-
-
         int leftFrontTarget;
         int rightFrontTarget;
         int leftBackTarget;
         int rightBackTarget;
 
-        // Ensure that the opmode is still active
+
+
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
             leftFrontTarget = robot.leftFront.getCurrentPosition()
-                    + (int)(leftFrontInches * 120);
+                    + (int)(leftFrontInches * COUNTS_PER_INCH);
             rightFrontTarget = robot.rightFront.getCurrentPosition()
-                    + (int)(rightFrontInches * 120);
+                    + (int)(rightFrontInches * COUNTS_PER_INCH);
             leftBackTarget = robot.leftBack.getCurrentPosition()
-                    + (int)(leftBackInches * 120);
+                    + (int)(leftBackInches * COUNTS_PER_INCH);
             rightBackTarget = robot.rightBack.getCurrentPosition()
-                    + (int)(rightBackInches * 120);
+                    + (int)(rightBackInches * COUNTS_PER_INCH);
+
+
+
             robot.leftFront.setTargetPosition(leftFrontTarget);
             robot.rightFront.setTargetPosition(rightFrontTarget);
             robot.leftBack.setTargetPosition(leftBackTarget);
             robot.rightBack.setTargetPosition(rightBackTarget);
+
+
 
             // Turn On RUN_TO_POSITION
             robot.leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -160,12 +100,16 @@ public class AutonomousBase extends LinearOpMode {
             robot.leftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.rightBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
+
+
             // reset the timeout time and start motion.
             runtime.reset();
             robot.leftFront.setPower(Math.abs(speed));
             robot.rightFront.setPower(Math.abs(speed));
             robot.leftBack.setPower(Math.abs(speed));
             robot.rightBack.setPower(Math.abs(speed));
+
+
 
             // keep looping while we are still active, and there is time left, and both motors are running.
             // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
@@ -187,11 +131,14 @@ public class AutonomousBase extends LinearOpMode {
                  */
             }
 
+
+
             // Stop all of the motors after all of the moves have completed.
             robot.leftFront.setPower(0);
             robot.rightFront.setPower(0);
             robot.leftBack.setPower(0);
             robot.rightBack.setPower(0);
+
 
 
             // Turn off RUN_TO_POSITION
@@ -200,16 +147,18 @@ public class AutonomousBase extends LinearOpMode {
             robot.leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+
+
             pause(.15);
         }
-        
-        
-        
     }
 
     public void clampSet(String clampPosition) {
 
         runtime.reset();
+
+
+
 
         if(clampPosition == "up") {
 
@@ -222,8 +171,13 @@ public class AutonomousBase extends LinearOpMode {
             robot.rightClamp.setPower(1);
         }
 
+
+
+
         pause(8);
 
+
+        
         robot.leftClamp.setPower(-.3970);
         robot.rightClamp.setPower(0);
     }
@@ -252,12 +206,7 @@ public class AutonomousBase extends LinearOpMode {
         pause(.25);
     }
 
-    public void reachStone() {
-        // Will probably incorporate a distance sensor trained on the stone. Pending
-    }
-    public void grabStone() {
-        // Will probably involve doing a 180 turn at some point. Pending
-    }
+
     public boolean isSkystone() {
 
         pause(1);

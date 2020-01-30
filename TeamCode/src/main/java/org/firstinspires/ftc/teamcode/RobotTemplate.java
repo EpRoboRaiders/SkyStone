@@ -1,3 +1,4 @@
+// Boring legal stuff.
 /* Copyright (c) 2017 FIRST. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -27,19 +28,33 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+
+
+// The folder in which the code is located.
 package org.firstinspires.ftc.teamcode;
 
+
+
+// External "libraries" used in the code.
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
+// The descriptions of the above bits of code would be redundant if listed in every program; as
+// a result, they will only be listed in RobotTemplate.
+
+
+
 // This is not an OpMode, and simply acts as an external "constructor" for the motors and servos
 // on the robot. This is a direct copy of HardwarePushbot, and should be treated as such.
 
 public class RobotTemplate {
-    
+
+    // Listed below are the declarations of all of the motors, servos, and sensors used on our
+    // robot, along with a description of their function.
+
     // Motors that "drive" the robot; that is, directly control the motion of the chassis and its
     // attachments. The concepts of direction are relative to the "front" of the robot being the
     // side at which the "claw" portion of our Stone lift (as explained below) lays when at rest.
@@ -58,28 +73,44 @@ public class RobotTemplate {
 
     // Servos located on the front of the robot that "latch onto" the Foundation when we are trying
     // to move it, whether in Autonomous or Endgame.
-
     public CRServo      leftClamp      = null;
     public CRServo      rightClamp     = null;
 
+    // Servo used to "rotate" the Stone clamp itself (NOT the entire lift; the liftRotator serves
+    // this purpose) during the Driver Controlled period.
     public Servo        chassisGrabber = null;
+
+    // Servo used to "clamp" and "unclamp" from Stones during the Driver Controlled period; toggles
+    // between two positions.
     public Servo        mountedGrabber = null;
 
+    // Color sensor used to detect the position of Skystones during Autonomous. Located on the
+    // front of the robot.
     public ColorSensor  colorSensor = null;
 
+    // A "t bar" connected to a servo, used to grab onto Skystones easily during Autonomous.
+    // Located on the front of the robot.
     public Servo        stoneGrabber = null;
+
+
 
     // External constructor used inside of this constructor. Meta!
     HardwareMap hwMap          =  null;
 
+
+
     // Called to construct the robot template in another OpMode.
     public RobotTemplate(){}
-    
+
+
+
     // Initializes the defined motors and servos.
     public void init(HardwareMap ahwMap) {
 
         // "Saves" the hardware map used to find motors and servos.
         hwMap = ahwMap;
+
+
 
         // Maps the motors found at certain ports on the robot "hub" on our robot to names used
         // to define them in the code. Going through their purposes is redundant, as said
@@ -106,6 +137,7 @@ public class RobotTemplate {
         colorSensor     = hwMap.get(ColorSensor.class, "color_sensor");
 
 
+
         // Set all motors to zero power so they don't run by mistake when initialized.
         leftFront.setPower(0);
         rightFront.setPower(0);
@@ -115,6 +147,8 @@ public class RobotTemplate {
         stoneLift.setPower(0);
         liftRotator.setPower(0);
 
+
+
         // Because of the orientation of the motors on our robot, the ones on the right side
         // have to be "flipped" in terms of direction. Sure, every instruction written with
         // these motors in mind could be multiplied by negative one, but that would be tedious
@@ -123,10 +157,11 @@ public class RobotTemplate {
         rightFront.setDirection(DcMotor.Direction.REVERSE);
         leftBack.setDirection(DcMotor.Direction.FORWARD);
         rightBack.setDirection(DcMotor.Direction.REVERSE);
-
-
     }
-    //  Function for moving all motors the same speed
+
+
+
+    // Function for moving all motors the same speed.
     public void motorsSpeed(double speed) {
         leftFront.setPower(speed);
         rightFront.setPower(speed);

@@ -83,6 +83,85 @@ public class DefunctRepository {
         rightClaw.setPosition(MID_SERVO);
          */
 
+         /*
+
+    public void encoderDrive(double speed,
+                             double leftInches, double rightInches,
+                             double timeoutS) {
+        int leftTarget;
+        int rightTarget;
+
+        // Ensure that the opmode is still active
+        if (opModeIsActive()) {
+
+            // Determine new target position, and pass to motor controller
+            leftTarget = robot.leftFront.getCurrentPosition() + (int)(leftInches * 1);
+            rightTarget = robot.rightFront.getCurrentPosition() + (int)(rightInches * 1);
+            robot.leftFront.setTargetPosition(leftTarget);
+            robot.rightFront.setTargetPosition(rightTarget);
+            robot.leftBack.setTargetPosition(leftTarget);
+            robot.rightBack.setTargetPosition(rightTarget);
+
+            // Turn On RUN_TO_POSITION
+            robot.leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.leftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.rightBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            // reset the timeout time and start motion.
+            runtime.reset();
+            robot.leftFront.setPower(Math.abs(speed));
+            robot.rightFront.setPower(Math.abs(speed));
+            robot.leftBack.setPower(Math.abs(speed));
+            robot.rightBack.setPower(Math.abs(speed));
+
+            // keep looping while we are still active, and there is time left, and both motors are running.
+            // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
+            // its target position, the motion will stop.  This is "safer" in the event that the robot will
+            // always end the motion as soon as possible.
+            // However, if you require that BOTH motors have finished their moves before the robot continues
+            // onto the next step, use (isBusy() || isBusy()) in the loop test.
+            while (opModeIsActive() &&
+                    ((runtime.seconds() < timeoutS)
+                            && robot.leftFront.isBusy() && robot.rightFront.isBusy()
+                            && robot.leftBack.isBusy() && robot.rightBack.isBusy())) {
+                /*
+                // Display it for the driver.
+                telemetry.addData("Path1",  "Running to %7d :%7d", newLeftTarget,  newRightTarget);
+                telemetry.addData("Path2",  "Running at %7d :%7d",
+                        robot.leftFront.getCurrentPosition(),
+                        robot.rightFront.getCurrentPosition());
+                telemetry.update();
+
+
+            }
+
+            // Stop all of the motors after all of the moves have completed.
+            robot.leftFront.setPower(0);
+            robot.rightFront.setPower(0);
+            robot.leftBack.setPower(0);
+            robot.rightBack.setPower(0);
+
+
+            // Turn off RUN_TO_POSITION
+            robot.leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+            sleep(500);
+        }
+    }
+    */
+
+         /* public void reachStone() {
+        // Will probably incorporate a distance sensor trained on the stone. Pending
+    }
+    public void grabStone() {
+        // Will probably involve doing a 180 turn at some point. Pending
+    }
+
+          */
 
 
 }
