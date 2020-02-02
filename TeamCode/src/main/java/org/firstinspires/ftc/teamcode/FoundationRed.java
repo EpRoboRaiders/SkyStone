@@ -39,6 +39,8 @@ import com.qualcomm.robotcore.util.Range;
 
 @Autonomous(name="Red Team- Start By Foundation", group="Linear Opmode")
 
+// FoundationRed is run during Autonomous when our robot is on the Red team and is attempting
+// to move the foundation. Note that it is based on the AutonmousBase class, and uses its methods.
 public class FoundationRed extends AutonomousBase {
 
     @Override
@@ -54,50 +56,39 @@ public class FoundationRed extends AutonomousBase {
         robot.leftClamp.setPower(-.3970);
 
         // Drive forward to get closer to the foundation.
-
         timeDrive(1, 1, 1,
                 1, 1, .25);
 
         // Strafe right to become "centered" on the platform, and so both clamps can attach.
-
         timeDrive(1, 1, -1,
                 -1, 1,.5);
 
         // Drive forward to "push" the robot up against the foundation. Pushing the foundation
         // slightly is acceptable.
-
         timeDrive(1, 1, 1,
                 1, 1, .8);
 
         // Lower the clamps to latch onto the foundation.
-
         clampSet("down");
 
         // Drive backwards to move the foundation back into the base.
-
         timeDrive(1, -1, -1,
                 -1, -1, 2);
 
         // Strafe right to "force" the foundation against the wall.
-
         timeDrive(1, 1, -1,
                 -1, 1,.75);
 
         // Drive backwards to make sure at least part of the foundation is in the base, and that
         // the robot is touching the corner of the field.
-
         timeDrive(1, -1, -1,
                 -1, -1, .25);
 
         // Raise the clamps to let go from the foundation.
-
         clampSet("up");
 
         // Strafe left to move under the bridge.
-
         timeDrive(1, -1, 1,
                 1, -1, 3);
-
     }
-
 }

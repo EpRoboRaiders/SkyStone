@@ -37,9 +37,11 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
-
 @Autonomous(name="Blue Team- Start By Skystones", group="Linear Opmode")
 
+// SkystonesBlue is run during Autonomous when our robot is on the Blue team and is attempting
+// to identify and move Skystones. Note that it is based on the AutonmousBase class,
+// and uses its methods.
 public class SkystonesBlue extends AutonomousBase {
 
     @Override
@@ -47,132 +49,172 @@ public class SkystonesBlue extends AutonomousBase {
 
         initRobot();
 
+        // Set the position of chassisGrabber (which the stoneGrabber is mounted on) to 1 for
+        // consistency.
         robot.chassisGrabber.setPosition(1);
 
+        // Set the position of the stoneGrabber ("t-bar") to being vertical
+        // to prepare to grab a Skystone.
         robot.stoneGrabber.setPosition(.5);
 
+        // Drive forward to prepare to align with a Stone.
         preciseDrive(SLOW_DRIVE_SPEED, 25, 25,
                 25, 25, 3);
 
+        // Drive right slightly to align the robot with the third Stone from the left.
         preciseDrive(SLOW_DRIVE_SPEED, 2, -2,
                 -2, 2, 3);
 
+        // Drive forward to approach the first Stone.
         preciseDrive(SLOW_DRIVE_SPEED, 5.5, 5.5,
                 5.5, 5.5, 5);
+
+        // At this point, the robot's color sensor should be directly in front of the third
+        // stone from the left. Scan it, and run the following code if it is a Skystone:
         if(isSkystone()) {
 
+            // Make sure the chassisGrabber is in the same position.
             robot.chassisGrabber.setPosition(1);
 
+            // Latch onto the Skystone using the stoneGrabber, by setting it to a horizontal
+            // position.
             robot.stoneGrabber.setPosition(1);
 
+            // Wait for the servo to complete its motion.
             sleep(1000);
 
+            // Backup VERY SLOWLY to avoid tipping the Skystone over.
             preciseDrive(STONE_BACKUP_SPEED, -7, -7,
                     -7, -7, 15);
 
+            // Turn counterclockwise to account for "drift" caused by the friction of the Skystone
+            // against the field.
             preciseDrive(.2, -6, 6,
                     -6, 6, 5);
 
+            // Drive left, across the Blue Alliance Bridge.
             preciseDrive(1, -80, 80,
                     80, -80, 10);
 
+            // Set the position of the stoneGrabber ("t-bar") to being vertical
+            // to "let go" of the Skystone.
             robot.stoneGrabber.setPosition(.5);
 
+            // Drive right, back under the Skybridge to park.
             preciseDrive(1, 30, -30,
                     -30, 30, 10);
 
+            // Drive forward to hopefully allow our Alliance Partner to park as well.
             preciseDrive(1, 15, 15,
                     15, 15, 3);
         }
+        // Prepare to scan the second stone from the left if the third is not a Skystone:
         else {
 
+            // Drive backwards slightly to avoid dislodging any stones.
             preciseDrive(SLOW_DRIVE_SPEED, -3, -3,
                     -3, -3, 3);
 
+            // Drive left to approach the next Stone.
             preciseDrive(SLOW_DRIVE_SPEED, -8, 8,
                     8, -8, 3);
 
+            // Drive forwards slightly to approach the next Stone.
             preciseDrive(SLOW_DRIVE_SPEED, 3, 3,
                     3, 3, 3);
 
+            // At this point, the robot's color sensor should be directly in front of the second
+            // stone from the left. Scan it, and run the following code if it is a Skystone:
             if(isSkystone()){
 
+                // Make sure the chassisGrabber is in the same position.
                 robot.chassisGrabber.setPosition(1);
 
+                // Latch onto the Skystone using the stoneGrabber, by setting it to a horizontal
+                // position.
                 robot.stoneGrabber.setPosition(1);
 
+                // Wait for the servo to complete its motion.
                 sleep(1000);
 
+                // Backup VERY SLOWLY to avoid tipping the Skystone over.
                 preciseDrive(STONE_BACKUP_SPEED, -7, -7,
                         -7, -7, 15);
 
+                // Turn counterclockwise to account for "drift" caused by the friction of the Skystone
+                // against the field.
                 preciseDrive(.2, -6, 6,
                         -6, 6, 5);
 
+                // Drive left, across the Blue Alliance Bridge.
                 preciseDrive(1, -72, 72,
                         72, -72, 10);
 
+                // Set the position of the stoneGrabber ("t-bar") to being vertical
+                // to "let go" of the Skystone.
                 robot.stoneGrabber.setPosition(.5);
 
+                // Drive right, back under the Skybridge to park.
                 preciseDrive(1, 30, -30,
                         -30, 30, 10);
 
+                // Drive forward to hopefully allow our Alliance Partner to park as well.
                 preciseDrive(1, 15, 15,
                         15, 15, 3);
 
             }
+            // Prepare to grab the leftmost stone, which should be a Skystone if the other two
+            // are not:
             else {
 
+                // Drive backwards slightly to avoid dislodging any stones.
                 preciseDrive(SLOW_DRIVE_SPEED, -3, -3,
                         -3, -3, 3);
 
+                // Drive left to approach the last Stone.
                 preciseDrive(SLOW_DRIVE_SPEED, -10, 10,
                         10, -10, 3);
 
+                // Drive forwards slightly to approach the last Stone.
                 preciseDrive(SLOW_DRIVE_SPEED, 3.5, 3.5,
                         3.5, 3.5, 3);
 
+                // Make sure the chassisGrabber is in the same position.
                 robot.chassisGrabber.setPosition(1);
 
+                // Latch onto the Skystone using the stoneGrabber, by setting it to a horizontal
+                // position.
                 robot.stoneGrabber.setPosition(1);
 
+                // Wait for the servo to complete its motion.
                 sleep(2000);
 
+                // Backup VERY SLOWLY to avoid tipping the Skystone over.
                 preciseDrive(STONE_BACKUP_SPEED, -7.5, -7.5,
                         -7.5, -7.5, 15);
 
+                // Turn counterclockwise to account for "drift" caused by the friction of the Skystone
+                // against the field.
                 preciseDrive(.2, -6, 6,
                         -6, 6, 5);
 
+                // Drive left, across the Blue Alliance Bridge.
                 preciseDrive(1, -64, 64,
                         64, -64, 10);
 
+                // Set the position of the stoneGrabber ("t-bar") to being vertical
+                // to "let go" of the Skystone.
                 robot.stoneGrabber.setPosition(.5);
 
+                // Drive right, back under the Skybridge to park.
                 preciseDrive(1, 30, -30,
                         -30, 30, 10);
 
+                // Drive forward to hopefully allow our Alliance Partner to park as well.
                 preciseDrive(1, 15, 15,
                         15, 15, 3);
 
             }
         }
-
-        /*
-
-        // Strafe left to move under the bridge.
-
-        timeDrive(1, -1, 1, 1, -1,1.75);
-
-        // Move forward to avoid the other team's robot.
-
-        timeDrive(1, 1, 1, 1, 1, 1);
-
-         */
-
-
-
-
     }
-
 }

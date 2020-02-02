@@ -1,4 +1,3 @@
-// Boring legal stuff.
 /* Copyright (c) 2017 FIRST. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -28,24 +27,18 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-
-
-// The folder in which the code is located.
 package org.firstinspires.ftc.teamcode;
 
-
-
-// External "libraries" used in the code.
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.BRAKE;
+
 // The descriptions of the above bits of code would be redundant if listed in every program; as
 // a result, they will only be listed in RobotTemplate.
-
-
 
 // This is not an OpMode, and simply acts as an external "constructor" for the motors and servos
 // on the robot. This is a direct copy of HardwarePushbot, and should be treated as such.
@@ -92,25 +85,17 @@ public class RobotTemplate {
     // Located on the front of the robot.
     public Servo        stoneGrabber = null;
 
-
-
     // External constructor used inside of this constructor. Meta!
     HardwareMap hwMap          =  null;
 
-
-
     // Called to construct the robot template in another OpMode.
     public RobotTemplate(){}
-
-
 
     // Initializes the defined motors and servos.
     public void init(HardwareMap ahwMap) {
 
         // "Saves" the hardware map used to find motors and servos.
         hwMap = ahwMap;
-
-
 
         // Maps the motors found at certain ports on the robot "hub" on our robot to names used
         // to define them in the code. Going through their purposes is redundant, as said
@@ -136,8 +121,6 @@ public class RobotTemplate {
 
         colorSensor     = hwMap.get(ColorSensor.class, "color_sensor");
 
-
-
         // Set all motors to zero power so they don't run by mistake when initialized.
         leftFront.setPower(0);
         rightFront.setPower(0);
@@ -147,8 +130,6 @@ public class RobotTemplate {
         stoneLift.setPower(0);
         liftRotator.setPower(0);
 
-
-
         // Because of the orientation of the motors on our robot, the ones on the right side
         // have to be "flipped" in terms of direction. Sure, every instruction written with
         // these motors in mind could be multiplied by negative one, but that would be tedious
@@ -157,9 +138,10 @@ public class RobotTemplate {
         rightFront.setDirection(DcMotor.Direction.REVERSE);
         leftBack.setDirection(DcMotor.Direction.FORWARD);
         rightBack.setDirection(DcMotor.Direction.REVERSE);
+
+        // Make sure that the stoneLift "brakes" to combat gravity.
+        stoneLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
-
-
 
     // Function for moving all motors the same speed.
     public void motorsSpeed(double speed) {
@@ -169,4 +151,3 @@ public class RobotTemplate {
         rightBack.setPower(speed);
     }
  }
-

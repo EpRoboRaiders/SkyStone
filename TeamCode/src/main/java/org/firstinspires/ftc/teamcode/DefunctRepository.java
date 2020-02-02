@@ -162,6 +162,189 @@ public class DefunctRepository {
     }
 
           */
+       /*
+                // Display it for the driver.
+                telemetry.addData("Path1",  "Running to %7d :%7d", newLeftTarget,  newRightTarget);
+                telemetry.addData("Path2",  "Running at %7d :%7d",
+                        robot.leftFront.getCurrentPosition(),
+                        robot.rightFront.getCurrentPosition());
+                telemetry.update();
+                 */
 
+        /*
+
+        if (gamepad2.dpad_left != leftPressed) {
+
+            if(!leftPressed) {
+                if (liftSpeed == MEDIUM) {
+                    liftSpeed = LOW;
+                }
+                else if (liftSpeed == HIGH) {
+                    liftSpeed = MEDIUM;
+                }
+            }
+
+            leftPressed = !leftPressed;
+        }
+
+
+        if (gamepad2.dpad_right != rightPressed) {
+
+            if(!rightPressed) {
+                if (liftSpeed == LOW) {
+                    liftSpeed = MEDIUM;
+                }
+                else if (liftSpeed == MEDIUM) {
+                    liftSpeed = HIGH;
+                }
+            }
+
+            rightPressed = !rightPressed;
+        }
+        */
+
+
+    // Defunct drive modes that no member of the team preferred driving in. Descriptions of
+    // them can be found inside of their respective code.
+        /*
+        else if(driveMode[currentMode] == "pov") {
+
+            // In "pov' drive mode, the left joystick controls the speed of the robot, and the
+            // right joystick controls the heading. Refer to PushbotTeleopPOV_Linear for specifics
+            // on how it functions.
+
+            robot.leftFront.setPower(-gamepad1.left_stick_y + gamepad1.right_stick_x);
+            robot.leftBack.setPower(-gamepad1.left_stick_y + gamepad1.right_stick_x);
+            robot.rightFront.setPower(-gamepad1.left_stick_y + gamepad1.right_stick_x);
+            robot.rightBack.setPower(-gamepad1.left_stick_y + gamepad1.right_stick_x);
+        }
+        else if(driveMode[currentMode] == "debug") {
+
+            // In the "debug" drive mode, each stick on each controller controls its own motor with
+            // its "x" value. It is HIGHLY recommended to remove this before competition use.
+
+            robot.leftFront.setPower(gamepad1.right_stick_x);
+            robot.rightFront.setPower(gamepad2.left_stick_x);
+            robot.leftBack.setPower(gamepad1.left_stick_x);
+            robot.rightBack.setPower(gamepad2.right_stick_x);
+
+        }
+
+          for (int i=0; i<(Mode.values().length); i++){
+            telemetry.addData("Mode ", Mode.values()[i].ordinal());
+            telemetry.addData("Name", Mode.values()[i]);
+        }
+         */
+    // Changes the position of the "chassis" servo from .5 to .25, the range that it would
+    // realistically need to be for competition.
+
+        /*
+
+        if (gamepad2.left_bumper != leftBumperPressed) {
+
+            if (!leftBumperPressed) {
+
+                if (mountedPosition == 0) {
+                    mountedPosition = 1;
+                } else if (mountedPosition == 1) {
+                    mountedPosition = 0;
+                }
+            }
+
+            leftBumperPressed = !leftBumperPressed;
+        }
+
+         */
+
+
+    /*
+
+        // Strafe left to move under the bridge.
+
+        timeDrive(1, -1, 1, 1, -1,1.75);
+
+        // Move forward to avoid the other team's robot.
+
+        timeDrive(1, 1, 1, 1, 1, 1);
+
+         */
+
+
+
+    // Strafe right to move under the bridge.
+
+        /*
+
+        timeDrive(1, 1, -1, -1, 1,1.75);
+
+        // Move forward to avoid the other team's robot
+        timeDrive(1, 1, 1, 1, 1, 1);
+
+         */
+
+
+
+    // Get to a stone by using the distance sensor to approach it. Because of the sensitive
+    // nature of the colour sensor, the robot will have to almost be "touching" the stone.
+
+    // Scan the stone using the color sensor. If the "redness" of the Stone scanned is
+    // sufficiently low, then the stone can safely be labeled as a "Skystone" and the code
+    // can continue; otherwise, repeat the first step.
+
+    // "Pick up" the stone by a method currently unknown, given the odd angle the stones would
+    // need to be approached from in order to use the "Stone Lift."
+
+    // Move to the Building Zone by backing up and entering it.
+
+    // Release the stone from the robot; this can be done trivially given a "method" by which
+    // the stone is grabbed.
+
+    // Park under the bridge, or go for another Skystone if time allows (which it most likely
+    // will not).
+
+
+
+    // Code to approach the first stone for scanning.
+
+    // Code to scan the first stone to check if it is a Skystone.\
+
+        /*
+
+        if(isSkystone()) {
+
+            // Code to pick up and deliver the first stone if it can be reasonably identified as
+            // a Skystone.
+
+        }
+        else {
+
+            // Code to approach the second stone for scanning if if it is of the "Sky" variety and
+            // as such earns the robot picking it up bonus points.
+
+            if(isSkystone()){
+
+                // Code to pick up and deliver the second stone if it is of a nature which allows it
+                // to be identified by the prefix "Sky," referring to the black "Star Wars" related
+                // image located on its side.
+
+            }
+            else{
+
+                // Code to approach the third and final stone and pick it up if it, according to
+                // the FTC 2019-2020 Season rules, unlike the other two stones scanned before it,
+                // falls under the classification of being a "Skystone" (which, notably, is the
+                // title of the current FTC Game), and as such earns a robot that delivers it across
+                // its alliances Skybridge 10 bonus points. Note that if the Skystone is not one of
+                // the first two stones delivered across the previously mentioned bridge, it earns
+                // the deliverer only 2 points, the same as a regular Stone.
+            }
+        }
+
+         */
+
+
+
+    // robot.leftClamp.setPower(gamepad2.left_stick_y);
+    // robot.rightClamp.setPower(gamepad2.left_stick_y);
 
 }
