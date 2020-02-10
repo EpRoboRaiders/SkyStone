@@ -36,7 +36,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
-
+@Disabled
 @Autonomous(name="Red Team- Start By Foundation", group="Linear Opmode")
 
 // FoundationRed is run during Autonomous when our robot is on the Red team and is attempting
@@ -67,6 +67,9 @@ public class FoundationRed extends AutonomousBase {
         // slightly is acceptable.
         timeDrive(1, 1, 1,
                 1, 1, .8);
+
+        timeDrive(.5, 1, 1,
+                1, 1, .2);
 
         // Lower the clamps to latch onto the foundation.
         clampSet("down");

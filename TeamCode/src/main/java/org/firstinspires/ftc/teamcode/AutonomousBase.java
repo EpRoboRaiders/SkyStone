@@ -45,6 +45,11 @@ public class AutonomousBase extends LinearOpMode {
     static final double  SLOW_DRIVE_SPEED   = .5;
     static final double  STONE_BACKUP_SPEED = .075;
 
+    public String team;
+    public String starting_location;
+    public String parking_location;
+    public boolean autonomous;
+
     // Create a timer named "runtime" based on the ElapsedTime class.
     ElapsedTime     runtime = new ElapsedTime();
 
@@ -228,8 +233,15 @@ public class AutonomousBase extends LinearOpMode {
         // Initialize the already-defined "robot" based on the RobotTemplate class.
         robot.init(hardwareMap);
 
+        determineAutonomous();
+
         // Display a statement in Telemetry indicating that the robot is ready to be started.
+
         telemetry.addData("Status", "Initialized");
+        telemetry.addData("Team", team);
+        telemetry.addData("Starting Location", starting_location);
+        telemetry.addData("Parking Location", parking_location);
+        telemetry.addData("Autonomous", autonomous);
         telemetry.update();
 
         // Wait until the "start" button is pressed.
@@ -241,5 +253,102 @@ public class AutonomousBase extends LinearOpMode {
         // effectively 60% power.
         robot.leftClamp.setPower(-.3970);
 
+    }
+    public void determineAutonomous() {
+
+        telemetry.addData("Press The Button of the Color of Your Alliance", "");
+        telemetry.addData("Use Controller 1 (Press Start + A)", "");
+        telemetry.update();
+
+        while(!(gamepad1.b || gamepad1.x)) {}
+        if(gamepad1.x){
+            team = "Blue";
+        }
+        else if(gamepad1.b){
+            team = "Red";
+        }
+        while(gamepad1.b || gamepad1.x) {}
+
+        telemetry.addData("Team", team);
+        telemetry.addData("Press Up if Parking by Far Side of Bridge", "");
+        telemetry.addData("Press Down if Parking by Wall", "");
+        telemetry.addData("Use Controller 1 (Press Start + A)", "");
+        telemetry.update();
+
+        while(!(gamepad1.dpad_up || gamepad1.dpad_down)) {}
+        if(gamepad1.dpad_up){
+             parking_location = "Bridge";
+        }
+        else if(gamepad1.dpad_down){
+            parking_location = "Wall";
+        }
+
+        while(gamepad1.dpad_up || gamepad1.dpad_down) {}
+
+        telemetry.addData("Team", team);
+        telemetry.addData("Parking Location", parking_location);
+        telemetry.addData("Press The Direction of the Side of the " +
+                "Bridge you Are Starting On", "");
+        telemetry.addData("Use Controller 1 (Press Start + A)", "");
+        telemetry.update();
+
+        while(!(gamepad1.dpad_left || gamepad1.dpad_right)) {}
+
+        if(gamepad1.dpad_left){
+            if(team == "Red") {
+                starting_location = "Loading Zone";
+            }
+            else if(team == "Blue") {
+                starting_location = "Building Zone";
+            }
+        }
+        else if(gamepad1.dpad_right){
+
+            if(team == "Red") {
+                starting_location = "Building Zone";
+            }
+            else if(team == "Blue") {
+                starting_location = "Loading Zone";
+            }
+        }
+
+        while(gamepad1.dpad_left || gamepad1.dpad_right) {}
+
+        telemetry.addData("Team", team);
+        telemetry.addData("Starting Location", starting_location);
+        telemetry.addData("Parking Location", parking_location);
+        telemetry.addData("Press X if Doing Autonomous ", "");
+        telemetry.addData("Press B if Just Parking", "");
+        telemetry.addData("Use Controller 1 (Press Start + A)", "");
+        telemetry.update();
+
+        while(!(gamepad1.x || gamepad1.b)) {}
+
+        if(gamepad1.x) {
+            autonomous = true;
+        }
+        else if(gamepad1.b){
+            autonomous = false;
+        }
+
+        while(gamepad1.x || gamepad1.b) {}
+
+        telemetry.addData("Team", team);
+        telemetry.addData("Starting Location", starting_location);
+        telemetry.addData("Parking Location", parking_location);
+        telemetry.addData("Autonomous", autonomous);
+        telemetry.addData("Press X to Confirm", "");
+        telemetry.addData("Press B to Start Over", "");
+        telemetry.addData("Use Controller 1 (Press Start + A)", "");
+        telemetry.update();
+
+        while(!(gamepad1.x || gamepad1.b)) {}
+
+        if(gamepad1.x) {}
+        else if(gamepad1.b){
+            determineAutonomous();
+        }
+
+        while(gamepad1.x || gamepad1.b) {}
     }
 }

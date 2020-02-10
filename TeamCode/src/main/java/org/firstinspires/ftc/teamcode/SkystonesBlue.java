@@ -37,6 +37,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
+@Disabled
 @Autonomous(name="Blue Team- Start By Skystones", group="Linear Opmode")
 
 // SkystonesBlue is run during Autonomous when our robot is on the Blue team and is attempting
