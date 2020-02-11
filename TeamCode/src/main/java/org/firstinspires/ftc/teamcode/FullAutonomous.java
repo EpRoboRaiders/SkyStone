@@ -3,6 +3,10 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 @Autonomous(name="Robot Autonomous", group="Linear Opmode")
+
+// FullAutonomous is a combination of the different Autonomous programs developed before the State
+// competition, plus a few permutations of them in order to react to the needs of other teams'
+// Autonomous programs.
 public class FullAutonomous extends AutonomousBase{
     @Override
 

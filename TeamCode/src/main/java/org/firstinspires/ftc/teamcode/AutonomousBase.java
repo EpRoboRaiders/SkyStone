@@ -41,7 +41,11 @@ public class AutonomousBase extends LinearOpMode {
     // After trial and error, it was determined that 120 encoder counts is roughly equal to 1 inch.
     // The actual amount is closer to 119 counts, but 120 is a nicer number for use in calculations
     // and has no reason to be changed.
-    static final int     COUNTS_PER_INCH    = 120;
+
+    // Because the "new" motors have an rpm that is 5.17x the rpm of the "old" motors, we can
+    // simply multiply the "old" counts per inch by 5.17 to get a CPM of roughly 620.
+    static final double     COUNTS_PER_INCH         = 620;
+
     static final double  SLOW_DRIVE_SPEED   = .5;
     static final double  STONE_BACKUP_SPEED = .075;
 
