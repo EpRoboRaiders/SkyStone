@@ -31,17 +31,13 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
-@Disabled
-@Autonomous(name="Red Team- Start By Foundation", group="Linear Opmode")
+
+//@Disabled
+@Autonomous(name="Red Team-Bianca- Start By Foundation", group="Linear Opmode")
 
 // FoundationRed is run during Autonomous when our robot is on the Red team and is attempting
 // to move the foundation. Note that it is based on the AutonmousBase class, and uses its methods.
-public class FoundationRed extends AutonomousBase {
+public class FoundationRedBianca extends AutonomousBase {
 
     @Override
     public void runOpMode() {
@@ -53,44 +49,50 @@ public class FoundationRed extends AutonomousBase {
 
         waitForStart();
 
+        //robot.leftClamp.setPower(-.3970);
+        telemetry.addData("Status", "Executed First");
+        telemetry.update();
 
-        // Drive forward to get closer to the foundation.
-        timeDrive(1, 1, 1,
-                1, 1, .25);
+        // Strafe right to get lined up with center of the foundation.
+        preciseDrive(.5, 12, -12,
+                -12, 12, 5);
 
-        // Strafe right to become "centered" on the platform, and so both clamps can attach.
-        timeDrive(1, 1, -1,
-                -1, 1,.5);
+        pause(30);
 
-        // Drive forward to "push" the robot up against the foundation. Pushing the foundation
-        // slightly is acceptable.
-        timeDrive(1, 1, 1,
-                1, 1, .8);
+        // Move forward to be able to grab the foundation.
+        preciseDrive(.5, 28, 28,
+                28, 28,5);
 
-        timeDrive(.5, 1, 1,
-                1, 1, .2);
+        // Strafe right so the foundation will enter the build site when it is pulled back by the
+        // robot.
+        preciseDrive(.5, 9, -9,
+                -9, 9, 5);
+
+        // Drive backwards to pull the foundation into the build site.
+        preciseDrive(.5, -28, -28,
+                -28, -28, .5);
 
         // Lower the clamps to latch onto the foundation.
-        clampSet("down");
+        // clampSet("down");
 
-        // Drive backwards to move the foundation back into the base.
-        timeDrive(1, -1, -1,
-                -1, -1, 2);
+        // Strafe left to park under the bridge.
+        preciseDrive(.5, -63, 63,
+                63, -63, .5);
 
         // Strafe right to "force" the foundation against the wall.
-        timeDrive(1, 1, -1,
-                -1, 1,.75);
+        //preciseDrive(1, 1, -1,
+        //       -1, 1,.75);
 
         // Drive backwards to make sure at least part of the foundation is in the base, and that
         // the robot is touching the corner of the field.
-        timeDrive(1, -1, -1,
-                -1, -1, .25);
+        //preciseDrive(1, -1, -1,
+        //       -1, -1, .25);
 
         // Raise the clamps to let go from the foundation.
-        clampSet("up");
+       // clampSet("up");
 
         // Strafe left to move under the bridge.
-        timeDrive(1, -1, 1,
-                1, -1, 3);
+       // preciseDrive(1, -1, 1,
+        //  1, -1, 3);
     }
 }

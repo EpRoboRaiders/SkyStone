@@ -7,9 +7,9 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 // FullAutonomous is a combination of the different Autonomous programs developed before the State
 // competition, plus a few permutations of them in order to react to the needs of other teams'
 // Autonomous programs.
-public class FullAutonomous extends AutonomousBase{
-    @Override
+public class FullAutonomous extends AutonomousBase {
 
+    @Override
     public void runOpMode() {
 
         initRobot();
@@ -20,6 +20,26 @@ public class FullAutonomous extends AutonomousBase{
 
                 // Translation: Run the code to identify and move Skystones.
                 if (starting_location == "Loading Zone") {
+
+                    // Set the position of the stoneGrabber ("t-bar") to being vertical
+                    // to prepare to grab a Skystone.
+                    robot.stoneGrabber.setPosition(0);
+
+                    // Drive "forward" (actually backward) to prepare to align with a Stone.
+                    preciseDrive(SLOW_DRIVE_SPEED, -25, -25,
+                            -25, -25, 5);
+
+                    // Strafe "left" (actually right) to align the robot with
+                    // the third Stone from the right.
+                    preciseDrive(SLOW_DRIVE_SPEED, 10, -10,
+                            -10, 10, 3);
+
+                    // Drive "forward" (actually backward) to approach the first Stone.
+                    preciseDrive(SLOW_DRIVE_SPEED, 5, 5,
+                            5, 5, 5);
+
+
+                    /*
 
                     // Set the position of chassisGrabber (which the stoneGrabber is mounted on) to 1 for
                     // consistency.
@@ -176,6 +196,8 @@ public class FullAutonomous extends AutonomousBase{
 
                         }
                     }
+
+                     */
                 }
                 // Translation: Run the code to reposition the Foundation.
                 else if (starting_location == "Building Zone") {
@@ -461,6 +483,8 @@ public class FullAutonomous extends AutonomousBase{
         }
 
         if(parking_location == "bridge") {
+
+            /*
             // Drive forwards into the "far side" of the Alliance bridge.
             preciseDrive(.5, 28, 28,
                     28, 28,5);
@@ -468,7 +492,10 @@ public class FullAutonomous extends AutonomousBase{
         else if(parking_location == "wall") {
             // Drive backwards into the wall.
             preciseDrive(.5, -28, -28,
-                    -28, -28,5);
+                    -28, -28,5):
+
+             */
         }
+
     }
 }

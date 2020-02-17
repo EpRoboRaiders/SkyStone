@@ -37,7 +37,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
-@Disabled
 @Autonomous(name="Red Team- Start By Skystones", group="Linear Opmode")
 
 // SkystonesRed is run during Autonomous when our robot is on the Red team and is attempting
@@ -50,15 +49,112 @@ public class SkystonesRed extends AutonomousBase {
 
         initRobot();
 
-        // Set the position of chassisGrabber (which the stoneGrabber is mounted on) to 1 for
-        // consistency.
-        robot.chassisGrabber.setPosition(1);
-
         // Set the position of the stoneGrabber ("t-bar") to being vertical
         // to prepare to grab a Skystone.
-        robot.stoneGrabber.setPosition(.5);
+        grabStone("up");
 
 
+        // Drive "forward" (actually backward) to prepare to align with a Stone.
+        preciseDrive(.1, -20, -20,
+                -20, -20, 10);
+
+        // Strafe "left" (actually right) to align the robot with
+        // the third Stone from the right.
+        preciseDrive(.1, 9.5, -9.5,
+                -9.5, 9.5, 9.5);
+
+        // Drive "forward" (actually backward) to approach the first Stone.
+        preciseDrive(.1, -6.25, -6.25,
+                -6.25, -6.25, 10);
+
+        if(isSkystone()) {
+
+            grabStone("down");
+
+            preciseDrive(.1, 24, 24,
+                    24, 24, 10);
+
+            preciseDrive(.25, -72, 72,
+                    72, -72, 9.5);
+
+            grabStone("up");
+
+            preciseDrive(.1, 12, -12,
+                    -12, 12, 9.5);
+
+            preciseDrive(.1, -12, -12,
+                    -12, -12, 10);
+
+        }
+        else {
+
+            preciseDrive(.1, 3, 3,
+                    3, 3, 10);
+
+            preciseDrive(.1, -8.25, 8.25,
+                    8.25, -8.25, 9.5);
+
+            preciseDrive(.1, -3.25, -3.25,
+                    -3.25, -3.25, 10);
+
+            if(isSkystone()) {
+
+                grabStone("down");
+
+                preciseDrive(.1, 24, 24,
+                        24, 24, 10);
+
+                preciseDrive(.25, -64, 64,
+                        64, -64, 9.5);
+
+                grabStone("up");
+
+                preciseDrive(.1, 12, -12,
+                        -12, 12, 9.5);
+
+                preciseDrive(.1, -12, -12,
+                        -12, -12, 10);
+
+            }
+            else {
+
+                preciseDrive(.1, 3, 3,
+                        3, 3, 10);
+
+                preciseDrive(.1, -7.5, 7.5,
+                        7.5, -7.5, 9.5);
+
+                preciseDrive(.1, -3.25, -3.25,
+                        -3.25, -3.25, 10);
+
+                grabStone("down");
+
+                preciseDrive(.1, 24, 24,
+                        24, 24, 10);
+
+                preciseDrive(.25, -56, 56,
+                        56, -56, 9.5);
+
+                grabStone("up");
+
+                preciseDrive(.1, 12, -12,
+                        -12, 12, 9.5);
+
+                preciseDrive(.1, -12, -12,
+                        -12, -12, 10);
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+        /*
         // Drive forward to prepare to align with a Stone.
         preciseDrive(SLOW_DRIVE_SPEED, 25, 25,
                 25, 25, 3);
@@ -217,5 +313,9 @@ public class SkystonesRed extends AutonomousBase {
 
             }
         }
+
+         */
     }
+
+
 }

@@ -44,9 +44,10 @@ public class AutonomousBase extends LinearOpMode {
 
     // Because the "new" motors have an rpm that is 5.17x the rpm of the "old" motors, we can
     // simply multiply the "old" counts per inch by 5.17 to get a CPM of roughly 620.
-    static final double     COUNTS_PER_INCH         = 620;
+    static final double     COUNTS_PER_INCH         = 23; //620;
 
-    static final double  SLOW_DRIVE_SPEED   = .5;
+
+    static final double  SLOW_DRIVE_SPEED   = .25;
     static final double  STONE_BACKUP_SPEED = .075;
 
     public String team;
@@ -122,6 +123,8 @@ public class AutonomousBase extends LinearOpMode {
             // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
             // its target position, the motion will stop.  This is "safer" in the event that the robot will
             // always end the motion as soon as possible.
+            telemetry.addData("LeftFront Encoder Start", robot.leftFront.getCurrentPosition());
+            telemetry.addData("LeftFront Encoder Desired : ", robot.leftFront.getTargetPosition());
             while (opModeIsActive() &&
                     (runtime.seconds() < timeoutS)
                             && robot.leftFront.isBusy() && robot.rightFront.isBusy()
@@ -132,6 +135,8 @@ public class AutonomousBase extends LinearOpMode {
             robot.rightFront.setPower(0);
             robot.leftBack.setPower(0);
             robot.rightBack.setPower(0);
+            telemetry.addData("LeftFront Encoder Current:", robot.leftFront.getCurrentPosition());
+            telemetry.update();
 
             // Turn off RUN_TO_POSITION
             robot.leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -146,31 +151,17 @@ public class AutonomousBase extends LinearOpMode {
 
     // Control the "clamps" on the robot to grab the Foundation during Autonomous.
     public void clampSet(String clampPosition) {
-
-        // Reset the timer on the robot.
-        runtime.reset();
-
-        // Because the position of the clamps is controlled by "360" servos, they have to be
-        // controlled like motors; i.e. ran like a motor, in this case for 8 seconds. Turn them on
-        // based on the argument clampPosition when the function is called.
         if(clampPosition == "up") {
 
-            robot.leftClamp.setPower(-1);
-            robot.rightClamp.setPower(-1);
+            robot.leftClamp.setPosition(-1);
+            robot.rightClamp.setPosition(-1);
         }
         else if (clampPosition == "down") {
 
-            robot.leftClamp.setPower(1);
-            robot.rightClamp.setPower(1);
+            robot.leftClamp.setPosition(1);
+            robot.rightClamp.setPosition(1);
         }
 
-        // Wait for 8 seconds.
-        pause(8);
-
-
-        // Set the power of the servos to 0 (or in the case of leftClamp with a drift, -.3970)
-        robot.leftClamp.setPower(-.3970);
-        robot.rightClamp.setPower(0);
     }
 
     // pause is a (probably unnecessary) function that uses the timer "runtime" to wait for a
@@ -237,16 +228,17 @@ public class AutonomousBase extends LinearOpMode {
         // Initialize the already-defined "robot" based on the RobotTemplate class.
         robot.init(hardwareMap);
 
-        determineAutonomous();
+        // determineAutonomous();
 
         // Display a statement in Telemetry indicating that the robot is ready to be started.
 
-        telemetry.addData("Status", "Initialized");
-        telemetry.addData("Team", team);
-        telemetry.addData("Starting Location", starting_location);
-        telemetry.addData("Parking Location", parking_location);
-        telemetry.addData("Autonomous", autonomous);
-        telemetry.update();
+        // telemetry.addData("Status", "Initialized");
+        // telem
+        // etry.addData("Team", team);
+        // telemetry.addData("Starting Location", starting_location);
+        // telemetry.addData("Parking Location", parking_location);
+        // telemetry.addData("Autonomous", autonomous);
+        // telemetry.update();
 
         // Wait until the "start" button is pressed.
         waitForStart();
@@ -255,7 +247,7 @@ public class AutonomousBase extends LinearOpMode {
         // has to be set to a constant negative value. The only major downside to this fix
         // is that the servo moves more slowly in the opposite direction, as it is capped at
         // effectively 60% power.
-        robot.leftClamp.setPower(-.3970);
+        //robot.leftClamp.setPower(-.3970);
 
     }
     public void determineAutonomous() {
@@ -354,5 +346,17 @@ public class AutonomousBase extends LinearOpMode {
         }
 
         while(gamepad1.x || gamepad1.b) {}
+    }
+
+    public void grabStone(String position) {
+        if(position == "up") {
+
+            robot.stoneGrabber.setPosition(1);
+        }
+        else if(position == "down") {
+
+            robot.stoneGrabber.setPosition(.5);
+            sleep(1000);
+        }
     }
 }

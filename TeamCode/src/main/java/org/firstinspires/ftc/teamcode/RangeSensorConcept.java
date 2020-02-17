@@ -33,8 +33,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-@TeleOp(name="Range Sensor Concept", group="Iterative Opmode")
-@Disabled
+@TeleOp(name="General Test", group="Iterative Opmode")
 public class RangeSensorConcept extends OpMode {
 
     // Creates a motor based on the RobotTemplate class.
@@ -71,7 +70,9 @@ public class RangeSensorConcept extends OpMode {
 
     public void loop() {
 
-        robot.stoneGrabber.setPosition((gamepad2.left_stick_y / 2) + .5);
+        robot.leftClamp.setPosition(-((gamepad2.left_stick_y / 2) + .5));
+        robot.rightClamp.setPosition(((gamepad2.left_stick_y / 2) + .5));
+        robot.stoneGrabber.setPosition((gamepad2.right_stick_y * .5) + .5);
 
     }
 

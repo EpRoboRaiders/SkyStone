@@ -66,8 +66,8 @@ public class RobotTemplate {
 
     // Servos located on the front of the robot that "latch onto" the Foundation when we are trying
     // to move it, whether in Autonomous or Endgame.
-    public CRServo      leftClamp      = null;
-    public CRServo      rightClamp     = null;
+    public Servo      leftClamp      = null;
+    public Servo      rightClamp     = null;
 
     // Servo used to "rotate" the Stone clamp itself (NOT the entire lift; the liftRotator serves
     // this purpose) during the Driver Controlled period.
@@ -110,8 +110,8 @@ public class RobotTemplate {
         stoneLift       = hwMap.get(DcMotor.class, "stone_lift");
         liftRotator     = hwMap.get(DcMotor.class, "lift_rotator");
 
-        leftClamp       = hwMap.get(CRServo.class, "left_clamp");
-        rightClamp      = hwMap.get(CRServo.class, "right_clamp");
+        leftClamp       = hwMap.get(Servo.class, "left_clamp");
+        rightClamp      = hwMap.get(Servo.class, "right_clamp");
 
         chassisGrabber  = hwMap.get(Servo.class, "chassis_grabber");
         mountedGrabber  = hwMap.get(Servo.class, "mounted_grabber");
@@ -141,6 +141,10 @@ public class RobotTemplate {
 
         // Make sure that the stoneLift "brakes" to combat gravity.
         stoneLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
     // Function for moving all motors the same speed.

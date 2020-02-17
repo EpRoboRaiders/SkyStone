@@ -246,11 +246,11 @@ public class DriverControl extends OpMode {
         }
         // If the "up" arrow is pressed, raise the stoneLift at half power.
         else if(gamepad2.dpad_up) {
-            robot.stoneLift.setPower(.5);
+            robot.stoneLift.setPower(1);
         }
         // If the "down" arrow is pressed, lower the stoneLift at half power.
         else if(gamepad2.dpad_down){
-            robot.stoneLift.setPower(-.5);
+            robot.stoneLift.setPower(-1);
         }
         // Set the power of stoneLift to 0 if no directional buttons are pressed.
         else{
@@ -260,6 +260,8 @@ public class DriverControl extends OpMode {
         // Set the power of liftRotator to the "y" value of the right stick of the second
         // controller.
         robot.liftRotator.setPower(gamepad2.right_stick_y);
+
+        /*
 
         // If the "x" button is pressed on the second controller, set the speed of leftClamp
         // and rightClamp to 1 (going up).
@@ -277,6 +279,8 @@ public class DriverControl extends OpMode {
             robot.leftClamp.setPower(-.3970);
             robot.rightClamp.setPower(0);
         }
+
+         */
     }
 
     private void clampControl() {

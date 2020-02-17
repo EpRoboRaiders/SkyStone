@@ -37,7 +37,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
-@Disabled
 @Autonomous(name="Blue Team- Start By Skystones", group="Linear Opmode")
 
 // SkystonesBlue is run during Autonomous when our robot is on the Blue team and is attempting
@@ -47,6 +46,101 @@ public class SkystonesBlue extends AutonomousBase {
 
     @Override
     public void runOpMode() {
+
+        initRobot();
+
+
+        grabStone("up");
+
+        preciseDrive(.1, -20, -20,
+                -20, -20, 10);
+
+        preciseDrive(.1, -1.5, 1.5,
+                 1.5, -1.5, .5);
+
+        // Drive "forward" (actually backward) to approach the first Stone.
+        preciseDrive(.1, -7, -7,
+                -7, -7, 10);
+
+        if(isSkystone()) {
+
+            grabStone("down");
+
+            preciseDrive(.1, 24, 24,
+                    24, 24, 10);
+
+            preciseDrive(.25, 60, -60,
+                    -60, 60, 9.5);
+
+            grabStone("up");
+
+            preciseDrive(.1, -12, 12,
+                    12, -12, 9.5);
+
+            preciseDrive(.1, -15, -15,
+                    -15, -15, 10);
+
+        }
+        else {
+
+            preciseDrive(.1, 3, 3,
+                    3, 3, 10);
+
+            preciseDrive(.1, 8.25, -8.25,
+                    -8.25, 8.25, 9.5);
+
+            preciseDrive(.1, -3.25, -3.25,
+                    -3.25, -3.25, 10);
+
+            if(isSkystone()) {
+
+                grabStone("down");
+
+                preciseDrive(.1, 24, 24,
+                        24, 24, 10);
+
+                preciseDrive(.25, 52, -52,
+                        -52, 52, 9.5);
+
+                grabStone("up");
+
+                preciseDrive(.1, -12, 12,
+                        12, -12, 9.5);
+
+                preciseDrive(.1, -15, -15,
+                        -15, -15, 10);
+
+            }
+            else {
+
+                preciseDrive(.1, 3, 3,
+                        3, 3, 10);
+
+                preciseDrive(.1, 7.5, -7.5,
+                        -7.5, 7.5, 9.5);
+
+                preciseDrive(.1, -3.25, -3.25,
+                        -3.25, -3.25, 10);
+
+                grabStone("down");
+
+                preciseDrive(.1, 24, 24,
+                        24, 24, 10);
+
+                preciseDrive(.25, 44, -44,
+                        -44, 44, 9.5);
+
+                grabStone("up");
+
+                preciseDrive(.1, -12, 12,
+                        12, -12, 9.5);
+
+                preciseDrive(.1, -15, -15,
+                        -15, -15, 10);
+            }
+        }
+
+        /*
 
         initRobot();
 
@@ -217,5 +311,7 @@ public class SkystonesBlue extends AutonomousBase {
 
             }
         }
+
+         */
     }
 }
