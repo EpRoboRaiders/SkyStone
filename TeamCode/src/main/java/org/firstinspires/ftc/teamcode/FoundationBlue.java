@@ -36,11 +36,12 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
-@Disabled
+
 @Autonomous(name="Blue Team- Start By Foundation", group="Linear Opmode")
 
 // FoundationBlue is run during Autonomous when our robot is on the Blue team and is attempting
 // to move the foundation. Note that it is based on the AutonomousBase class, and uses its methods.
+
 public class FoundationBlue extends AutonomousBase {
 
     @Override
@@ -48,6 +49,42 @@ public class FoundationBlue extends AutonomousBase {
 
         // Initialize the robot.
         initRobot();
+
+        // Drive forward to get closer to the foundation.
+        preciseDrive(.1, 24, 24,
+                24, 24, 10);
+
+        // Strafe left to get lined up with center of the foundation.
+        preciseDrive(.1, -12, 12,
+                12, -12, 10);
+
+        // Drive forward to "push" the robot up against the foundation. Pushing the foundation
+        // slightly is acceptable.
+        preciseDrive(.1, 6, 6,
+                6, 6, 10);
+
+        // Drive backwards to move the foundation back into the base.
+
+        preciseDrive(.1, -32, -32,
+                -32, -32, 10);
+
+        // Strafe left to "force" the foundation against the wall.
+
+        preciseDrive(.1, -14, 14,
+                14, -14, 10);
+
+        // Drive backwards to make sure at least part of the foundation is in the base, and that
+        // the robot is touching the corner of the field.
+
+        preciseDrive(.1, -2, -2,
+                -2, -2, 10);
+
+        // Strafe right to move under the bridge.
+
+        preciseDrive(.1, 72, -72,
+                -72, 72, 10);
+
+        /*
 
         // Drive forward to get closer to the foundation.
         timeDrive(1, 1, 1,
@@ -87,5 +124,8 @@ public class FoundationBlue extends AutonomousBase {
         // Strafe right to move under the bridge.
         timeDrive(1, 1, -1,
                 -1, 1, 3);
+
+
+         */
     }
 }

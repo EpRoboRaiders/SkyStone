@@ -215,10 +215,10 @@ public class AutonomousBase extends LinearOpMode {
         telemetry.addData("Blue ", robot.colorSensor.blue());
         telemetry.update();
 
-        // The "red" value of a Skystone is generally less than 120; check to see if this is true.
-        // Funny thing: This line initially read "return !(Red >= 120)" until it was "discovered"
+        // The "red" value of a Skystone is generally less than 200; check to see if this is true.
+        // Funny thing: This line initially read "return !(Red >= 200)" until it was "discovered"
         // that "not greater than or equal to" is an equivalent statement to "less than."
-        return Red < 120;
+        return Red < 200;
     }
 
     // Because the statements in initRobot were being called at the beginning of every Autonomous
@@ -232,9 +232,8 @@ public class AutonomousBase extends LinearOpMode {
 
         // Display a statement in Telemetry indicating that the robot is ready to be started.
 
-        // telemetry.addData("Status", "Initialized");
-        // telem
-        // etry.addData("Team", team);
+        telemetry.addData("Status", "Initialized");
+        // telemetry.addData("Team", team);
         // telemetry.addData("Starting Location", starting_location);
         // telemetry.addData("Parking Location", parking_location);
         // telemetry.addData("Autonomous", autonomous);

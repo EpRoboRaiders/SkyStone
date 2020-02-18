@@ -33,6 +33,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+
+
 @TeleOp(name="General Test", group="Iterative Opmode")
 public class RangeSensorConcept extends OpMode {
 
@@ -70,9 +72,18 @@ public class RangeSensorConcept extends OpMode {
 
     public void loop() {
 
-        robot.leftClamp.setPosition(-((gamepad2.left_stick_y / 2) + .5));
-        robot.rightClamp.setPosition(((gamepad2.left_stick_y / 2) + .5));
-        robot.stoneGrabber.setPosition((gamepad2.right_stick_y * .5) + .5);
+       // robot.leftClamp.setPosition(((gamepad2.left_stick_y / 2) + .5));
+       // robot.rightClamp.setPosition(((gamepad2.right_stick_y / 2) + .5));
+
+        if(gamepad2.a){
+            robot.rightClamp.setPosition(0);
+            robot.leftClamp.setPosition(1);
+        }
+        else if(gamepad2.b){
+            robot.rightClamp.setPosition(.275);
+            robot.leftClamp.setPosition(.775);
+        }
+
 
     }
 
