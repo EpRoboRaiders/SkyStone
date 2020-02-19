@@ -1,7 +1,9 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
+@Disabled
 @Autonomous(name="Robot Autonomous", group="Linear Opmode")
 
 // FullAutonomous is a combination of the different Autonomous programs developed before the State
@@ -10,7 +12,9 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 public class FullAutonomous extends AutonomousBase {
 
     @Override
-    public void runOpMode() {
+    public void runOpMode() {}
+
+        /*
 
         initRobot();
 
@@ -197,7 +201,7 @@ public class FullAutonomous extends AutonomousBase {
                         }
                     }
 
-                     */
+
                 }
                 // Translation: Run the code to reposition the Foundation.
                 else if (starting_location == "Building Zone") {
@@ -495,7 +499,9 @@ public class FullAutonomous extends AutonomousBase {
                     -28, -28,5):
 
              */
-        }
 
-    }
+
+
+
+
 }

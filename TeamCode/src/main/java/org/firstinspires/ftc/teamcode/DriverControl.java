@@ -121,9 +121,14 @@ public class DriverControl extends OpMode {
     @Override
     public void init_loop() {}
 
-    // Runs once after the "start" is pressed on the phone. Currently, it serves no function.
+    // Runs once after the "start" is pressed on the phone. Currently, it simply moves the T-bar
+    // to an upright position.
     @Override
-    public void start() {}
+    public void start() {
+
+        // Move the t-bar to an upright position.
+        robot.stoneGrabber.setPosition(1);
+    }
 
     // Runs repeatedly after the "start" button is pressed on the phone.
 
@@ -261,26 +266,20 @@ public class DriverControl extends OpMode {
         // controller.
         robot.liftRotator.setPower(gamepad2.right_stick_y);
 
-        /*
 
-        // If the "x" button is pressed on the second controller, set the speed of leftClamp
-        // and rightClamp to 1 (going up).
-        if(gamepad2.x) {
-            robot.leftClamp.setPower(1);
-            robot.rightClamp.setPower(1);
+        // Set the foundation clamps to a "down" position if "x" is pressed; otherwise, set the
+        // clamps to "up."
+
+        if(gamepad2.x){
+            robot.rightClamp.setPosition(0);
+            robot.leftClamp.setPosition(1);
         }
-        // If "b" is pressed, set them to -1 (going down).
-        else if (gamepad2.b) {
-            robot.leftClamp.setPower(-1);
-            robot.rightClamp.setPower(-1);
-        }
-        // Otherwise, set them to a speed of 0 (or -.3970 in the case of leftClamp. which drifts).
-        else {
-            robot.leftClamp.setPower(-.3970);
-            robot.rightClamp.setPower(0);
+        else if(gamepad2.b){
+            robot.rightClamp.setPosition(.275);
+            robot.leftClamp.setPosition(.775);
         }
 
-         */
+
     }
 
     private void clampControl() {

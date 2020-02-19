@@ -347,4 +347,563 @@ public class DefunctRepository {
     // robot.leftClamp.setPower(gamepad2.left_stick_y);
     // robot.rightClamp.setPower(gamepad2.left_stick_y);
 
+    /*
+
+        // If the "x" button is pressed on the second controller, set the speed of leftClamp
+        // and rightClamp to 1 (going up).
+        if(gamepad2.x) {
+            robot.leftClamp.setPower(1);
+            robot.rightClamp.setPower(1);
+        }
+        // If "b" is pressed, set them to -1 (going down).
+        else if (gamepad2.b) {
+            robot.leftClamp.setPower(-1);
+            robot.rightClamp.setPower(-1);
+        }
+        // Otherwise, set them to a speed of 0 (or -.3970 in the case of leftClamp. which drifts).
+        else {
+            robot.leftClamp.setPower(-.3970);
+            robot.rightClamp.setPower(0);
+        }
+
+         */
+
+    /*
+
+        // Drive forward to get closer to the foundation.
+        timeDrive(1, 1, 1,
+                1, 1, .25);
+
+        // Strafe left to become "centered" on the platform, and so both clamps can attach.
+        timeDrive(1, -1, 1,
+                1, -1,.5);
+
+        // Drive forward to "push" the robot up against the foundation. Pushing the foundation
+        // slightly is acceptable.
+        timeDrive(1, 1, 1,
+                1, 1, .8);
+
+        timeDrive(.5, 1, 1,
+                1, 1, .2);
+
+        // Lower the clamps to latch onto the foundation.
+        clampSet("down");
+
+        // Drive backwards to move the foundation back into the base.
+        timeDrive(1, -1, -1,
+                -1, -1, 2);
+
+        // Strafe left to "force" the foundation against the wall.
+        timeDrive(1, -1, 1,
+                1, -1,.75);
+
+        // Drive backwards to make sure at least part of the foundation is in the base, and that
+        // the robot is touching the corner of the field.
+        timeDrive(1, -1, -1,
+                -1, -1, .25);
+
+        // Raise the clamps to let go from the foundation.
+        clampSet("up");
+
+        // Strafe right to move under the bridge.
+        timeDrive(1, 1, -1,
+                -1, 1, 3);
+
+
+         */
+
+    /*
+
+
+
+
+        // Drive forward to get closer to the foundation.
+        timeDrive(1, 1, 1,
+                1, 1, .25);
+
+        // Strafe right to become "centered" on the platform, and so both clamps can attach.
+        timeDrive(1, 1, -1,
+                -1, 1,.5);
+
+        // Drive forward to "push" the robot up against the foundation. Pushing the foundation
+        // slightly is acceptable.
+        timeDrive(1, 1, 1,
+                1, 1, .8);
+
+        timeDrive(.5, 1, 1,
+                1, 1, .2);
+
+        // Lower the clamps to latch onto the foundation.
+        clampSet("down");
+
+        // Drive backwards to move the foundation back into the base.
+        timeDrive(1, -1, -1,
+                -1, -1, 2);
+
+        // Strafe right to "force" the foundation against the wall.
+        timeDrive(1, 1, -1,
+                -1, 1,.75);
+
+        // Drive backwards to make sure at least part of the foundation is in the base, and that
+        // the robot is touching the corner of the field.
+        timeDrive(1, -1, -1,
+                -1, -1, .25);
+
+        // Raise the clamps to let go from the foundation.
+        clampSet("up");
+
+        // Strafe left to move under the bridge.
+        timeDrive(1, -1, 1,
+                1, -1, 3);
+
+         */
+
+     /*
+        // Drive forward to prepare to align with a Stone.
+        preciseDrive(SLOW_DRIVE_SPEED, 25, 25,
+                25, 25, 3);
+
+        // Drive left to align the robot with the third Stone from the right.
+        preciseDrive(SLOW_DRIVE_SPEED, -8.5, 8.5,
+                8.5, -8.5, 3);
+
+        // Drive forward to approach the first Stone.
+        preciseDrive(SLOW_DRIVE_SPEED, 5, 5,
+                5, 5, 5);
+
+        // At this point, the robot's color sensor should be directly in front of the third
+        // stone from the right. Scan it, and run the following code if it is a Skystone:
+        if(isSkystone()) {
+
+            // Make sure the chassisGrabber is in the same position.
+            robot.chassisGrabber.setPosition(1);
+
+            // Latch onto the Skystone using the stoneGrabber, by setting it to a horizontal
+            // position.
+            robot.stoneGrabber.setPosition(1);
+
+            // Wait for the servo to complete its motion.
+            sleep(1000);
+
+            // Backup VERY SLOWLY to avoid tipping the Skystone over.
+            preciseDrive(STONE_BACKUP_SPEED, -7, -7,
+                    -7, -7, 15);
+
+            // Turn clockwise to account for "drift" caused by the friction of the Skystone
+            // against the field.
+            preciseDrive(.2, 6, -6,
+                    6, -6, 5);
+
+            // Drive right, across the Red Alliance Bridge.
+            preciseDrive(1, 80, -80,
+                    -80, 80, 10);
+
+            // Set the position of the stoneGrabber ("t-bar") to being vertical
+            // to "let go" of the Skystone.
+            robot.stoneGrabber.setPosition(.5);
+
+            // Drive left, back under the Skybridge to park.
+            preciseDrive(1, -24, 24,
+                    24, -24, 10);
+
+            // Drive forward to hopefully allow our Alliance Partner to park as well.
+            preciseDrive(1, 10, 10,
+                    10, 10, 3);
+        }
+        // Prepare to scan the second stone from the right if the third is not a Skystone:
+        else {
+
+            // Drive backwards slightly to avoid dislodging any stones.
+            preciseDrive(SLOW_DRIVE_SPEED, -3, -3,
+                    -3, -3, 3);
+
+            // Drive right to approach the next Stone.
+            preciseDrive(SLOW_DRIVE_SPEED, 8, -8,
+                    -8, 8, 3);
+
+            // Drive forwards slightly to approach the next Stone.
+            preciseDrive(SLOW_DRIVE_SPEED, 3, 3,
+                    3, 3, 3);
+
+            // At this point, the robot's color sensor should be directly in front of the second
+            // stone from the right. Scan it, and run the following code if it is a Skystone:
+            if(isSkystone()){
+
+                // Make sure the chassisGrabber is in the same position.
+                robot.chassisGrabber.setPosition(1);
+
+                // Latch onto the Skystone using the stoneGrabber, by setting it to a horizontal
+                // position.
+                robot.stoneGrabber.setPosition(1);
+
+                // Wait for the servo to complete its motion.
+                sleep(1000);
+
+                // Backup VERY SLOWLY to avoid tipping the Skystone over.
+                preciseDrive(STONE_BACKUP_SPEED, -7, -7,
+                        -7, -7, 15);
+
+                // Turn clockwise to account for "drift" caused by the friction of the Skystone
+                // against the field.
+                preciseDrive(.2, 6, -6,
+                        6, -6, 5);
+
+                // Drive right, across the Red Alliance Bridge.
+                preciseDrive(1, 72, -72,
+                        -72, 72, 10);
+
+                // Set the position of the stoneGrabber ("t-bar") to being vertical
+                // to "let go" of the Skystone.
+                robot.stoneGrabber.setPosition(.5);
+
+                // Drive left, back under the Skybridge to park.
+                preciseDrive(1, -24, 24,
+                        24, -24, 10);
+
+                // Drive forward to hopefully allow our Alliance Partner to park as well.
+                preciseDrive(1, 10, 10,
+                        10, 10, 3);
+            }
+            // Prepare to grab the rightmost stone, which should be a Skystone if the other two
+            // are not:
+            else {
+
+                // Drive backwards slightly to avoid dislodging any stones.
+                preciseDrive(SLOW_DRIVE_SPEED, -3, -3,
+                        -3, -3, 3);
+
+                // Drive right to approach the last Stone.
+                preciseDrive(SLOW_DRIVE_SPEED, 10, -10,
+                        -10, 10, 3);
+
+                // Drive forwards slightly to approach the last Stone.
+                preciseDrive(SLOW_DRIVE_SPEED, 3, 3,
+                        3, 3, 3);
+
+                // Make sure the chassisGrabber is in the same position.
+                robot.chassisGrabber.setPosition(1);
+
+                // Latch onto the Skystone using the stoneGrabber, by setting it to a horizontal
+                // position.
+                robot.stoneGrabber.setPosition(1);
+
+                // Wait for the servo to complete its motion.
+                sleep(2000);
+
+                // Backup VERY SLOWLY to avoid tipping the Skystone over.
+                preciseDrive(STONE_BACKUP_SPEED, -7, -7,
+                        -7, -7, 15);
+
+                // Turn clockwise to account for "drift" caused by the friction of the Skystone
+                // against the field.
+                preciseDrive(.2, 6, -6,
+                        6, -6, 5);
+
+                // Drive right, across the Red Alliance Bridge.
+                preciseDrive(1, 64, -64,
+                        -64, 64, 10);
+
+                // Set the position of the stoneGrabber ("t-bar") to being vertical
+                // to "let go" of the Skystone.
+                robot.stoneGrabber.setPosition(.5);
+
+                // Drive left, back under the Skybridge to park.
+                preciseDrive(1, -24, 24,
+                        24, -24, 10);
+
+                // Drive forward to hopefully allow our Alliance Partner to park as well.
+                preciseDrive(1, 10, 10,
+                        10, 10, 3);
+
+            }
+        }
+
+         */
+
+      /*
+
+        initRobot();
+
+        // Set the position of chassisGrabber (which the stoneGrabber is mounted on) to 1 for
+        // consistency.
+        robot.chassisGrabber.setPosition(1);
+
+        // Set the position of the stoneGrabber ("t-bar") to being vertical
+        // to prepare to grab a Skystone.
+        robot.stoneGrabber.setPosition(.5);
+
+        // Drive forward to prepare to align with a Stone.
+        preciseDrive(SLOW_DRIVE_SPEED, 25, 25,
+                25, 25, 3);
+
+        // Drive right slightly to align the robot with the third Stone from the left.
+        preciseDrive(SLOW_DRIVE_SPEED, 2, -2,
+                -2, 2, 3);
+
+        // Drive forward to approach the first Stone.
+        preciseDrive(SLOW_DRIVE_SPEED, 5.5, 5.5,
+                5.5, 5.5, 5);
+
+        // At this point, the robot's color sensor should be directly in front of the third
+        // stone from the left. Scan it, and run the following code if it is a Skystone:
+        if(isSkystone()) {
+
+            // Make sure the chassisGrabber is in the same position.
+            robot.chassisGrabber.setPosition(1);
+
+            // Latch onto the Skystone using the stoneGrabber, by setting it to a horizontal
+            // position.
+            robot.stoneGrabber.setPosition(1);
+
+            // Wait for the servo to complete its motion.
+            sleep(1000);
+
+            // Backup VERY SLOWLY to avoid tipping the Skystone over.
+            preciseDrive(STONE_BACKUP_SPEED, -7, -7,
+                    -7, -7, 15);
+
+            // Turn counterclockwise to account for "drift" caused by the friction of the Skystone
+            // against the field.
+            preciseDrive(.2, -6, 6,
+                    -6, 6, 5);
+
+            // Drive left, across the Blue Alliance Bridge.
+            preciseDrive(1, -80, 80,
+                    80, -80, 10);
+
+            // Set the position of the stoneGrabber ("t-bar") to being vertical
+            // to "let go" of the Skystone.
+            robot.stoneGrabber.setPosition(.5);
+
+            // Drive right, back under the Skybridge to park.
+            preciseDrive(1, 30, -30,
+                    -30, 30, 10);
+
+            // Drive forward to hopefully allow our Alliance Partner to park as well.
+            preciseDrive(1, 15, 15,
+                    15, 15, 3);
+        }
+        // Prepare to scan the second stone from the left if the third is not a Skystone:
+        else {
+
+            // Drive backwards slightly to avoid dislodging any stones.
+            preciseDrive(SLOW_DRIVE_SPEED, -3, -3,
+                    -3, -3, 3);
+
+            // Drive left to approach the next Stone.
+            preciseDrive(SLOW_DRIVE_SPEED, -8, 8,
+                    8, -8, 3);
+
+            // Drive forwards slightly to approach the next Stone.
+            preciseDrive(SLOW_DRIVE_SPEED, 3, 3,
+                    3, 3, 3);
+
+            // At this point, the robot's color sensor should be directly in front of the second
+            // stone from the left. Scan it, and run the following code if it is a Skystone:
+            if(isSkystone()){
+
+                // Make sure the chassisGrabber is in the same position.
+                robot.chassisGrabber.setPosition(1);
+
+                // Latch onto the Skystone using the stoneGrabber, by setting it to a horizontal
+                // position.
+                robot.stoneGrabber.setPosition(1);
+
+                // Wait for the servo to complete its motion.
+                sleep(1000);
+
+                // Backup VERY SLOWLY to avoid tipping the Skystone over.
+                preciseDrive(STONE_BACKUP_SPEED, -7, -7,
+                        -7, -7, 15);
+
+                // Turn counterclockwise to account for "drift" caused by the friction of the Skystone
+                // against the field.
+                preciseDrive(.2, -6, 6,
+                        -6, 6, 5);
+
+                // Drive left, across the Blue Alliance Bridge.
+                preciseDrive(1, -72, 72,
+                        72, -72, 10);
+
+                // Set the position of the stoneGrabber ("t-bar") to being vertical
+                // to "let go" of the Skystone.
+                robot.stoneGrabber.setPosition(.5);
+
+                // Drive right, back under the Skybridge to park.
+                preciseDrive(1, 30, -30,
+                        -30, 30, 10);
+
+                // Drive forward to hopefully allow our Alliance Partner to park as well.
+                preciseDrive(1, 15, 15,
+                        15, 15, 3);
+
+            }
+            // Prepare to grab the leftmost stone, which should be a Skystone if the other two
+            // are not:
+            else {
+
+                // Drive backwards slightly to avoid dislodging any stones.
+                preciseDrive(SLOW_DRIVE_SPEED, -3, -3,
+                        -3, -3, 3);
+
+                // Drive left to approach the last Stone.
+                preciseDrive(SLOW_DRIVE_SPEED, -10, 10,
+                        10, -10, 3);
+
+                // Drive forwards slightly to approach the last Stone.
+                preciseDrive(SLOW_DRIVE_SPEED, 3.5, 3.5,
+                        3.5, 3.5, 3);
+
+                // Make sure the chassisGrabber is in the same position.
+                robot.chassisGrabber.setPosition(1);
+
+                // Latch onto the Skystone using the stoneGrabber, by setting it to a horizontal
+                // position.
+                robot.stoneGrabber.setPosition(1);
+
+                // Wait for the servo to complete its motion.
+                sleep(2000);
+
+                // Backup VERY SLOWLY to avoid tipping the Skystone over.
+                preciseDrive(STONE_BACKUP_SPEED, -7.5, -7.5,
+                        -7.5, -7.5, 15);
+
+                // Turn counterclockwise to account for "drift" caused by the friction of the Skystone
+                // against the field.
+                preciseDrive(.2, -6, 6,
+                        -6, 6, 5);
+
+                // Drive left, across the Blue Alliance Bridge.
+                preciseDrive(1, -64, 64,
+                        64, -64, 10);
+
+                // Set the position of the stoneGrabber ("t-bar") to being vertical
+                // to "let go" of the Skystone.
+                robot.stoneGrabber.setPosition(.5);
+
+                // Drive right, back under the Skybridge to park.
+                preciseDrive(1, 30, -30,
+                        -30, 30, 10);
+
+                // Drive forward to hopefully allow our Alliance Partner to park as well.
+                preciseDrive(1, 15, 15,
+                        15, 15, 3);
+
+            }
+        }
+
+         */
+
+      /*
+    public void determineAutonomous() {
+
+        telemetry.addData("Press The Button of the Color of Your Alliance", "");
+        telemetry.addData("Use Controller 1 (Press Start + A)", "");
+        telemetry.update();
+
+        while(!(gamepad1.b || gamepad1.x)) {}
+        if(gamepad1.x){
+            team = "Blue";
+        }
+        else if(gamepad1.b){
+            team = "Red";
+        }
+        while(gamepad1.b || gamepad1.x) {}
+
+        telemetry.addData("Team", team);
+        telemetry.addData("Press Up if Parking by Far Side of Bridge", "");
+        telemetry.addData("Press Down if Parking by Wall", "");
+        telemetry.addData("Use Controller 1 (Press Start + A)", "");
+        telemetry.update();
+
+        while(!(gamepad1.dpad_up || gamepad1.dpad_down)) {}
+        if(gamepad1.dpad_up){
+             parking_location = "Bridge";
+        }
+        else if(gamepad1.dpad_down){
+            parking_location = "Wall";
+        }
+
+        while(gamepad1.dpad_up || gamepad1.dpad_down) {}
+
+        telemetry.addData("Team", team);
+        telemetry.addData("Parking Location", parking_location);
+        telemetry.addData("Press The Direction of the Side of the " +
+                "Bridge you Are Starting On", "");
+        telemetry.addData("Use Controller 1 (Press Start + A)", "");
+        telemetry.update();
+
+        while(!(gamepad1.dpad_left || gamepad1.dpad_right)) {}
+
+        if(gamepad1.dpad_left){
+            if(team == "Red") {
+                starting_location = "Loading Zone";
+            }
+            else if(team == "Blue") {
+                starting_location = "Building Zone";
+            }
+        }
+        else if(gamepad1.dpad_right){
+
+            if(team == "Red") {
+                starting_location = "Building Zone";
+            }
+            else if(team == "Blue") {
+                starting_location = "Loading Zone";
+            }
+        }
+
+        while(gamepad1.dpad_left || gamepad1.dpad_right) {}
+
+        telemetry.addData("Team", team);
+        telemetry.addData("Starting Location", starting_location);
+        telemetry.addData("Parking Location", parking_location);
+        telemetry.addData("Press X if Doing Autonomous ", "");
+        telemetry.addData("Press B if Just Parking", "");
+        telemetry.addData("Use Controller 1 (Press Start + A)", "");
+        telemetry.update();
+
+        while(!(gamepad1.x || gamepad1.b)) {}
+
+        if(gamepad1.x) {
+            autonomous = true;
+        }
+        else if(gamepad1.b){
+            autonomous = false;
+        }
+
+        while(gamepad1.x || gamepad1.b) {}
+
+        telemetry.addData("Team", team);
+        telemetry.addData("Starting Location", starting_location);
+        telemetry.addData("Parking Location", parking_location);
+        telemetry.addData("Autonomous", autonomous);
+        telemetry.addData("Press X to Confirm", "");
+        telemetry.addData("Press B to Start Over", "");
+        telemetry.addData("Use Controller 1 (Press Start + A)", "");
+        telemetry.update();
+
+        while(!(gamepad1.x || gamepad1.b)) {}
+
+        if(gamepad1.x) {}
+        else if(gamepad1.b){
+            determineAutonomous();
+        }
+
+        while(gamepad1.x || gamepad1.b) {}
+    }
+
+     */
+
+    // telemetry.addData("Team", team);
+    // telemetry.addData("Starting Location", starting_location);
+    // telemetry.addData("Parking Location", parking_location);
+    // telemetry.addData("Autonomous", autonomous);
+    // telemetry.update();
+
+    // Because of "drift" in the 360 servo used as the leftClamp, the power of said clamp
+    // has to be set to a constant negative value. The only major downside to this fix
+    // is that the servo moves more slowly in the opposite direction, as it is capped at
+    // effectively 60% power.
+    //robot.leftClamp.setPower(-.3970);
 }

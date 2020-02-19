@@ -34,7 +34,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 
-
+@Disabled
 @TeleOp(name="General Test", group="Iterative Opmode")
 public class RangeSensorConcept extends OpMode {
 

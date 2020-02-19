@@ -32,7 +32,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-//@Disabled
+@Disabled
 @Autonomous(name="Red Team-Bianca- Start By Foundation", group="Linear Opmode")
 
 // FoundationRed is run during Autonomous when our robot is on the Red team and is attempting

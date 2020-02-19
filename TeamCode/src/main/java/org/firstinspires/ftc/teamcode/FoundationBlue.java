@@ -50,6 +50,8 @@ public class FoundationBlue extends AutonomousBase {
         // Initialize the robot.
         initRobot();
 
+        clampSet("up");
+
         // Drive forward to get closer to the foundation.
         preciseDrive(.1, 24, 24,
                 24, 24, 10);
@@ -63,69 +65,36 @@ public class FoundationBlue extends AutonomousBase {
         preciseDrive(.1, 6, 6,
                 6, 6, 10);
 
-        // Drive backwards to move the foundation back into the base.
+        clampSet("down");
 
-        preciseDrive(.1, -32, -32,
-                -32, -32, 10);
+        // Drive backwards to move the foundation back into the base.
+        preciseDrive(.1, -38, -38,
+                -38, -38, 10);
 
         // Strafe left to "force" the foundation against the wall.
-
         preciseDrive(.1, -14, 14,
                 14, -14, 10);
 
         // Drive backwards to make sure at least part of the foundation is in the base, and that
         // the robot is touching the corner of the field.
-
         preciseDrive(.1, -2, -2,
                 -2, -2, 10);
 
-        // Strafe right to move under the bridge.
-
-        preciseDrive(.1, 72, -72,
-                -72, 72, 10);
-
-        /*
-
-        // Drive forward to get closer to the foundation.
-        timeDrive(1, 1, 1,
-                1, 1, .25);
-
-        // Strafe left to become "centered" on the platform, and so both clamps can attach.
-        timeDrive(1, -1, 1,
-                1, -1,.5);
-
-        // Drive forward to "push" the robot up against the foundation. Pushing the foundation
-        // slightly is acceptable.
-        timeDrive(1, 1, 1,
-                1, 1, .8);
-
-        timeDrive(.5, 1, 1,
-                1, 1, .2);
-
-        // Lower the clamps to latch onto the foundation.
-        clampSet("down");
-
-        // Drive backwards to move the foundation back into the base.
-        timeDrive(1, -1, -1,
-                -1, -1, 2);
-
-        // Strafe left to "force" the foundation against the wall.
-        timeDrive(1, -1, 1,
-                1, -1,.75);
-
-        // Drive backwards to make sure at least part of the foundation is in the base, and that
-        // the robot is touching the corner of the field.
-        timeDrive(1, -1, -1,
-                -1, -1, .25);
-
-        // Raise the clamps to let go from the foundation.
         clampSet("up");
 
         // Strafe right to move under the bridge.
-        timeDrive(1, 1, -1,
-                -1, 1, 3);
+
+        preciseDrive(.1, 68, -68,
+                -68, 68, 10);
+
+        // If parking by the far side of the Skybridge, drive forward to do so.
+        if(parking_location == "Bridge"){
+
+            preciseDrive(.1, 36, 36,
+                    36, 36, 10);
+        }
 
 
-         */
+
     }
 }
