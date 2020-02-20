@@ -37,7 +37,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
-@Autonomous(name="Red Team- Start By Skystones", group="Linear Opmode")
+@Autonomous(name="Red Team- Start By Skystones", group="Red")
 
 // SkystonesRed is run during Autonomous when our robot is on the Red team and is attempting
 // to identify and move Skystones. Note that it is based on the AutonmousBase class,

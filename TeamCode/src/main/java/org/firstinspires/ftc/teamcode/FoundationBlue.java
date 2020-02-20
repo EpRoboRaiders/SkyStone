@@ -37,7 +37,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
-@Autonomous(name="Blue Team- Start By Foundation", group="Linear Opmode")
+@Autonomous(name="Blue Team- Start By Foundation", group="Blue")
 
 // FoundationBlue is run during Autonomous when our robot is on the Blue team and is attempting
 // to move the foundation. Note that it is based on the AutonomousBase class, and uses its methods.
