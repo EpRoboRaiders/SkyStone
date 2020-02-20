@@ -139,7 +139,7 @@ public class RobotTemplate {
         leftBack.setDirection(DcMotor.Direction.FORWARD);
         rightBack.setDirection(DcMotor.Direction.REVERSE);
 
-        // Make sure that the stoneLift "brakes" to combat gravity.
+        // Make sure that relevant motors "brake" to combat drifting and gravity.
         stoneLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

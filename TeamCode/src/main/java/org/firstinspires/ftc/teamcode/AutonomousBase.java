@@ -42,13 +42,12 @@ public class AutonomousBase extends LinearOpMode {
     // The actual amount is closer to 119 counts, but 120 is a nicer number for use in calculations
     // and has no reason to be changed.
 
-    // Because the "new" motors have an rpm that is 5.17x the rpm of the "old" motors, we can
-    // simply multiply the "old" counts per inch by 5.17 to get a CPM of roughly 620.
-    static final double     COUNTS_PER_INCH         = 23; //620;
+    // The CPM of our new motors was determined to be 23 after a WILDLY incorrect estimation of 620.
+    static final double     COUNTS_PER_INCH         = 23;
 
-
-    static final double  SLOW_DRIVE_SPEED   = .25;
-    static final double  STONE_BACKUP_SPEED = .075;
+    // Since .1 speed is used for most driving implementatinos during Autonomous, simply define
+    // it as a constant for easy modification if necessary.
+    static final double  DRIVE_SPEED   = .1;
 
     public String parking_location;
 
@@ -146,8 +145,12 @@ public class AutonomousBase extends LinearOpMode {
         }
     }
 
-    // Control the "clamps" * the robot to grab the Foundation during Autonomous.
+    // Control the "clamps" the robot to grab the Foundation during Autonomous. The position
+    // the clamps are supposed to move to is passed in as an argument.
     public void clampSet(String clampPosition) {
+
+        // Note that the servos move in "opposite" directions, though for the same amount of time;
+        // this is because said servos are mounted on opposite sides of the robot.
         if(clampPosition == "up") {
 
             robot.rightClamp.setPosition(.275);
@@ -159,8 +162,9 @@ public class AutonomousBase extends LinearOpMode {
             robot.leftClamp.setPosition(1);
         }
 
+        // Wait for one second for the servos to move to *actually* attach or detach from the
+        // Foundation before the robot starts moving.
         sleep(1000);
-
     }
 
     // pause is a (probably unnecessary) function that uses the timer "runtime" to wait for a
@@ -168,34 +172,6 @@ public class AutonomousBase extends LinearOpMode {
     public void pause(double seconds) {
         runtime.reset();
         while (runtime.seconds() < seconds) {}
-    }
-
-    // Outdated (though still used) method that runs the drive motors for a specific distance
-    // using time instead of distance. This is used in the "Foundation side" Autonomous programs,
-    // before encoders were implemented into the robot. Note that because our robot uses Mecanum
-    // wheels, values that would otherwise be useless can be "passed in" to the function in order
-    // to strafe during Autonomous.
-    public void timeDrive(double speed, double leftFrontDirection, double rightFrontDirection,
-                          double leftBackDirection, double rightBackDirection, double time) {
-
-        robot.leftFront.setPower(leftFrontDirection);
-        robot.rightFront.setPower(rightFrontDirection);
-        robot.leftBack.setPower(leftBackDirection);
-        robot.rightBack.setPower(rightBackDirection);
-
-        // Reset the "timer" in the code, and wait until the timer reaches the indicated number
-        // of seconds.
-        runtime.reset();
-        while(runtime.seconds() < time) {}
-
-        // Set the power of all of the drive motors to 0.
-        robot.leftFront.setPower(0);
-        robot.rightFront.setPower(0);
-        robot.leftBack.setPower(0);
-        robot.rightBack.setPower(0);
-
-        // Pause for a short amount of time to make sure the motors are completely stopped.
-        pause(.25);
     }
 
     // Method that returns whether a Stone that the robot is "scanning" is a Skystone.
@@ -227,6 +203,7 @@ public class AutonomousBase extends LinearOpMode {
         // Initialize the already-defined "robot" based on the RobotTemplate class.
         robot.init(hardwareMap);
 
+        // Run determineParking, as outlined below.
         determineParking();
 
         // Display a statement in Telemetry indicating that the robot is ready to be started.
@@ -239,13 +216,25 @@ public class AutonomousBase extends LinearOpMode {
         waitForStart();
     }
 
+    // determineParking is a version of an old function made to "cut down" on the number of
+    // Autonomous programs. After realizing that controlling literally every parameter of Autonomous
+    // was infeasible, it was simply cut down to determining where the robot would park at the
+    // end of said Autonomous.
     public void determineParking() {
+
+        // Display information to the user for ease of use.
         telemetry.addData("Press ↑", "Parking by the Far Side of the Bridge");
         telemetry.addData("Press ↓", "Parking by the Wall");
         telemetry.addData("Use", "Controller 1");
         telemetry.update();
 
+        // Wait until either the "up" or "down" buttons are pressed before continuing.
         while(!(gamepad1.dpad_up || gamepad1.dpad_down)) {}
+
+        // Set the "position" to park during Autonomous accordingly, with "up" corresponding to
+        // the Alliance-specific bridge closest to the Neutral bridge, and "down" corresponding
+        // to the wall.
+
         if(gamepad1.dpad_up){
             parking_location = "Bridge";
         }
@@ -253,21 +242,28 @@ public class AutonomousBase extends LinearOpMode {
             parking_location = "Wall";
         }
 
+        // Display information to the user for ease of use.
         telemetry.addData("Parking Location", parking_location);
         telemetry.addData("Press X", "Confirm");
         telemetry.addData("Press B", "Start Over");
         telemetry.addData("Use", "Controller 1");
         telemetry.update();
 
+        // Wait until either the "x" or "b" buttons are pressed before continuing.
         while(!(gamepad1.x || gamepad1.b)) {}
 
+        // If "x" is pressed, exit the function; otherwise, recurse it if the operator needs to
+        // start over.
         if(gamepad1.x) {}
         else if(gamepad1.b){
             determineParking();
         }
     }
 
+    // Controls the "t-bar" servo on the robot during Autonomous. The position the bar
+    // is supposed to move to is passed in as an argument.
     public void grabStone(String position) {
+
         if(position == "up") {
 
             robot.stoneGrabber.setPosition(1);
@@ -275,6 +271,9 @@ public class AutonomousBase extends LinearOpMode {
         else if(position == "down") {
 
             robot.stoneGrabber.setPosition(.5);
+
+            // Only delay if grabbing onto a stone, as dragging the stone slightly when "letting go"
+            // from it is acceptable.
             sleep(1000);
         }
     }

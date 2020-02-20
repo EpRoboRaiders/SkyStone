@@ -5,6 +5,10 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 @Autonomous(name="Right Side of Skybridge- Park Under Skybridge", group="Parking")
 
+// ParkingLeft is a useful, albeit niche program used to simply park under our Alliance-specific
+// Skybridge during Autonomous. It doesn't seem like much, but 5 points can mean the difference
+// in a match.
+
 public class ParkingLeft extends AutonomousBase {
 
     @Override
@@ -14,15 +18,15 @@ public class ParkingLeft extends AutonomousBase {
         initRobot();
 
         // Strafe right to move under the Skybridge.
-        preciseDrive(.1, -42, 42,
+        preciseDrive(DRIVE_SPEED, -42, 42,
                 42, -42, 10);
 
         // If predetermined to do so, drive forward to the "far" side of the Skybridge (nearest
         // to the Neutral bridge) to avoid the path of the other robot.
 
         if(parking_location == "Bridge") {
-
-            preciseDrive(.1, 36, 36,
+            
+            preciseDrive(DRIVE_SPEED, 36, 36,
                     36, 36, 10);
         }
     }

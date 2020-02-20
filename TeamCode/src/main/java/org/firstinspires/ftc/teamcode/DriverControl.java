@@ -164,7 +164,8 @@ public class DriverControl extends OpMode {
             bPressed = !bPressed;
         }
 
-        // Run code depending on which drive mode is currently active:
+        // Run code depending on which drive mode is currently active (at 75% speed, because
+        // our robot is too fast at full speed):
         switch(mode) {
             case TANK: {
 
@@ -266,10 +267,8 @@ public class DriverControl extends OpMode {
         // controller.
         robot.liftRotator.setPower(gamepad2.right_stick_y);
 
-
         // Set the foundation clamps to a "down" position if "x" is pressed; otherwise, set the
         // clamps to "up."
-
         if(gamepad2.x){
             robot.rightClamp.setPosition(0);
             robot.leftClamp.setPosition(1);
@@ -278,8 +277,6 @@ public class DriverControl extends OpMode {
             robot.rightClamp.setPosition(.275);
             robot.leftClamp.setPosition(.775);
         }
-
-
     }
 
     private void clampControl() {

@@ -906,4 +906,36 @@ public class DefunctRepository {
     // is that the servo moves more slowly in the opposite direction, as it is capped at
     // effectively 60% power.
     //robot.leftClamp.setPower(-.3970);
+
+    /*
+    // Outdated (though still used) method that runs the drive motors for a specific distance
+    // using time instead of distance. This is used in the "Foundation side" Autonomous programs,
+    // before encoders were implemented into the robot. Note that because our robot uses Mecanum
+    // wheels, values that would otherwise be useless can be "passed in" to the function in order
+    // to strafe during Autonomous.
+    public void timeDrive(double speed, double leftFrontDirection, double rightFrontDirection,
+                          double leftBackDirection, double rightBackDirection, double time) {
+
+        robot.leftFront.setPower(leftFrontDirection);
+        robot.rightFront.setPower(rightFrontDirection);
+        robot.leftBack.setPower(leftBackDirection);
+        robot.rightBack.setPower(rightBackDirection);
+
+        // Reset the "timer" in the code, and wait until the timer reaches the indicated number
+        // of seconds.
+        runtime.reset();
+        while(runtime.seconds() < time) {}
+
+        // Set the power of all of the drive motors to 0.
+        robot.leftFront.setPower(0);
+        robot.rightFront.setPower(0);
+        robot.leftBack.setPower(0);
+        robot.rightBack.setPower(0);
+
+        // Pause for a short amount of time to make sure the motors are completely stopped.
+        pause(.25);
+    }
+    */
+
+    static final double  STONE_BACKUP_SPEED = .075;
 }

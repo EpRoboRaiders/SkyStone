@@ -37,7 +37,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
-
 @Autonomous(name="Red Team- Start By Foundation", group="Red")
 
 // FoundationRed is run during Autonomous when our robot is on the Red team and is attempting
@@ -53,50 +52,48 @@ public class FoundationRed extends AutonomousBase {
         clampSet("up");
 
         // Drive forward to get closer to the foundation.
-        preciseDrive(.1, 24, 24,
+        preciseDrive(DRIVE_SPEED, 24, 24,
                 24, 24, 10);
 
         // Strafe right to get lined up with center of the foundation.
-        preciseDrive(.1, 12, -12,
+        preciseDrive(DRIVE_SPEED, 12, -12,
                 -12, 12, 10);
 
         // Drive forward to "push" the robot up against the foundation. Pushing the foundation
         // slightly is acceptable.
-        preciseDrive(.1, 6, 6,
+        preciseDrive(DRIVE_SPEED, 6, 6,
                 6, 6, 10);
 
         clampSet("down");
 
         // Drive backwards to move the foundation back into the base.
 
-        preciseDrive(.1, -38, -38,
+        preciseDrive(DRIVE_SPEED, -38, -38,
                 -38, -38, 10);
 
         // Strafe right to "force" the foundation against the wall.
 
-        preciseDrive(.1, 14, -14,
+        preciseDrive(DRIVE_SPEED, 14, -14,
                 -14, 14, 10);
 
         // Drive backwards to make sure at least part of the foundation is in the base, and that
         // the robot is touching the corner of the field.
 
-        preciseDrive(.1, -2, -2,
+        preciseDrive(DRIVE_SPEED, -2, -2,
                 -2, -2, 10);
 
         clampSet("up");
 
         // Strafe left to move under the bridge.
 
-        preciseDrive(.1, -68, 68,
+        preciseDrive(DRIVE_SPEED, -68, 68,
                 68, -68, 10);
 
         // If parking by the far side of the Skybridge, drive forward to do so.
         if(parking_location == "Bridge"){
 
-            preciseDrive(.1, 36, 36,
+            preciseDrive(DRIVE_SPEED, 36, 36,
                     36, 36, 10);
         }
-
-
     }
 }
