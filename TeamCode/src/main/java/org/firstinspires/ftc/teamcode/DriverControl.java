@@ -102,7 +102,7 @@ public class DriverControl extends OpMode {
     boolean clampPressed = false;
 
     // These doubles store the position of the "clamp" servos on the robot to do calculations on.
-    double chassisPosition = 0;
+    double chassisPosition = .35;
     double mountedPosition = 1;
 
     @Override
@@ -291,8 +291,9 @@ public class DriverControl extends OpMode {
             chassisPosition += .005;
         }
 
-        // Clip chassisPosition between 0 and 1, the minimum and maximum positions of a servo.
-        clip(chassisPosition, 0, 1);
+        // Clip chassisPosition between 0 and .35, the minimum and maximum realistic values for
+        // the servo.
+        clip(chassisPosition, 0, .35);
 
         // Toggle mountedPosition between .5 and 1 when the "left bumper" on the second controller
         // is pressed.

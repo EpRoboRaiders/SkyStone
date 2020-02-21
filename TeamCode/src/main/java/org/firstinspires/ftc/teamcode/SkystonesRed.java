@@ -166,5 +166,8 @@ public class SkystonesRed extends AutonomousBase {
             preciseDrive(DRIVE_SPEED, 12, -8,
                     -8, 12, 9.5);
         }
+
+        // Set the chassisGrabber to position .85 to avoid it crashing into the wall.
+        robot.chassisGrabber.setPosition(.85);
     }
 }
