@@ -17,6 +17,8 @@ public class ParkingLeft extends AutonomousBase {
         // Initialize the robot.
         initRobot();
 
+        sleep(1900);
+
         // Strafe right to move under the Skybridge.
         preciseDrive(DRIVE_SPEED, -42, 42,
                 42, -42, 10);
